@@ -386,7 +386,8 @@ a singularity is observed and the computation cannot
 proceed further.
 In Figure \ref{fig:sw_timeseries}, 
 the computational results from the shallow water equations are shown,
-and a bore is formed earlier and the amplitude is smaller. 
+and a bore is formed earlier and the amplitude is smaller
+compared to BIM.
 
 \begin{figure}[!htb]
 \centering
@@ -407,7 +408,7 @@ A vertical front is observed at $t=18.6$. }
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=\textwidth]{_fig/sw_dx05_time_series.png}
-\caption{Computational results from SWE at $t=5,9,13$ and $17$ .  }
+\caption{Computational results from SWE at $t=10,15,17$ and $18.6$ .  }
 \label{fig:sw_timeseries}
 \end{figure}
 
@@ -419,9 +420,9 @@ A vertical front is observed at $t=18.6$. }
 %\label{fig:bous_timeseries}
 %\end{figure}
 
-It is well known that the Boussinesq-type equations 
-do not take into account the after-break motion
-in their original formulation. 
+In their original formulation, 
+the Boussinesq-type equations do not take into account 
+the after-break motion.
 Before the wave break occurs, 
 the simulation from the Boussinesq-type equations is
 in a good agreement with the laboratory experiment and BIM simulation.
@@ -448,6 +449,10 @@ a breaking decision model based on the surface roller,
 the maximal front angle and the Froude number.
 % One of the common drawbacks from these models is that they depend on the choice of the parameters which may be sensitive to the results.
 %In this work, the threshold for $\epsilon_B$ will be used.  
+L{\o}vholt et al. (2013) performed comprehensive numerical tests
+with different operational wave models, 
+and studied the capability and limitation of 
+the depth-integrated models. 
 Matsuyama et al. (2007) \cite{matsuyama2007study} performed experiments
 of the wave propagation on various slope angles. 
 They studied the wave breaking criteria and suggested 
@@ -537,11 +542,10 @@ can be derived as,
 See Madsen et al. (1997) \citep{madsen1997surf} and \ref{append:energy}, 
 for example.
 
-The wave energy is expected to be conserved 
-as long as the waves are smooth and do not break.
-The energy can be divided into the potential energy and kinetic energy,
-and the potential energy of $E_0+E_1$ 
-is $\frac{1}{2} g\eta^2$.
+The wave energy is conserved 
+as long as the wave is smooth and do not break,
+and the energy decreases as the wave breaks.
+%The energy can be divided into the potential energy and kinetic energy, and the potential energy of $E_0+E_1$ is $\frac{1}{2} g\eta^2$.
 In Figure \ref{fig:soliton_energy}, the energy of the solitary
 wave is shown, and both the potential and kinetic energy
 remain constant, and thus the energy is well-preserved 
@@ -616,7 +620,7 @@ and the corresponding velocity (\ref{eq:anal_serre})
 was applied.
 
 In Figure \ref{fig:bp5b_gauges}, water surface elevations
-at the gauge 6, 8 and 10 are shown for $A/h=0.269$ case. 
+at the gauge 5, 7 and 8 are shown for $A/h=0.269$ case. 
 For the incoming waves, the agreement 
 between the laboratory measurements and numerical simulations is good. 
 For the reflecting waves, some differences are observed,
@@ -630,10 +634,10 @@ the general wave pattern is captured.
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=.8\textwidth]{_fig/gauge0006fig300.png}\\
-\includegraphics[width=.8\textwidth]{_fig/gauge0008fig300.png}\\
-\includegraphics[width=.8\textwidth]{_fig/gauge0010fig300.png}
-\caption{Water surface elevation at gauges 6,8 and 10 for $A/h=0.269$ case.}
+\includegraphics[width=.8\textwidth]{_fig/gauge0005fig300.png}\\
+\includegraphics[width=.8\textwidth]{_fig/gauge0007fig300.png}\\
+\includegraphics[width=.8\textwidth]{_fig/gauge0008fig300.png}
+\caption{Water surface elevation at gauges 5,7 and 8 for $A/h=0.269$ case.}
 \label{fig:bp5b_gauges}
 \end{figure}
 
@@ -772,9 +776,6 @@ and the dispersive terms are suppressed.
 At the breaking, the set of equations is
 switched to the shallow water equations
 in the vicinity of the wave crest.
-Tonelli and Petti (2009) \citep{tonelli2009hybrid} suggested
-a threshold of $\epsilon_B=0.8$ 
-calculated from the Froude similarity analysis.
 In the numerical simulation of dispersive \textsc{Geoclaw},
 the ratio $\epsilon_B$ reaches the threshold $0.8$ at $t=14.9$
 when the peak of the wave is at $x=8.03227$ m.
@@ -819,24 +820,36 @@ BIM shows the wave break at $x=4.09$. }
 
 \subsubsection{Wave Energy}
 
-In Figure \ref{fig:energy_dgeo_swe}, the wave energy $E_0$ and $E_1$ are shown. 
+The wave energy is conserved when the wave is smooth, 
+and decreases as the wave forms a shock or breaks.
+The wave energy expressions 
+for the shallow water equations and Boussinesq equations
+are $E_0$ and $E_0+E_1$  respectively, 
+which are given in (\ref{eq:energy_e0}) and (\ref{eq:energy_e1}). 
+
+In Figure \ref{fig:energy_dgeo_swe}, 
+the wave energy $E_0$ and $E_0+E_1$ are shown. 
 The energy denotes the aggregate 
 of the wave energy in the entire computational domain 
 at the given crest location.
-The shallow water equations preserve the quantity $E_0$,
-and the Boussinesq-type equations preserve 
-the quantity $E_0+E_1$ approximately.
-For the shallow water equations, 
+On the left figure, 
 the energy $E_0$ is well-preserved 
+for the shallow water equations 
 before the wave forms a shock,
-and then the energy dissipates after a shock is formed. 
-For the dispersive \textsc{Geoclaw} without the threshold on $\epsilon_B$,
-$E_0+E_1$ is well-preserved. 
-The dashed line is the energy plot
-of the dispersive \textsc{Geoclaw} with $\epsilon_B=0.8$,
-and the vertical line is drawn at $x=8.03227$ m 
-where the threshold is reached. 
-After that point, $E_0$ is conserved until a shock is formed. 
+and then the energy dissipates after a shock is formed.
+On the right figure, 
+$E_0+E_1$ is well-preserved for the dispersive \textsc{Geoclaw},
+and this value decreases slightly as the wave steepens
+near the shoreline.
+When the threshold $\epsilon_B=0.8$ is used,
+the energy $E_0+E_1$ is well-preserved 
+as showen on the right figure before the threshold is reached. 
+When the crest is located
+at $x=8.03227$ m with $\epsilon_B=0.8$, 
+the wave energy $E_0$ on the left figure 
+does not decrease immediately.
+The energy $E_0$ is preserved for a while, 
+then starts to decrease as a shock is formed. 
 
 \begin{figure}[!htb]
     \centering
