@@ -49,8 +49,16 @@
 \title{Dispersive modeling of breaking waves  on a slope}
 
 %% Group authors per affiliation:
-\author{}
-\address{}
+\author[1]{Jihwan Kim}
+\author[1]{Geir K. Pedersen}
+\author[1,2]{Finn L{\o}vholt}
+\author[3]{Randall J. LeVeque}
+
+\address[1]{University of Oslo, Department of Mathematics, 
+Oslo, Norway}
+\address[2]{Norwegian Geotechnical Institute,
+Oslo, Norway}
+\address[3]{University of Washington, Department of Applied Mathematics, Seattle, USA}
 
 \begin{abstract}
 
@@ -358,8 +366,9 @@ the boundary integral model (BIM) of the full potential theory is used.
 In Figure \ref{fig:lab_bim}, the laboratory measurements
 are shown with the computational results from BIM
 for a breaking wave case of Synolakis with $A/h=0.28$ and $1:19.85$ slope
-at $t^*=15$. In this work, the non-dimensional time $t^*=t/\sqrt{g}$ 
-is used in accordance with the laboratory experiments.
+at $t^*=15$. In this work, the non-dimensional time 
+$t^*=t\sqrt{h/g}$ is used 
+in accordance with the laboratory experiments.
 And it is observed that the results are in good agreement. 
 
 \begin{figure}[!htb]
@@ -473,7 +482,7 @@ to other wave models in different wave experiments.
 At the same time, the computational efficiency and implementation
 should be considered in the wave break models. 
 
-\section{Numerical results}
+\section{Numerical Tests}
 
 \subsection{Solitary wave propagation}
 
@@ -560,12 +569,15 @@ for this case.
 
 \subsection{Waves on a composite slope}
 
-A physical model was constructed at the Coastal Engineering Laboratory of the U.S. Army Corps of Engineers
+A physical model was constructed at the Coastal Hydraulic Laboratory of the U.S. Army Corps of Engineers
 in order to address beach erosion and severe flooding problems.
+The description of the benchmark problem can be found
+at CHL webpage \cite{chl_bp5}.
 The model beach consists of three piecewise linear slopes of 1:53, 1:150, and 1:13 with a vertical wall at the shoreline as shown in Figure \ref{fig:bp5_water_tank}.
 In the laboratory, the wavemaker was located at 23.23 m.
 The gauge data from three cases are provided 
-with the ratio $A/h$ equal to $0.038$, $0.259$ and $0.681$.
+where the ratio $A/h$ is equal to $0.038$, $0.259$ and $0.681$
+with $h=21.8$ cm.
 
 \begin{figure}[!htb]
 \centering
@@ -641,7 +653,7 @@ the general wave pattern is captured.
 \label{fig:bp5b_gauges}
 \end{figure}
 
-\subsection{Breaking waves on a slope}
+\section{Breaking waves on a slope}
 
 The set-up of the wave tank follows 
 the laboratory experiments by Synolakis (1987) \citep{synolakis1987runup}. 
@@ -730,7 +742,7 @@ such as \textsc{Funwave} \cite{shi2012high}
 and \textsc{GloBouss} \cite{lovholt2010coupling}, are also employed. 
 In the computation of the Serre's equations, 
 the original Serre's equations are enhanced in the dispersion relation
-by adding the Madsen (1992) \cite{madsen1992new} terms. 
+by adding the Sch{"a}ffer et al. (1995) \cite{schaffer1995further} terms. 
 %And the boundary integral method (BIM) for the full potential theory is also considered. 
 %The threshold of the wave breaking is not used in this section. 
 
@@ -766,7 +778,7 @@ and the Peregrine's form is used for \textsc{GloBouss}.}
 \label{fig:bim_dgeo_fun}
 \end{figure}
 
-\subsubsection{Wave Breaking}
+\subsection{Wave Breaking}
 
 In order to catch wave breaking in a heuristic fashion,
 a threshold on $\epsilon_B:=\eta/h$ is applied to the dispersive \textsc{Geoclaw}.
@@ -818,7 +830,7 @@ BIM shows the wave break at $x=4.09$. }
 \label{fig:wave_break_criteria}
 \end{figure}
 
-\subsubsection{Wave Energy}
+\subsection{Wave Energy}
 
 The wave energy is conserved when the wave is smooth, 
 and decreases as the wave forms a shock or breaks.
