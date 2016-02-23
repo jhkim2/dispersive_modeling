@@ -144,8 +144,8 @@ is a hybrid of the finite volume and finite difference solvers
 with the operation splitting technique,
 and it is developed by extending \textsc{Geoclaw} \citep{clawpack}.
 The \textsc{Geoclaw} software is 
-a finite volume methods solver
-by LeVeque (1997) \cite{leveque1997wave} and George (2008) \citep{george2008augmented}
+a part of \textsc{Clawpack} \citep{clawpack}.
+by LeVeque (1997) \cite{leveque1997wave}, George (2008) \citep{george2008augmented} and Berger et al. (2011) \citep{BergerGeorgeLeVequeMandli11}
 which solves the nonlinear shallow water equations.
 %with properties such as high-resolution, total variation diminishing (TVD) and adaptive mesh refinements (AMR).
 % The wave propagation algorithms by LeVeque (1997) \cite{leveque1997wave} is implemented, and the steady state is preserved. 
@@ -515,29 +515,54 @@ and this solution is only valid for a constant water depth.
 
 In Figure \ref{fig:soliton_ts}, 
 snapshots from the dispersive \textsc{Geoclaw}'s simulation is shown 
-at $t=0,4,8$ and $12$ s with analytic solutions. 
+at $t=0,4,8$ and $12$ s with $\Delta x = 0.1$. 
 For the initial conditions, the solution \ref{eq:anal_serre}
-is used with $A=0.28$, $h=1$ and $g=9.81$.
+is used with $A=0.2$, $h=1$ and $g=9.81$.
 The computational results show that the solitary wave propagates
 with preserving its initial shape, 
 and also they are in a good agreement 
 with the analytic solutions. 
-Small difference is observed between
-the numerical and analytic solutions.
+The amplitudes decreases as the wave propagates. 
 The error is partially due to the numerical error.
 Another reason is that the analytic solution
 is valid for Serre's equations and satisfies
-the Boussinesq-type equations only approximately,
-and the initial solitary wave is roughly preserved. 
+the Boussinesq-type equations only approximately.
 
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=.8\textwidth]{_fig/soliton_ts.png}
 \caption{Snapshot of the analytic and computed solitary wave 
-at $t=0,4,8$ and $12$
-on a constant depth $h=1$. The wave propagates from right to left,
-and the analytic solution is the black solid line.}
+at $t=0,4,8$ and $12$ with $A/h=0.2$. 
+The wave propagates from right to left,
+and the analytic solutions are black solid lines.}
 \label{fig:soliton_ts}
+\end{figure}
+
+In Figure \ref{fig:soliton_error},
+the relative error of the maximum amplitude at $t=12$,
+\begin{flalign*}
+E_{\infty} = \frac{\left| A_{comp}-A_{sol} \right|}{A_{sol}}, &
+\end{flalign*}
+is shown for $\Delta x$.
+The relative error for $A/h=0.05$ is smaller 
+than $A/h=0.2$
+because it is assumed that $A/h$ is small 
+in the derivation of the Boussinesq equations.
+
+\begin{figure}[!htb]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{_fig/soliton_error.png}
+        \caption{Relative error of max. amplitude}
+        \label{fig:soliton_error}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{_fig/soliton_energy.png}
+        \caption{Energy}
+        \label{fig:soliton_energy}
+    \end{subfigure}
+    \caption{Relative error and energy of a soliton on a constant depth.}
+    \label{fig:soliton_error_energy}
 \end{figure}
 
 The wave energy for the Boussinesq-type equations
@@ -556,16 +581,9 @@ as long as the wave is smooth and do not break,
 and the energy decreases as the wave breaks.
 %The energy can be divided into the potential energy and kinetic energy, and the potential energy of $E_0+E_1$ is $\frac{1}{2} g\eta^2$.
 In Figure \ref{fig:soliton_energy}, the energy of the solitary
-wave is shown, and both the potential and kinetic energy
+wave is shown with $A/h=0.2$, and both the potential and kinetic energy
 remain constant, and thus the energy is well-preserved 
-for this case. 
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[width=.7\textwidth]{_fig/soliton_energy.png}
-\caption{Energy plot of a solitary wave.}
-\label{fig:soliton_energy}
-\end{figure}
+for a constant water depth. 
 
 \subsection{Waves on a composite slope}
 
@@ -1210,187 +1228,3 @@ where
 
 \end{document}
 ---
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-And use $H=h+\eta$ and $\eta_t = H_t = -(Hu)_x$.
-Also assume $\eta_{xx}$ is small. 
-\begin{flalign*}
-\psi = & \frac{1}{6}h^3 \left(\frac{Hu}{h} \right)_{xxt}
-- \frac{1}{2}h^2 (Hu)_{xxt} \\
-= & \frac{1}{6}h^3 u_{xxt}
-- \frac{1}{2}h^2 (hu)_{xxt} - \frac{1}{2}h^2 (\eta u)_{xxt}
-+ \frac{1}{6}h^3 \left( \frac{\eta u}{h} \right)_{xxt} \\
-= & \frac{1}{6}h^3 u_{xxt}
-- \frac{1}{2}h^2 \left(2h_xu_{xt} + hu_{xxt} \right) 
-- \frac{1}{2}h^2 \left( 2\eta_xu_{xt} +\eta u_{xxt} \right)
-+ \frac{1}{6}h^3 \left( \frac{\eta u}{h} \right)_{xxt} \\
-= & - h^2 h_xu_{xt} -\frac{1}{3}h^3 u_{xxt}
-- h^2 \eta_xu_{xt} - \frac{1}{2}h^2 \eta u_{xxt}
-+ \frac{1}{6}h^3 \left( \frac{\eta u}{h} \right)_{xxt} \\
-= & - Hh h_xu_{xt} -\frac{1}{3} H h^2 u_{xxt}- H h \eta_xu_{xt} \\
-& - \frac{1}{6} Hh \eta u_{xxt} 
-+ \frac{1}{6} h \eta^2 u_{xxt} + h \eta (h+\eta)_x u_{xt} 
-+ \frac{1}{6} h^3 \left( \frac{\eta u}{h} \right)_{xxt}
-\end{flalign*}
-Meanwhile
-\begin{flalign*}
-\left( \frac{\eta u}{h} \right)_{xxt} 
-= & \left( \frac{h_x \eta u- h \eta_x u - h \eta u_x}{h^2} 
-\right)_{xt} \\
-= & \left( \frac{2hh_x \left(h_x \eta u- h \eta_x u - h \eta u_x \right)
-- h^2 \left( h_x \eta u- h \eta_x u - h \eta u_x \right)_x
-}{h^4} \right)_{t} \\
-= & \left( \frac{-2h^2 h_x \eta u_x 
-- h^2 \left( h_x \eta u_x - h \eta_x u_x 
-- h_x \eta u_x - h \eta_x u_x- h \eta u_{xx} \right)
-}{h^4} \right)_{t} \\
-= & \left( \frac{-2 h_x \eta u_x 
-+ 2h \eta_x u_x + h \eta u_{xx} 
-}{h^2} \right)_{t} \\
-= & -\frac{2 h_x}{h^2}\left( \eta_t u_x + \eta u_{xt} \right) 
-+ \frac{2}{h} \left( \eta_{xt}u_x + \eta_x u_{xt} \right)
-+ \frac{1}{h} \left( \eta_tu_{xx} + \eta u_{xxt} \right) \\
-= & -\frac{2 h_x}{h^2}\left( -(Hu)_x u_x + \eta u_{xt} \right) 
-+ \frac{2}{h} \left( -(Hu)_{xx} u_x + \eta_x u_{xt} \right)
-+ \frac{1}{h} \left( -(Hu)_x u_{xx} + \eta u_{xxt} \right) \\
-= & -\frac{2 h_x}{h^2}\eta u_{xt} 
-+ \frac{2}{h} \eta_x u_{xt}
-+ \frac{1}{h} \eta u_{xxt} 
-+ \frac{2 h_x}{h^2} (Hu)_x u_{x}
-- \frac{2}{h} (Hu)_{xx} u_x 
-- \frac{1}{h} (Hu)_x u_{xx} \\
-\end{flalign*}
-
-Therefore
-\begin{flalign*}
-\psi 
-= & - \frac{1}{6} Hh \eta u_{xxt} 
-+ \frac{1}{6} h \eta^2 u_{xxt} + h \eta (h+\eta)_x u_{xt} 
-+ \frac{1}{6} h^3 \left( \frac{\eta u}{h} \right)_{xxt} \\
-= & - \frac{1}{6} Hh \eta u_{xxt} 
-+ \frac{1}{6} h \eta^2 u_{xxt} + h \eta (h+\eta)_x u_{xt} \\
-& + \frac{1}{6} h^3 \left( -\frac{2 h_x}{h^2}\eta u_{xt} 
-+ \frac{2}{h} \eta_x u_{xt}
-+ \frac{1}{h} \eta u_{xxt} 
-+ \frac{2 h_x}{h^2} (Hu)_x u_{x}
-- \frac{2}{h} (Hu)_{xx} u_x 
-- \frac{1}{h} (Hu)_x u_{xx}  \right) \\
-= & - \frac{1}{6} Hh \eta u_{xxt} 
-+ \frac{1}{6} h \eta^2 u_{xxt} 
-+ \frac{1}{6} h^2\eta u_{xxt}  
-+ h \eta (h+\eta)_x u_{xt} \\
-& + \frac{1}{6} h^3 \left( -\frac{2 h_x}{h^2}\eta u_{xt} 
-+ \frac{2}{h} \eta_x u_{xt}
-\right)
-+ \frac{1}{6} h^3 \left(\frac{2 h_x}{h^2} (Hu)_x u_{x}
-- \frac{2}{h} (Hu)_{xx} u_x 
-- \frac{1}{h} (Hu)_x u_{xx}  \right) \\
-= & h \eta (h+\eta)_x u_{xt} 
- -\frac{1}{3} h h_x\eta u_{xt} 
-+ \frac{1}{3} h^2 \eta_x u_{xt} \\
-& + \frac{1}{6} h^3 \left(\frac{2 h_x}{h^2} (Hu)_x u_{x}
-- \frac{2}{h} (Hu)_{xx} u_x 
-- \frac{1}{h} (Hu)_x u_{xx}  \right) \\
-= & \left( \frac{2}{3} h_x \eta + \eta \eta_x 
-+ \frac{1}{3} h \eta_x  \right) hu_{xt} \\
-& + \frac{1}{6} h^3 \left(\frac{2 h_x}{h^2} (Hu)_x u_{x}
-- \frac{2}{h} (Hu)_{xx} u_x 
-- \frac{1}{h} (Hu)_x u_{xx}  \right) \\
-= & Hh\eta_xu_{xt} + \left( \frac{2}{3} h_x \eta  
-- \frac{2}{3} h \eta_x  \right) hu_{xt} \\
-& + \frac{1}{6} h^3 \left(\frac{2 h_x}{h^2} (Hu)_x u_{x}
-- \frac{2}{h} (Hu)_{xx} u_x 
-- \frac{1}{h} (Hu)_x u_{xx}  \right) \\
-\end{flalign*}
-
-\begin{flalign*}
-\psi 
-= & - Hh h_xu_{xt} -\frac{1}{3} H h^2 u_{xxt} \\
-& + \left( \frac{2}{3} h_x \eta  
-- \frac{2}{3} h \eta_x  \right) hu_{xt} \\
-& + \frac{1}{6} h^3 \left(\frac{2 h_x}{h^2} (Hu)_x u_{x}
-- \frac{2}{h} (Hu)_{xx} u_x 
-- \frac{1}{h} (Hu)_x u_{xx}  \right) \\
-\end{flalign*}
-Now consider the last term 
-\begin{flalign*}
- & \frac{1}{6} h^3 \left(\frac{2 h_x}{h^2} (Hu)_x u_{x}
-- \frac{2}{h} (Hu)_{xx} u_x 
-- \frac{1}{h} (Hu)_x u_{xx}  \right) \\
-= & \frac{1}{3} h \left( h_x (Hu)_x u_{x}
-- h (Hu)_{xx} u_x 
-- \frac{h}{2} (Hu)_x u_{xx}  \right) \\
-= & \frac{1}{3} h \left( h_x \left( H_xu + Hu_x \right) u_{x}
-- h \left( 2H_xu_x + Hu_{xx} \right) u_x 
-- \frac{h}{2} (H_xu + Hu_x) u_{xx}  \right) \\
-= & \frac{1}{3} h \left( h_x H (u_x)^2 
-- 2H_x h (u_x)^2 - H h u_x u_{xx} 
-- \frac{h}{2} H_x u u_{xx} - \frac{h}{2} H u_x u_{xx} \right) \\
-= & \frac{1}{3} h \left( \left( h_x H - 2H_x h \right) (u_x)^2 
-- \frac{3 H h}{2} u_x u_{xx} 
-- \frac{h}{2} H_x u u_{xx} \right) \\
-\end{flalign*}
-
-
-If we rearrange (\ref{eq:madsen_disp_x}) and
-assume that $h_x\eta$, $h_{xx}$ and $\eta_{xx}$ are small,
-then 
-the Madsen's dispersion terms can be written as
-\begin{flalign*}
-\psi 
-\approx & - Hh h_xu_{xt} -\frac{Hh^2}{3} u_{xxt}- H h \eta_xu_{xt}
-- \frac{1}{6} Hh \eta u_{xxt} 
-+ \frac{1}{6} h^3 \left( \frac{\eta u}{h} \right)_{xxt}.
-\end{flalign*}
-Since $\eta_t = -(Hu)_x$, we have
-\begin{flalign*}
-\left( \frac{\eta u}{h} \right)_{xxt} 
-\approx & \frac{2 \eta_x}{h} u_{xt}
-+ \frac{\eta}{h} u_{xxt}  &+ \frac{2 h_x}{h^2} (Hu)_x u_{x}
-- \frac{2}{h} (Hu)_{xx} u_x 
-- \frac{1}{h} (Hu)_x u_{xx}.
-\end{flalign*}
-Plugging in and dropping small terms yields to 
-\begin{flalign}
-\psi 
-\approx & - Hh h_xu_{xt} -\frac{Hh^2}{3} u_{xxt}- H h \eta_xu_{xt} 
-- \frac{1}{6} Hh \eta u_{xxt} \nonumber \\
-& +\frac{h^2\eta_x}{3} u_{xt}
-+ \frac{h^2\eta}{6} u_{xxt} + \frac{h h_x}{3} (Hu)_x u_{x}
-- \frac{h^2}{3} (Hu)_{xx} u_x 
-- \frac{h^2}{6} (Hu)_x u_{xx} \nonumber \\
-\approx & - Hh h_xu_{xt} -\frac{Hh^2}{3} u_{xxt}- H h \eta_xu_{xt} \nonumber \\
-& +\frac{h^2\eta_x}{3} u_{xt}
- + \frac{h h_x}{3} (Hu)_x u_{x}
-- \frac{h^2}{3} (Hu)_{xx} u_x 
-- \frac{h^2}{6} (Hu)_x u_{xx}. \label{eq:madsen_disp_v3}
-\end{flalign}
-\marginpar{\small I am not sure how to conclude the relation between Boussinesq and Serre.}
-
-The Serre's equations of Su and Gardner \citep{su1969korteweg}
-has the following dispersion terms,
-\begin{flalign}
-\psi= &-Hhh_xu_{xt} - \frac{Hh^2}{3}u_{xxt}
-- Hh\eta_xu_{xt} \nonumber \\
-& - \frac{2}{3} Hh\eta u_{xxt}
-+ \frac{Hh^2}{3}\left[ (u_x)^2-uu_{xx} \right]_x.
-\label{eq:serre_disp}
-\end{flalign}
