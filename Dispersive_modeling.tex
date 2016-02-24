@@ -159,18 +159,16 @@ Boussinesq-type equations
 with an addition of a Pad{\'e} approximation 
 of the linear dispersion relation.
 The set of the Boussinesq-type equations can be written 
-in a conservative form follows,
 \begin{flalign}
 & H_t + (Hu)_x  = 0, \label{eq:madsen_cons_mass} & \\
-& (Hu)_t + \left( Hu^2 + \frac{g}{2}H^2 \right)_x - gHh_x + \psi=0, & \label{eq:madsen_momx}
+& (1-D)\big\lbrack(Hu)_t\big\rbrack + \left( Hu^2 + \frac{g}{2}H^2 \right)_x - gHh_x -Bgh^2\left(h\eta_x\right)_{xx} =0, & \label{eq:madsen_momx}
 \end{flalign}
-and
+where the operator, $D$, is defined as
 \begin{flalign}
-\psi = & \frac{1}{6}h^3 \left(\frac{Hu}{h} \right)_{xxt}
-- \left( B+ \frac{1}{2}\right)h^2 (Hu)_{xxt} -Bgh^2\left(h\eta_x\right)_{xx} , &
-\label{eq:madsen_disp_x}
+ D (w) &= \left(B+\frac{1}{2} \right)h^2 w_{xx} -\frac{1}{6} h^3 \left(\frac{w}{h}\right)_{xx}, & \label{eq:madsen_new_op}
 \end{flalign}
-where $H(x,t)$ and $u(x,t)$ are the depth and velocity of the water, 
+for any $w(x,t)$.
+In the above equations $H(x,t)$ and $u(x,t)$ are the depth and velocity of the water, 
 $h(x)$ is the still water depth, and $\eta(x,t)$ is the surface elevation,
 and thus $H(x,t)=h(x)+\eta(x,t)$. 
 Moreover, $g$ is the gravitational constant, 
@@ -183,10 +181,9 @@ expansion of the linear dispersion analysis.
 When $B=0$, this set of the Boussinesq-type equations
 approximately reduces to Peregrine (1967) \citep{peregrine1967long}
 as the linear dispersion relations are identical. 
-The difference between two models results from 
-the fact that the Sch{\"a}ffer's model is derived in a conservative form.
-This difference will be observed in the numerical simulations
-and further discussion can be found in \ref{append:a}.
+However, unlike the set of Peregrine hydrostatic parts of the equations of  Sch{\"a}ffer are written in a conservative form.
+This difference will be observed in the numerical procedure and is
+further elaborated in \ref{append:a}.
 
 The dispersive \textsc{Geoclaw}
 solves the Boussinesq-type equations (\ref{eq:madsen_cons_mass}), (\ref{eq:madsen_momx})
@@ -197,23 +194,12 @@ For example, see Tisser et al. (2011) \cite{tissier2011serre},
 Shi et al. (2012) \cite{shi2012high} 
 and Dutykh et al. (2013) \cite{dutykh2013finite}.
 
-Let $(Hu)_t + \left(Hu^2 + \frac{g}{2}H^2 \right)_x - gHh_x = S(x,t)$,
-and then the set of equations (\ref{eq:madsen_cons_mass}),
-(\ref{eq:madsen_momx}) and (\ref{eq:madsen_disp_x}) 
-are arranged in the following form,
+
+To facilitate the fractional step method, outlined below, we move the hydrostatic terms of (\ref{eq:madsen_momx}) inside the $(1-D)$ operator to obtain
 \begin{flalign}
-& H_t + (Hu)_x  = 0,\label{eq:hybrid_mass} & \\
-& (Hu)_t + \left(Hu^2 + \frac{g}{2}H^2 \right)_x - gHh_x = S , & \label{eq:hybrid_mom}
+& (1-D)\big\lbrack (Hu)_t + \left(Hu^2 + \frac{g}{2}H^2 \right)_x - gHh_x\big\rbrack = -\Psi(x,t), & \label{eq:hybrid_src}
 \end{flalign}
 where
-\begin{flalign}
-& (1-D)S = -\Psi(x,t), & \label{eq:hybrid_src}
-\end{flalign}
-with a differential operator $D$ given as
-\begin{flalign}
- D (w) &= \left(B+\frac{1}{2} \right)h^2 w_{xx} -\frac{1}{6} h^3 \left(\frac{w}{h}\right)_{xx}, & \label{eq:madsen_new_op}
-\end{flalign}
-for any $w(x,t)$, and
 \begin{flalign}
 \Psi(x,t)= & \left(B+\frac{1}{2} \right) h^2 \left( (Hu^2)_{x} + g H \eta_x \right)_{xx} \nonumber\\
 & -\frac{1}{6}h^3 \left( \frac{ (Hu^2)_x +gH\eta_x }{h} \right)_{xx}
@@ -223,29 +209,29 @@ for any $w(x,t)$, and
 
 \subsubsection{Numerical scheme}
 
-Homogeneous conservation laws with source terms
-are often called balance laws,
-and the equations (\ref{eq:hybrid_mass}) and (\ref{eq:hybrid_mom}) are balance laws.
-One of the ways to solve the balance law is 
-a {\em fractional step method}, 
-and details can be found at LeVeque (2002) \cite{leveque2002finite}
+The equations (\ref{eq:madsen_cons_mass}) and (\ref{eq:hybrid_src}) are 
+written in form that is conservative to leading order, but with the $\Psi$
+term as a pseudo source.
+Such equations may be solved  
+by a {\em fractional step method} as described in  
+ LeVeque (2002) \cite{leveque2002finite}
 for instance. 
-At the first stage of the hybrid scheme, 
-the set of homogeneous equations (\ref{eq:hybrid_mass}) and (\ref{eq:hybrid_mom}) with $S(x,t)=0$,
-is solved via \textsc{Geoclaw}
-since they are same as the shallow water equations.
-
-In the second stage, 
-the following set of the ordinary differential equations
-is solved,
+First it is observed that (\ref{eq:hybrid_src}) may be formally
+rewritten as 
 \begin{flalign}
-& H_t = 0, \label{eq:hybrid_mom_fdm0}  \\
-& \left(1-D \right)(Hu)_t = -\Psi . & \label{eq:hybrid_mom_fdm}
+& (Hu)_t =- \left\lbrace\left(Hu^2 + \frac{g}{2}H^2 \right)_x - gHh_x\right\rbrace -(1-D)^{-1}\Psi(x,t), & \label{eq:hybrid_inv}
+\end{flalign}
+At the first stage of the hybrid scheme, we integrate $Hu$ over a time step
+taking into account all hydrostatice terms on the right hand side, namely 
+those within the braces. When this is combined with the continuity equation
+  (\ref{eq:madsen_cons_mass}) this simply corresponds to advancing NLSW equations one time step forward. To this end we employ ...... from GEOCLAW.\marginpar{\small add a descriptio of the NLSW procedure}
+In the second stage, we retain the new $H$ value, but integrate $Hu$ further 
+from the first step by solving
+\begin{flalign}
+& \left(1-D \right)\big\lbrack (Hu)_t\big\rbrack = -\Psi . & \label{eq:hybrid_mom_fdm}
 \end{flalign}
 Since the differential operator $D$ contains spatial derivatives,
-a system of differential equations should be solved
-to compute the equation (\ref{eq:hybrid_src}).
-This computation involves finding the inverse of a sparse matrix. 
+a systems of difference equations must be solved. 
 
 The spatial and time discretisation should be carefully chosen 
 for the stability of the second stage. 
