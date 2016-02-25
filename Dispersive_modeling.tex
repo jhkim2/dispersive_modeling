@@ -243,29 +243,43 @@ is discussed in \ref{append:stab}.
 
 Suppose the spatial domain is divided into $n$ grid cells with 
 the spatial grid size $\Delta x$.
-Let the time step size $\Delta t$, and let
+Arrays of nodal values for flow depth and $Hu$, respectively, are
+defined as
 \begin{flalign*}
 \textbf{H} & =
 (H_1,H_2, \dots , H_n)^T, & \\
-\textbf{Hu} & =
+\textbf{M} & =
 (H_1u_1,H_2u_2, \dots , H_nu_n)^T. &
 \end{flalign*}
 
-The four stage Runge-Kutta time stepping with centred spatial discretisation
+With time step $\Delta t$ the four stage Runge-Kutta scheme
 can be written as follows,
 \begin{flalign*}
-\textbf{q}^1 &:= \textbf{Hu}, \quad 
-\textbf{q}^2 &:= \textbf{Hu} + \frac{\Delta t}{2}\textbf{S}^1, \quad
-\textbf{q}^3 &:= \textbf{Hu} + \frac{\Delta t}{2}\textbf{S}^2, \quad
-\textbf{q}^4 &:= \textbf{Hu} + \Delta t \textbf{S}^3,
+\textbf{M}^1 &:= \textbf{M}, \quad 
+\textbf{M}^2 &:= \textbf{M} + \frac{\Delta t}{2}\textbf{S}^1, \quad
+\textbf{M}^3 &:= \textbf{M} + \frac{\Delta t}{2}\textbf{S}^2, \quad
+\textbf{M}^4 &:= \textbf{M} + \Delta t \textbf{S}^3,
 \end{flalign*}
-where
+where $\textbf{M}^k$ are intermediate value arrays 
+and $\textbf{S}^k$ are
+correpondingly arrays for the time derivatives of $Hu$, obtained by
+solving 
 \begin{flalign}
 (I-\bar{D})\textbf{S}^k & 
-= -\bar{\Psi}(\textbf{H},\textbf{q}^k), \quad \textrm{for~} k=1,\dots,4. &
+= -\bar{\Psi}(\textbf{H},\textbf{M}^k), \quad \textrm{for~} k=1,\dots,4. &
 \label{eq:rk4_1}
 \end{flalign}
-In this computation (\ref{eq:rk4_1}), 
+Here $\bar{\Psi}$ and $\bar{D}$ represent centered spatial discretizations for the term $\Psi$ and and the operator $D$, respectively. These
+are given explitly below.
+Finally the value of $\textbf{M}$ at the new time level is
+obtained by
+\begin{flalign*}
+\textbf{M}^+ & = \textbf{M} + \frac{\Delta t}{6} \left[
+\textbf{S}^1+2\textbf{S}^2+\textbf{S}^3+\textbf{S}^4
+\right]. &
+\end{flalign*}
+
+In (\ref{eq:rk4_1}), 
 $\bar{D}$ is a tri-diagonal $n\times n$ matrix with elements 
 \begin{flalign*}
  \bar{D}_{i,i-1} = & \frac{1}{\Delta x^2} \left[
@@ -277,7 +291,7 @@ $\bar{D}$ is a tri-diagonal $n\times n$ matrix with elements
  \left(B + \frac{1}{2} \right) h_i^2 
 -\frac{1}{6} \frac{h_i^3}{h_{i+1}} \right].  & 
 \end{flalign*}
-And the $i$-th element of $\bar{\Psi(\textbf{H},\textbf{q})}$ is 
+Correspondingly, the $i$-th element of $\bar{\Psi(\textbf{H},\textbf{q})}$ is 
 \begin{flalign*}
 \bar{\Psi}_i 
 &=  \left(B+\frac{1}{2} \right) \frac{h_i^2}{2\Delta x^3} 
@@ -305,12 +319,6 @@ for $i=1,2,\dots,n$.
 % $i=3,4,\dots,n-3,n-2$.
 % If $i=1,2,n-1$, and $n$, then one-sided $\mathcal{•}{O}(\Delta x^2)$ accurate finite difference approximation is used instead.
 %The system (\ref{eq:rk4_1}) is computed using an approximate solver, and \textsc{Gmres} is adopted. 
-Then the source term is updated by
-\begin{flalign*}
-(Hu)^* & = Hu + \frac{\Delta t}{6} \left[
-S^1 + 2S^2 + 2S^3 + S^4
-\right]. &
-\end{flalign*}
 
 \subsection{Other models}
 
