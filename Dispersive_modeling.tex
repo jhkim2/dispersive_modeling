@@ -226,9 +226,12 @@ for any $w(x,t)$, and
 Homogeneous conservation laws with source terms
 are often called balance laws,
 and the equations (\ref{eq:hybrid_mass}) and (\ref{eq:hybrid_mom}) are balance laws.
-One of the ways to solve the balance law is 
-a {\em fractional step method}, 
-and details can be found at LeVeque (2002) \cite{leveque2002finite}
+In order to solve the balance laws, 
+a {\em fractional step method} is used
+since the dispersion terms $S(x,t)$ are 
+much smaller than the flux difference and bathymetry
+source terms. 
+See details at LeVeque (2002) \cite{leveque2002finite}
 for instance. 
 At the first stage of the hybrid scheme, 
 the set of homogeneous equations (\ref{eq:hybrid_mass}) and (\ref{eq:hybrid_mom}) with $S(x,t)=0$,
