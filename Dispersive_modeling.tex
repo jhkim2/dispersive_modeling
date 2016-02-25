@@ -168,7 +168,7 @@ where the operator, $D$, is defined as
  D (w) &= \left(B+\frac{1}{2} \right)h^2 w_{xx} -\frac{1}{6} h^3 \left(\frac{w}{h}\right)_{xx}, & \label{eq:madsen_new_op}
 \end{flalign}
 for any $w(x,t)$.
-In the above equations $H(x,t)$ and $u(x,t)$ are the depth and velocity of the water, 
+In the above equations $H(x,t)$ and $u(x,t)$ are the total flow depth and velocity of the water, respectively, 
 $h(x)$ is the still water depth, and $\eta(x,t)$ is the surface elevation,
 and thus $H(x,t)=h(x)+\eta(x,t)$. 
 Moreover, $g$ is the gravitational constant, 
@@ -179,15 +179,14 @@ from a Pad{\'e}
 expansion of the linear dispersion analysis.
 
 When $B=0$, this set of the Boussinesq-type equations
-approximately reduces to Peregrine (1967) \citep{peregrine1967long}
+approximately reduces to taht of Peregrine (1967) \citep{peregrine1967long}
 as the linear dispersion relations are identical. 
-However, unlike the set of Peregrine hydrostatic parts of the equations of  Sch{\"a}ffer are written in a conservative form.
+However, unlike Peregrine's momentum equation the hydrostatic parts of  (\ref{eq:madsen_momx}) are written in a conservative form.
 This difference will be observed in the numerical procedure and is
 further elaborated in \ref{append:a}.
 
-The dispersive \textsc{Geoclaw}
-solves the Boussinesq-type equations (\ref{eq:madsen_cons_mass}), (\ref{eq:madsen_momx})
-and (\ref{eq:madsen_disp_x}) numerically
+The dispersive \textsc{Geoclaw} software
+solves the Boussinesq-type equations (\ref{eq:madsen_cons_mass}) and (\ref{eq:madsen_momx}) numerically
 with a hybrid of the finite volume and finite difference methods. 
 There have been several studies on this type of hybrid schemes.
 For example, see Tisser et al. (2011) \cite{tissier2011serre}, 
@@ -195,7 +194,8 @@ Shi et al. (2012) \cite{shi2012high}
 and Dutykh et al. (2013) \cite{dutykh2013finite}.
 
 
-To facilitate the fractional step method, outlined below, we move the hydrostatic terms of (\ref{eq:madsen_momx}) inside the $(1-D)$ operator to obtain
+To facilitate the fractional step method, outlined below, we move the hydrostatic terms of (\ref{eq:madsen_momx}) inside the $(1-D)$ 
+operator, while balancing with extra terms in the $\Psi$, to obtain
 \begin{flalign}
 & (1-D)\big\lbrack (Hu)_t + \left(Hu^2 + \frac{g}{2}H^2 \right)_x - gHh_x\big\rbrack = -\Psi(x,t), & \label{eq:hybrid_src}
 \end{flalign}
@@ -210,13 +210,13 @@ where
 \subsubsection{Numerical scheme}
 
 The equations (\ref{eq:madsen_cons_mass}) and (\ref{eq:hybrid_src}) are 
-written in form that is conservative to leading order, but with the $\Psi$
+written in form that is conservative to leading order in $\mu$, but with the $\Psi$
 term as a pseudo source.
 Such equations may be solved  
 by a {\em fractional step method} as described in  
  LeVeque (2002) \cite{leveque2002finite}
 for instance. 
-First it is observed that (\ref{eq:hybrid_src}) may be formally
+First, it is observed that (\ref{eq:hybrid_src}) may be formally
 rewritten as 
 \begin{flalign}
 & (Hu)_t =- \left\lbrace\left(Hu^2 + \frac{g}{2}H^2 \right)_x - gHh_x\right\rbrace -(1-D)^{-1}\Psi(x,t), & \label{eq:hybrid_inv}
@@ -231,15 +231,15 @@ from the first step by solving
 & \left(1-D \right)\big\lbrack (Hu)_t\big\rbrack = -\Psi . & \label{eq:hybrid_mom_fdm}
 \end{flalign}
 Since the differential operator $D$ contains spatial derivatives,
-a systems of difference equations must be solved. 
+a systems of difference equations must then be solved. 
 
 The spatial and time discretisation should be carefully chosen 
 for the stability of the second stage. 
 In our numerical scheme, the second order centred scheme
 is used for the spatial discretisation, 
-and a four stage Runge-Kutta method is used for the time stepping.
+and a four stage Runge-Kutta method is used for the time integration.
 The von Neumann stability analysis of this numerical scheme 
-is discussed in \ref{append:stab}.
+is outlined in \ref{append:stab}.
 
 Suppose the spatial domain is divided into $n$ grid cells with 
 the spatial grid size $\Delta x$.
@@ -252,15 +252,15 @@ defined as
 (H_1u_1,H_2u_2, \dots , H_nu_n)^T. &
 \end{flalign*}
 
-With time step $\Delta t$ the four stage Runge-Kutta scheme
+With time increment $\Delta t$ the fourth order Runge-Kutta scheme
 can be written as follows,
 \begin{flalign*}
-\textbf{M}^1 &:= \textbf{M}, \quad 
-\textbf{M}^2 &:= \textbf{M} + \frac{\Delta t}{2}\textbf{S}^1, \quad
-\textbf{M}^3 &:= \textbf{M} + \frac{\Delta t}{2}\textbf{S}^2, \quad
-\textbf{M}^4 &:= \textbf{M} + \Delta t \textbf{S}^3,
+\textbf{M}^1 = \textbf{M}, \quad 
+\textbf{M}^2 = \textbf{M} + \frac{\Delta t}{2}\textbf{S}^1, \quad
+\textbf{M}^3 = \textbf{M} + \frac{\Delta t}{2}\textbf{S}^2, \quad
+\textbf{M}^4 = \textbf{M} + \Delta t \textbf{S}^3,
 \end{flalign*}
-where $\textbf{M}^k$ are intermediate value arrays 
+where $\textbf{M}^k$ are intermediate value arrays\marginpar{How is values for $H$ obtained in the steps; linear interpolation ?} 
 and $\textbf{S}^k$ are
 correpondingly arrays for the time derivatives of $Hu$, obtained by
 solving 
@@ -320,10 +320,39 @@ for $i=1,2,\dots,n$.
 % If $i=1,2,n-1$, and $n$, then one-sided $\mathcal{•}{O}(\Delta x^2)$ accurate finite difference approximation is used instead.
 %The system (\ref{eq:rk4_1}) is computed using an approximate solver, and \textsc{Gmres} is adopted. 
 
-\subsection{Other models}
+\subsection{Models for comparison}
+The performance of the Boussinesq model presented herein is 
+assessed by comparison with numerical results from a full potential
+flow model which is described in L\o vholt et al. (2013) \cite{Lovholt:2013a} and references therein. The model is based on a boundary 
+integral technique and is run herein with fully nonlinear solitary
+wave solutions as initial conditions. During shoaling and breaking this
+model can describe the evolution of a plunger, but breaks down
+when the plunger attaches the free surface. Hence, the potential flow 
+results are used to determine the point of breaking during shoaling 
+and to
+evaluate the evolution of  amplitude and wave 
+shape of the current model until the point of breaking.   
+For short we refer to the full potential model as the BIM (Boundary
+ Integral Method) model.
 
-Comments on other models
-such as BIM, Funwave and GloBouss
+Comparison with a pre-existing, fully nonlinear Boussinesq model is
+facilitated by the application of a Lagrangian model, described
+in L\o vholt et al. (2013) \cite{Lovholt:2013b}. Apart from the use of
+Lagrangian coordinates this model is similar to the present
+in the sense that it differs concerning the nonlinearities in the
+dispersion terms and that  the Sch{"a}ffer et al. (1995) \cite{schaffer1995further} optimization terms are added in a fully nonlinear fashion.
+Presently, the Lagrangian model has no established bore capturing 
+facility and is hence valid only to the point of breaking.
+Results from this model will be referred to as 'Serre', even though
+the dispersion enhancement is invoked. 
+ 
+Results for the Peregrine type Boussinesq equations are obtained by the
+GloBouss model. This is a dispersive tsunami propagation model which
+is based on Peregrine type equations and discretization on a staggered grid. Further details are found in L\o vholt and Pedersen (2008)
+\cite{Lovholt:2008b}.
+
+For comparison also the .... version of the FUNWAVE model is used
+ref .... \marginpar{Finn, you need to fill an accurate description of FUNWAVE}. 
 
 \section{Wave Steepening and Breaking}
 
@@ -346,7 +375,7 @@ whether the wave is breaking or not.
 \label{fig:init_setup}
 \end{figure}
 
-In this work, main interests lie 
+In this work, the main interests lie 
 on the breaking wave cases, and 
 one of the cases in Synolakis (1987) experiments is  
 a solitary wave of $A/h=0.28$ approaching a slope of $1:19.85$.
@@ -383,14 +412,16 @@ the analysis of Titov and Synolakis (1995) \cite{titov1995modeling}.
 %and the undisturbed depth is $h=0.206$ m. 
 The ratio of amplitude to depth, $A/h$, 
 is about $2.01$ at the break point.
-The BIM cannot proceed the computation after the break point.
-If the water surface has intercepts in the BIM simulation,
-a singularity is observed and the computation cannot
-proceed further.
+The potential flow model cannot be run much beyond the
+breaking points (until attachment of the plunger only) and 
+gives no information on the following  bore propagation.
 In Figure \ref{fig:sw_timeseries}, 
-the computational results from the shallow water equations are shown,
-and a bore is formed earlier and the amplitude is smaller
-compared to BIM.
+computations of the NLSW equations (present model without the second 
+fractional step) display a premature bore formation which checks the
+amplification during the subsequent shoaling. 
+As a consequence the amplitude is markedly smaller than that of the 
+potential flow model when the latter indicates beaking.
+
 
 \begin{figure}[!htb]
 \centering
@@ -426,12 +457,8 @@ A vertical front is observed at $t=18.6$. }
 In their original formulation, 
 the Boussinesq-type equations do not take into account 
 the after-break motion.
-Before the wave break occurs, 
-the simulation from the Boussinesq-type equations is
-in a good agreement with the laboratory experiment and BIM simulation.
-In order to exploit the Boussinesq-type equations
-and include the wave breaking,
-several models have been suggested. 
+In order to combine breaking with  the Boussinesq-type equations
+several strategies have been suggested. 
 For example, 
 Peregrine (1967) \citep{peregrine1967long} used $A/h=0.6$ 
 as the break threshold, and also pointed out that
@@ -480,13 +507,16 @@ should be considered in the wave break models.
 
 \subsection{Solitary wave propagation}
 
-In order to validate the numerical approach, 
+In order to validate the numerical approach 
 a solitary wave propagation is tested on a constant water depth.
 For the initial conditions, 
 the analytic solitary wave solution 
 of the Serre's equations is used
 since analytic solutions are unknown 
-regarding to the Sch{\"a}ffer's Boussinesq-type equations.
+for
+the set (\ref{eq:madsen_cons_mass}) and 
+(\ref{eq:madsen_momx}).\marginpar{Does $B=0$ coeincide with the Serre
+equations?}
 Solitary wave solutions to the Serre's equations are given as
 \begin{flalign}
 \label{eq:anal_serre}
@@ -517,10 +547,10 @@ with preserving its initial shape,
 and also they are in a good agreement 
 with the analytic solutions. 
 The amplitudes decreases as the wave propagates. 
-The error is partially due to the numerical error.
-Another reason is that the analytic solution
-is valid for Serre's equations and satisfies
-the Boussinesq-type equations only approximately.
+The discreapancy may be  partially due to the numerical errors
+and partly to the fact that 
+the analytic solution for Serre's equations and satisfies
+the present Boussinesq-type equations only approximately.\marginpar{Should be cleared up by grid refinement}
 
 \begin{figure}[!htb]
 \centering
