@@ -74,9 +74,9 @@ Oslo, Norway}
 
 \section{Introduction}
 
-\iffalse
+%\iffalse
 
-Depth-averaged models are widely used
+Depth-averaged models are widely used 
 in the ocean wave modeling for its efficiency and accuracy. 
 One of its class is the {\em shallow water equations}
 which is a hyperbolic system without dispersive terms. 
@@ -102,21 +102,24 @@ the dispersion of the wave may develop.
     \item Overview 
 \end{itemize}
 
-\fi
+%\fi
 
 \section{Model Description}
 
-The shallow water equations
+The shallow water equations\marginpar{\footnotesize Geir: 
+This is too much of a basic introduction. However, let's write the 
+introduction section before we change it?}
 are a system of hyperbolic partial differential equations
 which can be derived from 
 the Navier-Stokes' equations
-assuming that the vertical velocity is negligible and 
-the horizontal speed is constant throughout the cross section. 
-If waves have long wavelength and small wave amplitude 
+assuming that the vertical velocity is negligible. This leads 
+to a hydrostatic pressure and a uniform horizontal speed horizontal 
+throughout the depth. 
+If waves have long wavelength  
 with respect to the depth of water,
 the shallow water equations is
 a robust and efficient physical model. 
-If waves have relatively short wavelength and large amplitude,
+If waves are shorter,
 alternative wave models may be preferred 
 which can handle dispersive waves. 
 The Boussinesq-type equations
@@ -130,21 +133,21 @@ denote the ratio of wave amplitude to depth
 and the ratio of depth to wavelength respectively. 
 Various models have been suggested.  
 The papers of Peregrine (1967) \citep{peregrine1967long},
-Madsen and S{\o}renson (1992) \citep{madsen1992new}, Nwogu (1993) \citep{nwogu1993alternative}, Lynett et al. (2002) \cite{lynett2002modeling},
+Madsen and S{\o}rensen (1992) \citep{madsen1992new}, Nwogu (1993) \citep{nwogu1993alternative}, Lynett et al. (2002) \cite{lynett2002modeling},
 and Wei and Kirby (1995) \citep{wei1995time}
 are representative examples. 
 
 In this work, a new numerical tool, 
 called {\em dispersive \textsc{Geoclaw}}, is introduced. 
-The {\em dispersive \textsc{Geoclaw}} solves 
+It is an extension of \textsc{Geoclaw} \citep{clawpack}.
+That solves 
 the Boussinesq-type equations derived by
 Sch{\"a}ffer et al. (1993) \citep{schaffer1993boussinesq}.
 The dispersive \textsc{Geoclaw}
 is a hybrid of the finite volume and finite difference solvers
-with the operation splitting technique,
-and it is developed by extending \textsc{Geoclaw} \citep{clawpack}.
+with the operation splitting technique.
 The \textsc{Geoclaw} software is 
-a part of \textsc{Clawpack} \citep{clawpack}.
+a part of \textsc{Clawpack} \citep{clawpack}
 by LeVeque (1997) \cite{leveque1997wave}, George (2008) \citep{george2008augmented} and Berger et al. (2011) \citep{BergerGeorgeLeVequeMandli11}
 which solves the nonlinear shallow water equations.
 %with properties such as high-resolution, total variation diminishing (TVD) and adaptive mesh refinements (AMR).
@@ -158,9 +161,9 @@ Sch{\"a}ffer et al. (1993) \citep{schaffer1993boussinesq} derived
 Boussinesq-type equations
 with an addition of a Pad{\'e} approximation 
 of the linear dispersion relation.
-The set of the Boussinesq-type equations can be written 
+The  equations read 
 \begin{flalign}
-& H_t + (Hu)_x  = 0, \label{eq:madsen_cons_mass} & \\
+& H_t + (Hu)_x  = 0, \label{eq:madsen_cons_mass} & \\ 
 & (1-D)\big\lbrack(Hu)_t\big\rbrack + \left( Hu^2 + \frac{g}{2}H^2 \right)_x - gHh_x -Bgh^2\left(h\eta_x\right)_{xx} =0, & \label{eq:madsen_momx}
 \end{flalign}
 where the operator, $D$, is defined as
@@ -169,9 +172,9 @@ where the operator, $D$, is defined as
 \end{flalign}
 for any $w(x,t)$.
 In the above equations $H(x,t)$ and $u(x,t)$ are the total flow depth and velocity of the water, respectively, 
-$h(x)$ is the still water depth, and $\eta(x,t)$ is the surface elevation,
+$h(x)$ is the still water depth, $\eta(x,t)$ is the surface elevation,
 and thus $H(x,t)=h(x)+\eta(x,t)$. 
-Moreover, $g$ is the gravitational constant, 
+Moreover, $g$ is the acceleration of gravity, 
 and $B$ is a dispersion parameter. 
 Madsen and S{\o}rensen (1992) \cite{madsen1992new} 
 has chosen the parameter $B=1/15$ 
@@ -179,7 +182,7 @@ from a Pad{\'e}
 expansion of the linear dispersion analysis.
 
 When $B=0$, this set of the Boussinesq-type equations
-approximately reduces to taht of Peregrine (1967) \citep{peregrine1967long}
+approximately reduces to that of Peregrine (1967) \citep{peregrine1967long}
 as the linear dispersion relations are identical. 
 However, unlike Peregrine's momentum equation the hydrostatic parts of  (\ref{eq:madsen_momx}) are written in a conservative form.
 This difference will be observed in the numerical procedure and is
@@ -194,7 +197,7 @@ Shi et al. (2012) \cite{shi2012high}
 and Dutykh et al. (2013) \cite{dutykh2013finite}.
 
 
-To facilitate the fractional step method, outlined below, we move the hydrostatic terms of (\ref{eq:madsen_momx}) inside the $(1-D)$ 
+To facilitate a fractional step method, as outlined below, we move the hydrostatic terms of (\ref{eq:madsen_momx}) inside the $(1-D)$ 
 operator, while balancing with extra terms in the $\Psi$, to obtain
 \begin{flalign}
 & (1-D)\big\lbrack (Hu)_t + \left(Hu^2 + \frac{g}{2}H^2 \right)_x - gHh_x\big\rbrack = -\Psi(x,t), & \label{eq:hybrid_src}
@@ -210,11 +213,11 @@ where
 \subsubsection{Numerical scheme}
 
 The equations (\ref{eq:madsen_cons_mass}) and (\ref{eq:hybrid_src}) are 
-written in form that is conservative to leading order in $\mu$, but with the $\Psi$
+written in a form that is conserves momentum to leading order in $\mu$, but with the $\Psi$
 term as a pseudo source.
 Such equations may be solved  
 by a {\em fractional step method} as described in  
- LeVeque (2002) \cite{leveque2002finite}
+ LeVeque (2002) \cite{leveque2002finite},
 for instance. 
 First, it is observed that (\ref{eq:hybrid_src}) may be formally
 rewritten as 
@@ -225,18 +228,18 @@ At the first stage of the hybrid scheme, we integrate $Hu$ over a time step
 taking into account all hydrostatice terms on the right hand side, namely 
 those within the braces. When this is combined with the continuity equation
   (\ref{eq:madsen_cons_mass}) this simply corresponds to advancing NLSW equations one time step forward. To this end we employ ...... from GEOCLAW.\marginpar{\small add a descriptio of the NLSW procedure}
-In the second stage, we retain the new $H$ value, but integrate $Hu$ further 
-from the first step by solving
+In the second stage, we retain the new $H$ value, but integrate $Hu$ (essentially being the momentum density) further 
+from the first stage by solving
 \begin{flalign}
 & \left(1-D \right)\big\lbrack (Hu)_t\big\rbrack = -\Psi . & \label{eq:hybrid_mom_fdm}
 \end{flalign}
 Since the differential operator $D$ contains spatial derivatives,
 a systems of difference equations must then be solved. 
 
-The spatial and time discretisation should be carefully chosen 
+The spatial and time discretization should be carefully chosen 
 for the stability of the second stage. 
-In our numerical scheme, the second order centred scheme
-is used for the spatial discretisation, 
+In our numerical scheme, the second order centered scheme
+is used for the spatial discretization, 
 and a four stage Runge-Kutta method is used for the time integration.
 The von Neumann stability analysis of this numerical scheme 
 is outlined in \ref{append:stab}.
@@ -260,7 +263,7 @@ can be written as follows,
 \textbf{M}^3 = \textbf{M} + \frac{\Delta t}{2}\textbf{S}^2, \quad
 \textbf{M}^4 = \textbf{M} + \Delta t \textbf{S}^3,
 \end{flalign*}
-where $\textbf{M}^k$ are intermediate value arrays\marginpar{How is values for $H$ obtained in the steps; linear interpolation ?} 
+where $\textbf{M}^k$ are intermediate value arrays\marginpar{How are values for $H$ obtained in the steps; linear interpolation ?} 
 and $\textbf{S}^k$ are
 correpondingly arrays for the time derivatives of $Hu$, obtained by
 solving 
@@ -296,15 +299,15 @@ Correspondingly, the $i$-th element of $\bar{\Psi(\textbf{H},\textbf{q})}$ is
 \bar{\Psi}_i 
 &=  \left(B+\frac{1}{2} \right) \frac{h_i^2}{2\Delta x^3} 
 \Bigg[
-\left(\frac{q_{i+2}^2}{H_{i+2}} -2\frac{q_{i+1}^2}{H_{i+1}} 
-+2\frac{q_{i-1}^2}{H_{i-1}}-\frac{q_{i-2}^2}{H_{i-2}} \right) \\
+\left(\frac{M_{i+2}^2}{H_{i+2}} -2\frac{M_{i+1}^2}{H_{i+1}} 
++2\frac{M_{i-1}^2}{H_{i-1}}-\frac{M_{i-2}^2}{H_{i-2}} \right) \\
 & +g\left(H_{i+1}\left(\eta_{i+2}-\eta_{i}\right)
 -2H_{i}\left(\eta_{i+1}-\eta_{i-1}\right) 
 +H_{i-1}\left(\eta_{i}-\eta_{i-2}\right) \right)\Bigg]  \\
 & -\frac{1}{6}\frac{h_i^3}{2\Delta x^3} \Bigg[
- \frac{q_{i+2}^2/H_{i+2}-q_i^2/H_i}{H_{i+1}}
- -2\frac{q_{i+1}^2/H_{i+1}-q_{i-1}^2/H_{i-1}}{h_{i}} \\
-& +\frac{q_{i}^2/H_{i}-q_{i-2}^2/H_{i-2}}{H_{i-1}}
+ \frac{M_{i+2}^2/H_{i+2}-M_i^2/H_i}{H_{i+1}}
+ -2\frac{M_{i+1}^2/H_{i+1}-M_{i-1}^2/H_{i-1}}{h_{i}} \\
+& +\frac{M_{i}^2/H_{i}-M_{i-2}^2/H_{i-2}}{H_{i-1}}
  \\
  &+ g \left( \frac{H_{i+1}(\eta_{i+2}-\eta_{i})}{H_{i+1}} 
  -2 \frac{H_{i}(\eta_{i+1}-\eta_{i-1})}{h_{i}} 
@@ -324,23 +327,24 @@ for $i=1,2,\dots,n$.
 The performance of the Boussinesq model presented herein is 
 assessed by comparison with numerical results from a full potential
 flow model which is described in L\o vholt et al. (2013) \cite{Lovholt:2013a} and references therein. The model is based on a boundary 
-integral technique and is run herein with fully nonlinear solitary
+integral technique and is run  with fully nonlinear solitary
 wave solutions as initial conditions. During shoaling and breaking this
 model can describe the evolution of a plunger, but breaks down
 when the plunger attaches the free surface. Hence, the potential flow 
-results are used to determine the point of breaking during shoaling 
+results are used to determine the point of breaking due to shoaling 
 and to
 evaluate the evolution of  amplitude and wave 
-shape of the current model until the point of breaking.   
+shape of the current model until this point.   
 For short we refer to the full potential model as the BIM (Boundary
  Integral Method) model.
 
 Comparison with a pre-existing, fully nonlinear Boussinesq model is
 facilitated by the application of a Lagrangian model, described
-in L\o vholt et al. (2013) \cite{Lovholt:2013b}. Apart from the use of
-Lagrangian coordinates this model is similar to the present
-in the sense that it differs concerning the nonlinearities in the
-dispersion terms and that  the Sch{"a}ffer et al. (1995) \cite{schaffer1995further} optimization terms are added in a fully nonlinear fashion.
+in L\o vholt et al. (2013) \cite{Lovholt:2013a}. Apart from the use of
+Lagrangian coordinates the equations employed in this model are
+ similar to (\ref{eq:madsen_cons_mass}) and (\ref{eq:madsen_momx}).
+They differ only concerning the nonlinearities in the
+dispersion terms and that  the dispersion optimization terms are added in a fully nonlinear fashion.
 Presently, the Lagrangian model has no established bore capturing 
 facility and is hence valid only to the point of breaking.
 Results from this model will be referred to as 'Serre', even though
@@ -352,7 +356,7 @@ is based on Peregrine type equations and discretization on a staggered grid. Fur
 \cite{Lovholt:2008b}.
 
 For comparison also the .... version of the FUNWAVE model is used
-ref .... \marginpar{Finn, you need to fill an accurate description of FUNWAVE}. 
+ref .... \marginpar{Finn, you need to fill in an accurate description of FUNWAVE}. 
 
 \section{Wave Steepening and Breaking}
 
@@ -361,11 +365,8 @@ ref .... \marginpar{Finn, you need to fill an accurate description of FUNWAVE}.
 %\marginpar{\small What will be the reason for this difference between lab and BIM? Need to check dist vs. speed of crest.}
 
 Synolakis (1987) \cite{synolakis1987runup} performed 
-a series of laboratory experiments for the run-ups of solitary waves
-on uniform slopes,
-and one of the conclusions was that
-the ratio, $A/h$, determines
-whether the wave is breaking or not. 
+a series of laboratory experiments for the run-up of solitary waves
+on uniform slopes.
 %, and the experiment results include various cases with the wave amplitudes and slope angles. Synolakis identified the breaking and non-breaking wave cases. 
 
 \begin{figure}[!htb]
@@ -376,23 +377,22 @@ whether the wave is breaking or not.
 \end{figure}
 
 In this work, the main interests lie 
-on the breaking wave cases, and 
+with the breaking wave cases, and 
 one of the cases in Synolakis (1987) experiments is  
 a solitary wave of $A/h=0.28$ approaching a slope of $1:19.85$.
 In Figure \ref{fig:init_setup}, 
 the initial set-up for a test is shown. 
 
-As a reference solution, 
-the boundary integral model (BIM) of the full potential theory is used.
+
 % The BIM solution is in a good agreement with the experiments to the wave break point, 
 %The BIM solution can provide detailed time series solution which the laboratory measurements are lack of. 
 In Figure \ref{fig:lab_bim}, the laboratory measurements
-are shown with the computational results from BIM
+are shown with the computational results from the BIM model
 for a breaking wave case of Synolakis with $A/h=0.28$ and $1:19.85$ slope
-at $t^*=15$. In this work, the non-dimensional time 
+at $t^*=15$. Herein, the non-dimensional time 
 $t^*=t\sqrt{h/g}$ is used 
 in accordance with the laboratory experiments.
-And it is observed that the results are in good agreement. 
+The results are in good agreement. 
 
 \begin{figure}[!htb]
 \centering
@@ -404,11 +404,12 @@ on a slope of $1:19.85$.}
 
 Figure \ref{fig:bim_breaking} shows
 the numerical results from BIM at $t=17$, $18$ and  $18.6$.
-The BIM result determines that 
-the vertical front is observed at $x=4.02$ m and $t=18.6$
+In the BIM results a
+ vertical front is observed at $x=4.02$ m and $t=18.6$
 with the maximum wave amplitude $A=0.414$ m,
 and this shows similar results with 
-the analysis of Titov and Synolakis (1995) \cite{titov1995modeling}. 
+the analysis of Titov and Synolakis (1995) \cite{titov1995modeling}.
+\marginpar{\footnotesize What is the esult of Titov and Synolakis?} 
 %and the undisturbed depth is $h=0.206$ m. 
 The ratio of amplitude to depth, $A/h$, 
 is about $2.01$ at the break point.
@@ -419,8 +420,8 @@ In Figure \ref{fig:sw_timeseries},
 computations of the NLSW equations (present model without the second 
 fractional step) display a premature bore formation which checks the
 amplification during the subsequent shoaling. 
-As a consequence the amplitude is markedly smaller than that of the 
-potential flow model when the latter indicates beaking.
+As a consequence the amplitude in the NLSW simulation is markedly smaller than that of the 
+potential flow model when the latter indicates breaking.
 
 
 \begin{figure}[!htb]
@@ -456,7 +457,7 @@ A vertical front is observed at $t=18.6$. }
 
 In their original formulation, 
 the Boussinesq-type equations do not take into account 
-the after-break motion.
+the post-breaking motion.
 In order to combine breaking with  the Boussinesq-type equations
 several strategies have been suggested. 
 For example, 
@@ -515,8 +516,7 @@ of the Serre's equations is used
 since analytic solutions are unknown 
 for
 the set (\ref{eq:madsen_cons_mass}) and 
-(\ref{eq:madsen_momx}).\marginpar{Does $B=0$ coeincide with the Serre
-equations?}
+(\ref{eq:madsen_momx}).
 Solitary wave solutions to the Serre's equations are given as
 \begin{flalign}
 \label{eq:anal_serre}
@@ -542,15 +542,13 @@ snapshots from the dispersive \textsc{Geoclaw}'s simulation is shown
 at $t=0,4,8$ and $12$ s with $\Delta x = 0.1$. 
 For the initial conditions, the solution \ref{eq:anal_serre}
 is used with $A=0.2$, $h=1$ and $g=9.81$.
-The computational results show that the solitary wave propagates
-with preserving its initial shape, 
-and also they are in a good agreement 
-with the analytic solutions. 
-The amplitudes decreases as the wave propagates. 
+The computational results are in a good agreement 
+with the analytic solutions concerning height, shape and propagation speed. 
+The amplitudes decreases very gently as the wave propagates. 
 The discreapancy may be  partially due to the numerical errors
 and partly to the fact that 
 the analytic solution for Serre's equations and satisfies
-the present Boussinesq-type equations only approximately.\marginpar{Should be cleared up by grid refinement}
+the present Boussinesq-type equations only approximately.
 
 \begin{figure}[!htb]
 \centering
@@ -589,25 +587,25 @@ in the derivation of the Boussinesq equations.
     \label{fig:soliton_error_energy}
 \end{figure}
 
-The wave energy for the Boussinesq-type equations
-can be derived as,
+The wave energies for the NLSW and the Boussinesq equations are $E_0$ and $E_0+E_1$, respectively, where
 \begin{flalign}
 & E_0 = \frac{1}{2}\left( g\eta^2 + H\bar{u}^2 \right), \label{eq:energy_e0} \\
 & E_1 = \frac{1}{6}H^3\bar{u}_x^2
 + \frac{1}{2}H^2h_x\bar{u}\bar{u}_x + \frac{1}{2}Hh_x^2\bar{u}^2.
 \label{eq:energy_e1}
 \end{flalign}
-See Madsen et al. (1997) \citep{madsen1997surf} and \ref{append:energy}, 
-for example.
+Details are given in  Madsen et al. (1997) \citep{madsen1997surf} 
+and \ref{append:energy}, for example.
 
-The wave energy is conserved 
-as long as the wave is smooth and do not break,
-and the energy decreases as the wave breaks.
+%The wave energy is conserved 
+%as long as the wave is smooth and do not break,
+%and the energy decreases as the wave breaks.
 %The energy can be divided into the potential energy and kinetic energy, and the potential energy of $E_0+E_1$ is $\frac{1}{2} g\eta^2$.
 In Figure \ref{fig:soliton_energy}, the energy of the solitary
 wave is shown with $A/h=0.2$, and both the potential and kinetic energy
-remain constant, and thus the energy is well-preserved 
-for a constant water depth. 
+remain constant, showing that the numerical procedure has negligible
+ dissipation for smooth wave shapes.
+
 
 \subsection{Waves on a composite slope}
 
@@ -665,7 +663,7 @@ with $h=21.8$ cm.
 
 The second case with $A/h=0.259$ have been 
 compared with the numerical tests
-which were solved on a $400$ grid with no friction.
+which were solved on a $400$ point grid with no friction.
 And the switching scheme between the shallow water equations
 and the Boussinesq equations, is not applied.
 To specify the incoming wave from the left boundary, 
@@ -680,11 +678,12 @@ between the laboratory measurements and numerical simulations is good.
 For the reflecting waves, some differences are observed,
 Because the depth-averaged model is not capable 
 of describing the full interaction between the wave and the wall
-at the right boundary. 
+at the right boundary.\marginpar{\footnotesize Geir: A very shallow region may yield important frictional effects? But, surely, the wave should  break in the shallowest region?}
+ 
 Friction forces are not applied in the numerical simulation
 which may become important at the shallow region. 
 Although a difference in the wave speed is observed,
-the general wave pattern is captured. 
+the general wave pattern is well captured. 
 
 \begin{figure}[!htb]
 \centering
@@ -711,9 +710,9 @@ where $L$ is given as
 \begin{flalign*}
 & L = \sqrt{\frac{4A}{3h}} \textrm{arccosh} \left( \frac{1}{0.05} \right). &
 \end{flalign*}
-When $t=0$, however, the solitary wave intercepts 
-with the slope, 
-and the solitary wave solution (\ref{eq:anal_serre}) can not be used.  
+When $t=0$, however, the solitary wave then has an elevation of
+5\% of it maximum at the toe of the beach. 
+This is too much in a modeling context.  
 Instead, the solitary solution (\ref{eq:anal_serre}) 
 is imposed at $L + 5c$
 so that the initial wave is on a horizontal bottom. 
@@ -756,12 +755,12 @@ the water surface at t=$16, 18,$ and $18.6$
 from BIM and dispersive \textsc{Geoclaw} with B=$0$ and $1/15$.
 When the wave is smooth at t=16, the dispersive \textsc{Geoclaw}
 results are almost identical. 
-At the break point t=18.6, differences are observed. 
+At the break point, $t=18.6$, larger differences are observed. 
 If $B=0$, the wave speed is slightly faster 
 than the BIM result, but the wave amplitude is similar. 
-When $B=1/15$, the wave speed matches the BIM result,
+When $B=1/15$, the wave speed matches the BIM results better,
 but the amplitude is slightly smaller. 
-In general, the computational results are comparable
+In general, the computational results are rather similar
 with $B=0$ and $1/15$. 
 
 \begin{figure}[!htb]
@@ -780,11 +779,9 @@ with the pre-existing softwares.
 \textsc{Geoclaw} software \cite{clawpack} is chosen
 as a reference to the shallow water equations.
 And the Boussinesq-type equations solvers
-such as \textsc{Funwave} \cite{shi2012high}
-and \textsc{GloBouss} \cite{lovholt2010coupling}, are also employed. 
-In the computation of the Serre's equations, 
-the original Serre's equations are enhanced in the dispersion relation
-by adding the Sch{"a}ffer et al. (1995) \cite{schaffer1995further} terms. 
+such as \textsc{Funwave} \cite{shi2012high}, \textsc{GloBouss} \cite{lovholt2010coupling} and the Serre type \cite{Lovholt:2013a}, are also employed. 
+In the computations 
+the original Serre's equations are enhanced by adding the Sch{\"a}ffer et al. (1995) \cite{schaffer1995further} terms. 
 %And the boundary integral method (BIM) for the full potential theory is also considered. 
 %The threshold of the wave breaking is not used in this section. 
 
@@ -802,8 +799,8 @@ are more than 10 \% larger than BIM.
 The wave amplitude continues to increase 
 with \textsc{GloBouss} and \textsc{Funwave} simulations,
 and the difference from the BIM result becomes larger at t = $18$. 
-The results from the Serre and dispersive \textsc{Geoclaw} are 
-very similar to BIM. 
+The results from the Serre and dispersive \textsc{Geoclaw} models are 
+very similar to those of the BIM model. 
 Especially, the wave amplitudes are correctly determined by these models.
 %\marginpar{\footnotesize Then why don't we use Serre?}
 
@@ -830,7 +827,7 @@ and the dispersive terms are suppressed.
 At the breaking, the set of equations is
 switched to the shallow water equations
 in the vicinity of the wave crest.
-In the numerical simulation of dispersive \textsc{Geoclaw},
+In the numerical simulation of the dispersive \textsc{Geoclaw} model,
 the ratio $\epsilon_B$ reaches the threshold $0.8$ at $t=14.9$
 when the peak of the wave is at $x=8.03227$ m.
 At this time, the wave breaking is assumed to start, 
@@ -925,7 +922,17 @@ then starts to decrease as a shock is formed.
 \end{figure}
 
 \section{Conclusion}
-
+{\em What should the main conclusions be}
+\begin{itemize}
+\item Dispersive Geoclaw works.
+\item Shallow water models and composite Boussinesq/NLSW models
+      may give large errors in breaking point and wave shape
+\item Breaking does not really occur before the local amplitude is much higher than 0.8 time the depth -- a limit that is inspired by the
+existence of solitary wave solution in full potential theory.
+The 0.8 limit  may be better on even gentler slopes.
+\item Effects of nonlinearities in the dispersion does influence the 
+solution markedly, when accumulated up to the point of breaking.
+\end{itemize}
 %From the laboratory experiments, Titov and Synolakis (1995) \cite{titov1995modeling} determined that the wave breaking starts when the non-dimensional distance from the shoreline is about $x^*=2.5$. The breaking point was determined by approximating the wave front and crest paths. When two paths coincide, it is assumed that the wave starts breaking. 
 
 \section*{References}
