@@ -80,7 +80,7 @@ depth-averaged wave models are consequently widely used in the study of their pr
 Through the use of numerical shock capturing techniques for modeling
 the nearshore bore formation of the tsunami, {\em nonlinear shallow water} (NLSW) models
 have become the standard model for modeling tsunami propagation and run-up, see e.g. 
-\citep{titov1995modeling,Imamura1996b,Harig2008,BergerGeorgeLeVequeMandli11}.
+\citet{titov1995modeling,Imamura1996b,Harig2008,BergerGeorgeLeVequeMandli11}.
 Well known applications include inundation modeling of the recent major tsunami events 
 such as the 2004 Indian Ocean tsunami \citep{Borrero2006,Kaiser2011} and the 2011 Tohoku tsunami \citep{Hooper2013,Romano2014}. 
 
@@ -94,9 +94,10 @@ for the evolution of undular bores \cite{Behrens2015}.
 In the last decades we have seen a development on long wave expansions and their numerical formulations. 
 New Boussinesq type formulations, such as those introduced by \cite{madsen1992new}, and \cite{nwogu1993alternative}, displayed improved accuracy, as well as extended validity ranges in comparison to the standard formulation of \cite{peregrine1967long}.
 
-In their original formulation, Boussinesq-type models do not take into account 
-the post-breaking motion. In order to combine breaking with  the Boussinesq-type equations
-several strategies have therefore been suggested. For instance, \citep{peregrine1967long} used $A/h=0.6$ 
+In their original formulation, Boussinesq-type models 
+do not take into account the post-breaking motion. 
+In order to combine breaking with  the Boussinesq-type equations
+several strategies have therefore been suggested. For instance, \citet{peregrine1967long} used $A/h=0.6$ 
 as the break threshold, while pointing out that this value could reaches around $2$ in laboratory experiments. 
 Another way of incorporating the breaking that was suggested by \cite{Kennedy2000} included diffusive terms
 in the momentum equation to smear out sharp fronts. \citet{Lovholt:2013a} similarly employed a diffusive model including transport terms, but pointed out that breaking wave Boussinesq models were prone to instabilities. 
@@ -137,9 +138,9 @@ to accurately model the near shore tsunami propagation beyond the standard $A/h 
 Conversely, we find that the use of the standard $A/h = 0.8$ threshold depth 
 invokes a too early formation of a breaking bore. This points out that  
 that the breaking criteria employed so far lacks generality.
-While these criterias may be attractive due to robustness, 
-they may be lacking not only for modeling the breaking phase, but in certain situation also the pre-breaking phase.
-\marginpar{\footnotesize Move to last part of this paragraph to conclusions (or omit this)?}
+%While these criteria may be attractive due to robustness, 
+%they may be lacking not only for modeling the breaking phase, but %in certain situation also the pre-breaking phase.
+%\marginpar{\footnotesize Move to last part of this paragraph to conclusions (or omit this)?}
 
 This paper is organized as follows: In Section \ref{sec:model}, the base model
 for the wave equations is given and the numerical scheme is outlined, including a von Neuman stability analysis. 
@@ -152,7 +153,7 @@ evolution with Boussinesq type models.
 \section{Model Description}
 \label{sec:model}
 
-The Boussinesq-type equations
+Boussinesq-type equations
 is a class of the depth-averaged model 
 that can treat short waves more accurately
 than the shallow water equations. 
@@ -174,7 +175,6 @@ It is an extension of \textsc{Geoclaw} \citet{clawpack},
 and solves 
 the Boussinesq-type equations derived by
 \citet{schaffer1993boussinesq}.
-\marginpar{\footnotesize Your reference to \citet{schaffer1993boussinesq} and \citet{schaffer1995further} is arbitrary. Suggest that you put in a clear distinction here, i.e. that you derive your eq.s on the basis of these two sets}. 
 The \textsc{BoussClaw}
 is a hybrid of the finite volume and finite difference solvers
 with the operation splitting technique.
@@ -217,7 +217,9 @@ expansion of the linear dispersion analysis.
 When $B=0$, this set of the Boussinesq-type equations
 approximately reduces to that of \citet{peregrine1967long}
 as the linear dispersion relations are identical. 
-However, unlike Peregrine's momentum equation the hydrostatic parts of  (\ref{eq:madsen_momx}) are written in a conservative form.
+However, unlike Peregrine's momentum equation 
+the hydrostatic parts of (\ref{eq:madsen_momx}) 
+are written in a conservative form.
 This difference will be observed in the numerical procedure and is
 further elaborated in \ref{append:a}.
 
@@ -390,19 +392,21 @@ facility and is hence valid only to the point of breaking.
 Results from this model will be referred to as 'Serre', even though
 the dispersion enhancement is invoked. 
  
-Results for the Peregrine type Boussinesq equations are obtained by the
+Results for the Peregrine-type Boussinesq equations are obtained by the
 GloBouss model. This is a dispersive tsunami propagation model which
-is based on Peregrine type equations and discretization on a staggered grid. Further details are found in 
+is based on Peregrine-type equations and discretization on a staggered grid. Further details are found in 
 \citet{Lovholt:2008b}.
 
 For comparison also the version 2.1 of the  \textsc{Funwave-TVD} model
-by \citep{shi2012high} is used. The
-FUNWAVE-TVD model shares similarities with \textsc{BoussClaw}, employing a hybrid finite volume / finite difference
+by \citet{shi2012high} is used. The
+\textsc{Funwave-TVD} model shares similarities with \textsc{BoussClaw}, employing a hybrid 
+of the finite volume and finite difference
 scheme to solve the fully non-linear higher order dispersive Boussinesq model numerically.
-While we refer to \citep{shi2012high} for details, we briefly note that \textsc{Funwave-TVD} is based the fully nonlinear 
-Boussinesq equations of \citep{Chen06}. The numerical spatial representation in \textsc{Funwave-TVD} is MUSCL TVD scheme 
-to discretize for the flux and first order terms, whereas a central finite difference
-scheme \cite{Wei95} is utilized for the higher order momentum terms. A Runge-Kutta scheme is employed for the time stepping.
+While we refer to \citet{shi2012high} for details, we briefly note that \textsc{Funwave-TVD} is based the fully nonlinear 
+Boussinesq equations of \citet{Chen06}. The numerical spatial representation in \textsc{Funwave-TVD} is MUSCL TVD scheme 
+to discretize for the flux and first order terms, 
+whereas a central finite difference
+scheme \citet{Wei95} is utilized for the higher order momentum terms. A Runge-Kutta scheme is employed for the time stepping.
 
 \section{Numerical Tests}
 \label{sec:num_nonbreaking}
@@ -522,7 +526,7 @@ with $h=21.8$ cm.
 
 \begin{figure}[!htb]
 \centering
-\begin{tikzpicture}[scale=.5]
+\begin{tikzpicture}[scale=.55]
  \draw[line width=4pt] (0,-4) -- (0,3);
  \draw[line width=2pt] (0,-4) -- (5,-4) -- (7,-3) --(13,-2) -- (15,-0.5);
  \draw[line width=4pt] (15,-4)--(15,3);
@@ -564,7 +568,8 @@ with $h=21.8$ cm.
 
 The second case with $A/h=0.259$ has been 
 compared with the numerical tests
-which employed $400$ grid with no friction. \marginpar{\footnotesize Something missing. 400 points?}
+which employed $400$ grids. 
+%\marginpar{\footnotesize Something missing. 400 points?}
 %And the switching scheme between the shallow water equations and the Boussinesq equations, is not applied.
 To specify the incoming wave from the left boundary, 
 the data at Gauge 4 were used for the wave height,
@@ -612,13 +617,16 @@ approaching a slope of $1:19.85$. In Figure \ref{fig:init_setup}, the initial se
 \label{fig:init_setup}
 \end{figure}
 
-The set-up of the wave tank in the simulations follows the laboratory experiments by \citep{synolakis1987runup}. 
+The set-up of the wave tank in the simulations follows the laboratory experiments by \citet{synolakis1987runup}. 
 The wave tank is assumed to have one horizontal direction,
 and the bathymetry is composed of a horizontal bottom and 
 a uniform slope as shown in Figure \ref{fig:init_setup}. 
 A solitary wave of $A/h=0.28$ is generated at the right side
 and propagates to the shore on the left side. 
 
+We present the results using the non-dimensional time 
+$t^*=t\sqrt{h/g}$ and non-dimensional space $x^*=x/h$. In the following, we drop the astrixes in 
+the presentation of the results. 
 In  \citet{synolakis1987runup}, $t=0$ was defined as when the wave crest was a distance $L$ from the toe of the slope,
 where $L$ was given as
 \begin{flalign*}
@@ -632,14 +640,9 @@ at $L + 5c$, where $c$ is the shallow water wave celerity.
 In this way, the initial solitary wave has a negligible interaction with the slope when initialized. 
 %Then $t=0$ is set as soon as the peak of wave is at $x=L$.
 
-% The BIM solution is in a good agreement with the experiments to the wave break point, 
-%The BIM solution can provide detailed time series solution which the laboratory measurements are lack of. 
 In Figure \ref{fig:lab_bim}, the laboratory measurements
 are shown with the computational results from the BIM model
-for a breaking wave case of Synolakis with $A/h=0.28$ and $1:19.85$ slope
-at $t^*=15$. We present the results using the non-dimensional time 
-$t^*=t\sqrt{h/g}$ and non-dimensional space $x^*=x/h$. In the following, we drop the astrixes in 
-the presentation of the results. \marginpar{\footnotesize Please make sure that we introduce non-dimensionality the first time we use it. Not sure if it is here.} 
+for a breaking wave case of Synolakis with $A/h=0.28$ and $1:19.85$ slope at $t=15$.
 %The results are in good agreement. 
 
 \begin{figure}[!htb]
@@ -654,8 +657,9 @@ Figure \ref{fig:bim_breaking} shows
 the numerical results from the BIM model at $t=17$, $18$ and  $18.6$.
 In the BIM results a vertical front is observed at $x=4.02$ and $t=18.6$
 with the maximum wave amplitude $A=0.414$, and this shows similarity with 
-the analysis of \citet{titov1995modeling}.
-\marginpar{\footnotesize What is the result of Titov and Synolakis?} 
+the analysis of \citet{titov1995modeling}
+on the wave breaking point.
+%\marginpar{\footnotesize What is the result of Titov and Synolakis?} 
 %and the undisturbed depth is $h=0.206$ m. 
 The ratio of amplitude to depth, $A/h$, 
 is about $2.01$ at the break point.
@@ -686,7 +690,7 @@ A vertical front is observed at $t=18.6$. }
 %One of the main reasons is to exclude the effect of the bottom friction. Without appropriate inclusion of the friction forces, the numerical results will not yield comparable results with the experiments. When different numerical models are compared, however, it is difficult to distinguish the friction errors from the modeling errors. Therefore, the numerical solution of BIM without any friction is considered as a solution.
 
 %Figure \ref{fig:sw_timeseries} and \ref{fig:bous_timeseries} show the computational results from depth-averaged models, and both models do not capture the wave breaking properly.
-%In Figure \ref{fig:bous_timeseries}, the numerical results from the \textsc{BoussiClaw} are given, the amplitude of the incoming wave continues to increase and the wave does not break. 
+%In Figure \ref{fig:bous_timeseries}, the numerical results from the \textsc{BoussClaw} are given, the amplitude of the incoming wave continues to increase and the wave does not break. 
 
 \begin{figure}[!htb]
 \centering
@@ -698,7 +702,7 @@ A vertical front is observed at $t=18.6$. }
 %\begin{figure}[!htb]
 %\centering
 %\includegraphics[width=\textwidth]{_fig/bous_dx025_time_series.png}
-%\caption{Computational results from \textsc{BoussiClaw} 
+%\caption{Computational results from \textsc{BoussClaw} 
 %at $t= 5,9,13,17$ and $20$ s.  }
 %\label{fig:bous_timeseries}
 %\end{figure}
@@ -713,7 +717,7 @@ the wave amplitude increases and the wavelength shortens.
 In numerical simulations,
 the grid size should be small enough 
 to be able to capture the short wavelength 
-In Figure \ref{fig:dgeo_grids}, 
+In Figure \ref{fig:boussclaw_grids}, 
 the computational results at t=$18$, $20$ and $22$ are shown 
 with grid size $\Delta x = 0.025, 0.05$ and $0.1$ m. 
 When the wave is smooth at $t=18$, the different grid sizes
@@ -727,19 +731,19 @@ in order to capture the wave steepening properly at t=$22$.
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=.9\textwidth]{_fig/dgeo_grids_t18.png}\\
-\includegraphics[width=.9\textwidth]{_fig/dgeo_grids_t20.png}\\
-\includegraphics[width=.9\textwidth]{_fig/dgeo_grids_t22.png}
+\includegraphics[width=.9\textwidth]{_fig/boussclaw_grids_t18.png}\\
+\includegraphics[width=.9\textwidth]{_fig/boussclaw_grids_t20.png}\\
+\includegraphics[width=.9\textwidth]{_fig/boussclaw_grids_t22.png}
 \caption{Snapshot of the \textsc{BoussClaw} results 
 at t=$18$, $20$ and $22$
 with $\Delta x=0.025$, $0.05$ and $0.1$ m.}
-\label{fig:dgeo_grids}
+\label{fig:boussclaw_grids}
 \end{figure}
 
 \fi
 
 We use the setup described in section \ref{sec:wave_break} for the Boussinesq modeling of
-solitary waves on a slope. Figure \ref{fig:bim_dgeo} shows the snapshots of 
+solitary waves on a slope. Figure \ref{fig:bim_boussclaw} shows the snapshots of 
 the water surface at t=$16$ and $18.6$
 from BIM and \textsc{BoussClaw} with B=$0$ and $1/15$.
 When the wave is smooth at t=16, the \textsc{BoussClaw}
@@ -754,13 +758,13 @@ with $B=0$ and $1/15$.
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=.9\textwidth]{_fig/bim_dgeo_160.png}\\
-\includegraphics[width=.9\textwidth]{_fig/bim_dgeo_186.png}
-%\includegraphics[width=.7\textwidth]{_fig/bim_dgeo_192.png}
+\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_160.png}\\
+\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_186.png}
+%\includegraphics[width=.7\textwidth]{_fig/bim_boussclaw_192.png}
 \caption{Snapshots of BIM and \textsc{BoussClaw} with B=$0$ and $1/15$ at t=$16$, and $18.6$.}
-\label{fig:bim_dgeo}
+\label{fig:bim_boussclaw}
 \end{figure}
-\marginpar{\footnotesize Lines in figure 10 indistinguishable Change line style or color} 
+%\marginpar{\footnotesize Lines in figure 10 indistinguishable Change line style or color} 
 
 The numerical simulations of 
 the \textsc{BoussClaw} are compared
@@ -771,11 +775,24 @@ Boussinesq-type equation models
 such as \textsc{Funwave} \citet{shi2012high}, \textsc{GloBouss} \citet{lovholt2010coupling} and the Serre type \citet{Lovholt:2013a}, 
 have also been used for comparison.
 As noted above, 
-the original Serre's equations are enhanced by adding the \citet{schaffer1995further} terms. 
+the original Serre's equations are enhanced by adding the \citet{schaffer1993boussinesq} terms. 
 %And the boundary integral method (BIM) for the full potential theory is also considered. 
 %The threshold of the wave breaking is not used in this section. 
 
-In Figure \ref{fig:bim_dgeo_fun}, snapshots from different
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_fun_glob_150.png}\\
+%\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_fun_glob_160.png}\\
+\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_fun_glob_170.png}\\
+\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_fun_glob_180.png}
+\caption{Snapshots of BIM, Serre, \textsc{GloBouss}, \textsc{BoussClaw}
+and \textsc{Funwave} at t = $15$, $17$ and $18$.
+The \textsc{BoussClaw} is used with B=$1/15$,
+and the Peregrine's form is used for \textsc{GloBouss}.}
+\label{fig:bim_boussclaw_fun}
+\end{figure}
+
+In Figure \ref{fig:bim_boussclaw_fun}, snapshots from different
 numerical models are shown at t=$15$, $17$ and $18$. 
 At t=$15$, the computational results
 from different numerical tools show slightly different results,
@@ -793,20 +810,6 @@ and the difference from the BIM result becomes larger at t = $18$.
 The results from the Serre and \textsc{BoussClaw} models clearly
 more similar to those of the BIM model. 
 Especially, the wave amplitudes are correctly determined by these models.
-%\marginpar{\footnotesize Then why don't we use Serre?}
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[width=.9\textwidth]{_fig/bim_dgeo_fun_glob_150.png}\\
-%\includegraphics[width=.9\textwidth]{_fig/bim_dgeo_fun_glob_160.png}\\
-\includegraphics[width=.9\textwidth]{_fig/bim_dgeo_fun_glob_170.png}\\
-\includegraphics[width=.9\textwidth]{_fig/bim_dgeo_fun_glob_180.png}
-\caption{Snapshots of BIM, Serre, \textsc{GloBouss}, \textsc{BoussClaw}
-and \textsc{Funwave} at t = $15$, $17$ and $18$.
-The \textsc{BoussClaw} is used with B=$1/15$,
-and the Peregrine's form is used for \textsc{GloBouss}.}
-\label{fig:bim_dgeo_fun}
-\end{figure}
 
 \subsection{Wave Breaking}
 
@@ -827,16 +830,16 @@ the application of this threshold.
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=.9\textwidth]{_fig/bim_dgeo_etaB8_150.png}\\
-%\includegraphics[width=.9\textwidth]{_fig/bim_dgeo_etaB8_160.png}\\
-\includegraphics[width=.9\textwidth]{_fig/bim_dgeo_etaB8_170.png}\\
-\includegraphics[width=.9\textwidth]{_fig/bim_dgeo_etaB8_186.png}
+\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_etaB8_150.png}\\
+%\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_etaB8_160.png}\\
+\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_etaB8_170.png}\\
+\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_etaB8_186.png}
 \caption{Comparison of BIM, \textsc{BoussClaw} and SWE 
-with $\epsilon=0.8$ at t =$15$, $17$ and $18.6$.}
-\label{fig:dgeo_th08}
+with $\epsilon_B=0.8$ at t =$15$, $17$ and $18.6$.}
+\label{fig:boussclaw_th08}
 \end{figure}
 
-In Figure \ref{fig:dgeo_th08}, snapshots are shown at 
+In Figure \ref{fig:boussclaw_th08}, snapshots are shown at 
 t=$15$, $17$, and $18.6$ from BIM, \textsc{BoussClaw} 
 and SWE.
 At t=$15$, the difference between BIM and \textsc{BoussClaw}
@@ -870,7 +873,7 @@ for the shallow water equations and Boussinesq equations
 are $E_0$ and $E_0+E_1$  respectively, 
 which are given in (\ref{eq:energy_e0}) and (\ref{eq:energy_e1}). 
 
-In Figure \ref{fig:energy_dgeo_swe}, 
+In Figure \ref{fig:energy_boussclaw_swe}, 
 the wave energy $E_0$ and $E_0+E_1$ are shown. 
 The energy denotes the aggregate 
 of the wave energy in the entire computational domain 
@@ -897,33 +900,35 @@ then starts to decrease as a shock is formed.
 \begin{figure}[!htb]
     \centering
     \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{_fig/e0_dgeo_eb08.png}
+        \includegraphics[width=\textwidth]{_fig/e0_boussclaw_eb08.png}
         \caption{$E_0$}
-        \label{fig:e0_dgeo_eb08}
+        \label{fig:e0_boussclaw_eb08}
     \end{subfigure}
     \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{_fig/e1_dgeo_eb08.png}
+        \includegraphics[width=\textwidth]{_fig/e1_boussclaw_eb08.png}
         \caption{$E_0+E_1$}
-        \label{fig:e1_dgeo_eb08}
+        \label{fig:e1_boussclaw_eb08}
     \end{subfigure}
     \caption{Energy plots of SWE and \textsc{BoussClaw}.
     The vertical line is at $x=8.03227$ m where $\epsilon_B=0.8$,
     and the governing equations are switched to the SWE from
     the Boussinesq equations. }
-    \label{fig:energy_dgeo_swe}
+    \label{fig:energy_boussclaw_swe}
 \end{figure}
 
 \section{Conclusion}
 \label{sec:conclusion}
 
-In the present paper we have presented a new operation Boussinesq type model, \textsc{BoussClaw},
+In the present paper we have presented a new operational 
+Boussinesq type model, \textsc{BoussClaw},
 for modeling fully non-linear dispersive tsunami propagation, taking also into account drying-wetting and inundation.
 \textsc{BoussClaw} share similarities with much used operational models such as \textsc{Funwave-TVD} and
 \textsc{Coulwave-TVD}, but is based on a slightly simpler and more transparent set of governing equations,
 and has a slightly different numerical scheme. We have tested numerical implementation towards
 analytical solitary wave expressions as well as laboratory experiments.
 
-Making using of the experiments of \citet{synolakis1987runup} enabled us to
+Making use of the experiments of \citet{synolakis1987runup} 
+enabled us to
 constrain a set of different long wave models, including \textsc{BoussClaw}, as well as a full potential
 BIM reference model. Using the BIM, we were able to explore in detail the post-breaking behaviour,
 and to identify the point of breaking more accurately. This was useful for determining the 
@@ -934,7 +939,7 @@ However, in current practise the Boussinesq terms are often omitted near shore t
 As a consequence, the point of breaking may be misinterpreted also in Boussinesq type models.
 
 In the present example, we investigated the near shore propagation over a relatively gentle shelf of $1/19.85$ slope,
-and in this case the actual onset of breaking occurred for $A/h~2$, which is significantly later
+and in this case the actual onset of breaking occurred for $A/h \approx 2$, which is significantly later
 than what would be predicted in any standard approach (NLSW or Boussinesq). As demonstrated in this paper,
 the combined effects of non-linearities and dispersion influence the solution markedly, when accumulated to the point
 of breaking. It is noted that the artificial effect discovered would depend on the slope, 
@@ -945,7 +950,7 @@ be even more pronounced for somewhat steeper slopes.
 
 %{\em What should the main conclusions be}
 %\begin{itemize}
-%\item \textsc{BoussiClaw} works.
+%\item \textsc{BoussClaw} works.
 %\item Shallow water models and composite Boussinesq/NLSW models
 %      may give large errors in breaking point and wave shape
 %\item Breaking does not really occur before the local amplitude is much higher than 0.8 time the depth -- a limit that is inspired by the existence of solitary wave solution in full potential theory.
@@ -978,7 +983,7 @@ then these are called
 the Peregrine's equations.
 
 We claim that the Boussinesq equations 
-by \citet{schaffer1995further}
+by \citet{schaffer1993boussinesq}
 can be approximately reduced to the Peregrine's form when $B=0$.
 Since $H=h+\eta$, the dispersion terms of Sch{\"a}ffer and Madsen
 with $B=0$, can be written as, 
@@ -1108,7 +1113,7 @@ has the following dispersion terms,
 \label{eq:serre_disp}
 \end{flalign}
 It is observed that (\ref{eq:madsen_disp_v3}) and (\ref{eq:serre_disp}) share common terms.
-As shown in Figure \ref{fig:bim_dgeo_fun}
+As shown in Figure \ref{fig:bim_boussclaw_fun}
 numerical results also show that Sch{\"a}ffer and Madsen's 
 model is more similar to Serre's equations than Peregrine's equations.
 
