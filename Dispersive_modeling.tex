@@ -63,6 +63,26 @@ Oslo, Norway}
 
 \begin{abstract}
 
+The nonlinear shallow water model is widely used
+in the study of tsunami propagations
+where the wave dispersion is ignorable.
+If the wave dispersion becomes important,
+Boussinesq-type models are often used. 
+In this work, an operational Boussinesq solver, 
+{\em BoussClaw}, is introduced
+for modeling fully non-linear dispersive tsunami propagation, 
+taking into account inundation. 
+In the \textsc{BoussClaw},
+the Boussinesq equations by \citet{schaffer1993boussinesq}
+are implemented with a hybrid of the finite volume
+and finite difference methods.
+In order to validate \textsc{BoussClaw}, 
+numerical results are compared 
+to the analytical solutions and laboratory experiments. 
+Furthermore, the wave steepening and breaking motion
+is explored with the help of the full potential 
+boundary integral model. 
+
 \end{abstract}
 
 \begin{keyword}
@@ -147,7 +167,9 @@ for the wave equations is given and the numerical scheme is outlined, including 
 Sections \ref{sec:num_nonbreaking} compares results from the \textsc{BoussClaw} with
 the analytic solutions and laboratory experiments. 
 Section \ref{sec:wave_break} discusses the wave steepening and using a Boundary Integral Method (BIM) for 
-solving the full potential equations. In \ref{sec:num_breaking} we compare these results of pre-breaking
+solving the full potential equations. 
+In Section \ref{sec:num_breaking}, 
+we compare these results of pre-breaking
 evolution with Boussinesq type models.
 
 \section{Model Description}
@@ -361,9 +383,6 @@ Correspondingly, the $i$-th element of $\bar{\Psi(\textbf{H},\textbf{q})}$ is
 +H_{i-1}\left(\eta_{i}-\eta_{i-2} \right) \right), &
 \end{flalign*}
 for $i=1,2,\dots,n$.
-% $i=3,4,\dots,n-3,n-2$.
-% If $i=1,2,n-1$, and $n$, then one-sided $\mathcal{•}{O}(\Delta x^2)$ accurate finite difference approximation is used instead.
-%The system (\ref{eq:rk4_1}) is computed using an approximate solver, and \textsc{Gmres} is adopted. 
 
 \subsection{Models for comparison}
 The performance of the Boussinesq model presented here is 
@@ -601,8 +620,6 @@ tuning the friction models is not the scope of this work.
 \label{sec:wave_break}
 
 %Depth-averaged models are not capable of handling the wave breaking unless they are modified by incorporating the energy dissipation. In this work, a breaking solitary wave will be considered on a uniform slope. For laboratory experiments, see Synolakis \{synolakis1987runup}.
-
-%\marginpar{\small What will be the reason for this difference between lab and BIM? Need to check dist vs. speed of crest.}
 
 \citet{synolakis1987runup} performed a series of laboratory experiments for the run-up of solitary waves
 on uniform slopes. Here, we are interested in the examples with including breaking waves. 
@@ -873,6 +890,25 @@ for the shallow water equations and Boussinesq equations
 are $E_0$ and $E_0+E_1$  respectively, 
 which are given in (\ref{eq:energy_e0}) and (\ref{eq:energy_e1}). 
 
+\begin{figure}[!htb]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{_fig/e0_boussclaw_eb08.png}
+        \caption{$E_0$}
+        \label{fig:e0_boussclaw_eb08}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{_fig/e1_boussclaw_eb08.png}
+        \caption{$E_0+E_1$}
+        \label{fig:e1_boussclaw_eb08}
+    \end{subfigure}
+    \caption{Energy plots of SWE and \textsc{BoussClaw}.
+    The vertical line is at $x=8.03227$ m where $\epsilon_B=0.8$,
+    and the governing equations are switched to the SWE from
+    the Boussinesq equations. }
+    \label{fig:energy_boussclaw_swe}
+\end{figure}
+
 In Figure \ref{fig:energy_boussclaw_swe}, 
 the wave energy $E_0$ and $E_0+E_1$ are shown. 
 The energy denotes the aggregate 
@@ -896,25 +932,6 @@ the wave energy $E_0$ on the left figure
 does not decrease immediately.
 The energy $E_0$ is preserved for a while, 
 then starts to decrease as a shock is formed. 
-
-\begin{figure}[!htb]
-    \centering
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{_fig/e0_boussclaw_eb08.png}
-        \caption{$E_0$}
-        \label{fig:e0_boussclaw_eb08}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{_fig/e1_boussclaw_eb08.png}
-        \caption{$E_0+E_1$}
-        \label{fig:e1_boussclaw_eb08}
-    \end{subfigure}
-    \caption{Energy plots of SWE and \textsc{BoussClaw}.
-    The vertical line is at $x=8.03227$ m where $\epsilon_B=0.8$,
-    and the governing equations are switched to the SWE from
-    the Boussinesq equations. }
-    \label{fig:energy_boussclaw_swe}
-\end{figure}
 
 \section{Conclusion}
 \label{sec:conclusion}
