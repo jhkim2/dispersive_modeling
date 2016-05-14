@@ -1,0 +1,105 @@
+\begin{align}
+(I-D^2)(u_t + u_x) +D^2u_x = 0, \label{eq:basic_2}
+\end{align}
+where $D=\partial_x$.
+Then we are required to solve the following PDE,
+\begin{align}
+\left\{
+\begin{array}{l}
+u_t + u_x + S = 0, \\
+\left(I-D^2 \right)S = D^3 u .
+\end{array}
+\right.
+\end{align}
+When the hybrid scheme is applied, the advection equation
+\begin{align}
+u_t + u_x = 0,
+\label{eq:append_advec}
+\end{align}
+is solved with the finite volume method, 
+and then the fractional step method is applied to
+the following equation,
+\begin{align*}
+u_t + S = 0.
+\end{align*}
+
+If we use the centered difference approximation of $O(\Delta x^2)$
+accuracy, and the four-stage Runge-Kutta scheme for time stepping,
+then we have,
+\begin{align*}
+U_1 &:= u^n \\
+U_2 &:= u^n - \frac{\Delta t}{2}S_1, \quad  \textrm{where}\quad 
+(I-D^2)S_1 = D^3 U_1, \\
+U_3 &:= u^n - \frac{\Delta t}{2}S_2, \quad  \textrm{where}\quad
+(I-D^2)S_2 = D^3 U_2, \\
+U_4 &:= u^n - \Delta tS_3, \quad  \textrm{where}\quad
+(I-D^2)S_3 = D^3 U_3, \\
+u^{n+1} & = u^n -\frac{\Delta t}{6} \left[
+S_1 + 2S_2 + 2S_3 + S_4
+\right],  \quad  \textrm{where}\quad
+(I-D^2)S_4 = D^3 U_4.
+\end{align*}
+For each step, $S_i$'s are computed from
+\begin{align*}
+& (S_i)_j - \frac{(S_i)_{j+1}-2(S_i)_j+(S_i)_{j-1}}{\Delta x^2} = 
+\frac{u_{j+2} - 2u_{j+1} +2u_{j-1} -u_{j-2}}{2\Delta x^3}.
+\end{align*}
+In order to investigate the stability with von Neumann analysis,
+replace $u_j= e^{i\xi j \Delta x}$ and  $(S_1)_j= \beta e^{i\xi j \Delta x}$. 
+Simplification gives
+\begin{align*}
+&\beta \left( 1 - \frac{-2+2\cos(\xi \Delta x) }{\Delta x^2} \right) = 
+\frac{\sin(2\xi \Delta x) - 2 \sin(\xi \Delta x)}{\Delta x^3} i, \\
+& \beta = \frac{ -2\sin(\xi \Delta x)(1-  \cos(\xi \Delta x)) }
+                     { \Delta x^3 +2\Delta x(1-\cos(\xi \Delta x))} i.
+\end{align*}
+Note that $\beta$ is a purely imaginary number.
+If we replace the four-stage Runge-Kutta scheme with
+$u_j= e^{i\xi j \Delta x}$ and  $(S_1)_j= \beta e^{i\xi j \Delta x}$, then we have
+\begin{align*}
+&S_1 = \beta e^{i\xi j \Delta x} ,
+ \quad U_2 = \left(1-\frac{\Delta t\beta}{2} \right) e^{i\xi j \Delta x}\\
+&S_2 = \beta \left(1-\frac{\Delta t\beta}{2} \right) e^{i\xi j \Delta x} ,
+ \quad U_3 = \left(1- \frac{\Delta t\beta}{2}+\frac{(\Delta t\beta)^2}{4} \right) e^{i\xi j \Delta x}\\
+&S_3 =  \beta\left(1- \frac{\Delta t\beta}{2}+\frac{(\Delta t\beta)^2}{4} \right)  e^{i\xi j \Delta x} , \\
+& U_4 = \left(1-\Delta t\beta
++ \frac{(\Delta t\beta)^2}{2}-\frac{(\Delta t\beta)^3}{4} \right) e^{i\xi j \Delta x},\\
+&S_4 = \beta \left(1-\Delta t\beta
++ \frac{(\Delta t\beta)^2}{2}-\frac{(\Delta t\beta)^3}{4} \right) e^{i\xi j \Delta x}.
+\end{align*}
+Thus the growth factor $g(\xi)$ is
+\begin{align*}
+g(\xi)= & 1-\frac{\Delta t}{6}\bigg[ \beta + 
+2 \beta \left(1-\frac{\Delta t\beta}{2} \right) +
+2 \beta\left(1- \frac{\Delta t\beta}{2}+\frac{(\Delta t\beta)^2}{4} \right) \\ 
+&+ \beta \left(1-\Delta t\beta
++ \frac{(\Delta t\beta)^2}{2}-\frac{(\Delta t\beta)^3}{4} \right)
+\bigg] \\
+= & 1-\frac{1}{6}\left(
+6\Delta t\beta -3(\Delta t\beta)^2 +(\Delta t\beta)^3-\frac{(\Delta t\beta)^4}{4}
+\right).
+\end{align*}
+Since $\beta$ is an imaginary number,
+let $\Delta t\beta= \gamma i$ for some real $\gamma$, and then we have
+\begin{align*}
+g(\gamma) & = 1-
+\frac{1}{2}\gamma^2 +\frac{\gamma^4}{24} + \left(\frac{\gamma^3}{6} -\gamma \right)i \\
+|g(\gamma)|^2 & = 1 + \frac{1}{4}\gamma^4 + \frac{\gamma^8}{24^2} -\gamma^2 + \frac{\gamma^4}{12}
+-\frac{\gamma^6}{24} + \gamma^2 + \frac{\gamma^6}{36} -\frac{\gamma^4}{3} \\
+& = 1 -\frac{1}{72}\gamma^6 + \frac{1}{576}\gamma^8.
+\end{align*}
+If $|\gamma|<2\sqrt{2}$, then $|g(\gamma)|<1$. 
+The sufficient condition for stability is 
+\begin{align}
+\left| \frac{\Delta t}{\Delta x} \cdot \frac{ \sin(\xi \Delta x)(1-  \cos(\xi \Delta x)) }
+                     { \Delta x^2 +2(1-\cos(\xi \Delta x))} \right| < \sqrt{2}, 
+                     \quad \textrm{for~} \forall \xi \Delta x.
+\end{align}
+For small $\Delta x$, this condition approximately reduces to
+\[
+\frac{\Delta t}{\Delta x} < 2\sqrt{2}.
+\]
+The CFL condition for the advection equation
+(\ref{eq:append_advec}) is a sufficient condition. 
+Therefore, if the CFL condition is satisfied in the advection equation,
+the fractional step is always stable with the suggested numerical scheme. 

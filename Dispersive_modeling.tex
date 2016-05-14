@@ -264,7 +264,7 @@ where
 \end{flalign}
 
 \subsubsection{Numerical scheme}
-
+\label{sec:Num_scheme}
 The equations (\ref{eq:madsen_cons_mass}) and (\ref{eq:hybrid_src}) are 
 written in a form that conserves momentum to leading order in $\mu$, but with the $\Psi$
 term as a pseudo source.
@@ -318,12 +318,13 @@ defined as
 
 With time increment $\Delta t$ the fourth order Runge-Kutta scheme
 can be written as follows,
-\begin{flalign*}
+\begin{flalign}
 \textbf{M}^1 = \textbf{M}, \quad 
 \textbf{M}^2 = \textbf{M} + \frac{\Delta t}{2}\textbf{S}^1, \quad
 \textbf{M}^3 = \textbf{M} + \frac{\Delta t}{2}\textbf{S}^2, \quad
 \textbf{M}^4 = \textbf{M} + \Delta t \textbf{S}^3,
-\end{flalign*}
+\label{eq:rk4_S}
+\end{flalign}
 where $\textbf{M}^k$ are intermediate value arrays
 %\marginpar{How are values for $H$ obtained in the steps; linear interpolation ?} 
 and $\textbf{S}^k$ are
@@ -338,11 +339,12 @@ Here $\bar{\Psi}$ and $\bar{D}$ represent centered spatial discretizations for t
 are given explitly below.
 Finally the value of $\textbf{M}$ at the new time level is
 obtained by
-\begin{flalign*}
+\begin{flalign}
 \textbf{M}^+ & = \textbf{M} + \frac{\Delta t}{6} \left[
 \textbf{S}^1+2\textbf{S}^2+2\textbf{S}^3+\textbf{S}^4
-\right]. &
-\end{flalign*}
+\right]. 
+\label{eq:rk4_assemble}
+\end{flalign}
 
 In (\ref{eq:rk4_1}), 
 $\bar{D}$ is a tri-diagonal $n\times n$ matrix with elements 
@@ -1126,110 +1128,90 @@ model is more similar to Serre's equations than Peregrine's equations.
 
 \section{Stability of the hybrid scheme}
 \label{append:stab}
-
-In order to investigate the stability of the proposed hybrid numerical scheme,
-we consider a linearized Benjamin-Bona-Mahony (BBM)
-equation (\cite{benjamin1972model}),
-which is a class of the Boussinesq-type equations. 
-The PDE is given as follows,
+It is difficult to analyse the numerical stability for  our full Boussinesq
+equations. 
+To obtain some insight in the  stability of the proposed hybrid numerical scheme,
+we thus consider a closely related, but simpler, equation, namely the 
+linearized Benjamin-Bona-Mahony (BBM)
+equation (\cite{benjamin1972model}) 
 \begin{align}
 u_t + u_x = u_{txx}.
 \label{eq:basic_1}
 \end{align}
-In order to apply the hybrid scheme,
-the equation (\ref{eq:basic_1}) is rearranged as
+This equation describes weakly dispersive, uni-directional waves in constant
+depth $h=1$. The equation replaces the momentum equation, wheras no separate
+continuity equation is involved.
+
+Following, as far as possible, the steps of section \ref{sec:Num_scheme}
+we rearrange 
+the equation (\ref{eq:basic_1}) as
 \begin{align}
-(I-D^2)(u_t + u_x) +D^2u_x = 0, \label{eq:basic_2}
+(I-D)(u_t + u_x) +Du_x = 0, \label{eq:basic_2}
 \end{align}
-where $D=\partial_x$.
-Then we are required to solve the following PDE,
-\begin{align}
-\left\{
-\begin{array}{l}
-u_t + u_x + S = 0, \\
-\left(I-D^2 \right)S = D^3 u .
-\end{array}
-\right.
-\end{align}
-When the hybrid scheme is applied, the advection equation
+where $D=\partial_x^2$.
+The first step of  hybrid scheme for  this equation is integration of
+ the advection equation
 \begin{align}
 u_t + u_x = 0,
 \label{eq:append_advec}
 \end{align}
-is solved with the finite volume method, 
-and then the fractional step method is applied to
-the following equation,
-\begin{align*}
-u_t + S = 0.
-\end{align*}
+by the finite volume method. 
+Then the Runge-Kutta  method is applied to,
+\begin{align}
+(1-D)u_t + Du_x = 0.
+\label{eq:append_mom_fdm}
+\end{align}
+which is the counterpart to  (\ref{eq:hybrid_mom_fdm}).
 
-If we use the centered difference approximation of $O(\Delta x^2)$
-accuracy, and the four-stage Runge-Kutta scheme for time stepping,
-then we have,
+If we use the centered spatial difference approximation of $O(\Delta x^2)$
+accuracy on a regular grid and a uniform time step we may employ a standard von Neumann analysis where we calculate the growth of an harmonic mode over a single time step.
+Expressing the coefficients of the velocity array before the time step as  $u_j= e^{i\xi j \Delta x}$ we then replace the coefficient of $\textbf{M}^q$, defined in section \ref{sec:Num_scheme}, by  $M_j^q=U_j^q= g_qe^{i\xi j \Delta x}$, 
+where $q$ is 1, 2, 3, 4 or +. Correspondingly, the coefficients of the $\mathbf{S}^k$ array, which contains auxilary,  nodal values for $u_t$,  is
+expressed $(S_j^k)= s^k e^{i\xi j \Delta x}$. 
+
+We assume that the first step, where (\ref{eq:append_advec}) is solved, is absolutely 
+stable. Hence, we simplify by assuming that $g_1$ is constant and has an absolute value
+less than unity. 
+The Runge-Kutta scheme for time stepping, (\ref{eq:rk4_S}), may  now be
+expressed as
+\begin{flalign} 
+g^2 = g^1 + \frac{\Delta t}{2}s^1, \quad
+g^3 = g^1 + \frac{\Delta t}{2}s^2, \quad
+g^4 = g^3 + \Delta t s^3,
+\label{eq:rk4_Neumann}
+\end{flalign}
+The discrete version of (\ref{eq:append_mom_fdm}), which is the counterpart to
+(\ref{eq:rk4_1}) for the BBM equation reads 
 \begin{align*}
-U_1 &:= u^n \\
-U_2 &:= u^n - \frac{\Delta t}{2}S_1, \quad  \textrm{where}\quad 
-(I-D^2)S_1 = D^3 U_1, \\
-U_3 &:= u^n - \frac{\Delta t}{2}S_2, \quad  \textrm{where}\quad
-(I-D^2)S_2 = D^3 U_2, \\
-U_4 &:= u^n - \Delta tS_3, \quad  \textrm{where}\quad
-(I-D^2)S_3 = D^3 U_3, \\
-u^{n+1} & = u^n -\frac{\Delta t}{6} \left[
-S_1 + 2S_2 + 2S_3 + S_4
-\right],  \quad  \textrm{where}\quad
-(I-D^2)S_4 = D^3 U_4.
+& S_j^k - \frac{S_{j+1}^k-2S_j^k+S_{j-1}^k}{\Delta x^2} = 
+-\frac{U_{j+2}^k - 2U_{j+1}^k +2U_{j-1}^k -U_{j-2}^k}{2\Delta x^3},
 \end{align*}
-For each step, $S_i$'s are computed from
+which, inserted the harmonic expression, implies
+\begin{align}
+s^k=i\gamma g^k,\quad \gamma = \frac{ 2\sin(\xi \Delta x)(1-  \cos(\xi \Delta x)) }
+                     { \Delta x^3 +2\Delta x(1-\cos(\xi \Delta x))}.
+\label{append:rk4_1}
+\end{align}
+The assembling of the intermediate values in the Runge-Kutta procedure, 
+(\ref{eq:rk4_assemble}), now yields 
+\begin{flalign}
+g^+ & = g^1 + \frac{\Delta t}{6} \left[
+s^1+2s^2+2s^3+s^4
+\right]. 
+\label{append:rk4_assemble}
+\end{flalign}
+
+By combination of (\ref{eq:rk4_Neumann}) and (\ref{append:rk4_1}) $S^k$ and $g^k$, $k=1..4$ can be calculated sequentially  and combined in (\ref{append:rk4_assemble}) to provide
+the value of $g^+$, 
 \begin{align*}
-& (S_i)_j - \frac{(S_i)_{j+1}-2(S_i)_j+(S_i)_{j-1}}{\Delta x^2} = 
-\frac{u_{j+2} - 2u_{j+1} +2u_{j-1} -u_{j-2}}{2\Delta x^3}.
+g^+(\gamma) & = \left(1-
+\frac{1}{2}\gamma^2 +\frac{\gamma^4}{24} + \left(\frac{\gamma^3}{6} -\gamma \right)i\right)g^1 \\
+|g^+(\gamma)|^2 & = \left(1 + \frac{1}{4}\gamma^4 + \frac{\gamma^8}{24^2} -\gamma^2 + \frac{\gamma^4}{12}
+-\frac{\gamma^6}{24} + \gamma^2 + \frac{\gamma^6}{36} -\frac{\gamma^4}{3}\right)|g^1|^2 \\
+& = \left(1 -\frac{1}{72}\gamma^6 + \frac{1}{576}\gamma^8\right)|g^1|^2.
 \end{align*}
-In order to investigate the stability with von Neumann analysis,
-replace $u_j= e^{i\xi j \Delta x}$ and  $(S_1)_j= \beta e^{i\xi j \Delta x}$. 
-Simplification gives
-\begin{align*}
-&\beta \left( 1 - \frac{-2+2\cos(\xi \Delta x) }{\Delta x^2} \right) = 
-\frac{\sin(2\xi \Delta x) - 2 \sin(\xi \Delta x)}{\Delta x^3} i, \\
-& \beta = \frac{ -2\sin(\xi \Delta x)(1-  \cos(\xi \Delta x)) }
-                     { \Delta x^3 +2\Delta x(1-\cos(\xi \Delta x))} i.
-\end{align*}
-Note that $\beta$ is a purely imaginary number.
-If we replace the four-stage Runge-Kutta scheme with
-$u_j= e^{i\xi j \Delta x}$ and  $(S_1)_j= \beta e^{i\xi j \Delta x}$, then we have
-\begin{align*}
-&S_1 = \beta e^{i\xi j \Delta x} ,
- \quad U_2 = \left(1-\frac{\Delta t\beta}{2} \right) e^{i\xi j \Delta x}\\
-&S_2 = \beta \left(1-\frac{\Delta t\beta}{2} \right) e^{i\xi j \Delta x} ,
- \quad U_3 = \left(1- \frac{\Delta t\beta}{2}+\frac{(\Delta t\beta)^2}{4} \right) e^{i\xi j \Delta x}\\
-&S_3 =  \beta\left(1- \frac{\Delta t\beta}{2}+\frac{(\Delta t\beta)^2}{4} \right)  e^{i\xi j \Delta x} , \\
-& U_4 = \left(1-\Delta t\beta
-+ \frac{(\Delta t\beta)^2}{2}-\frac{(\Delta t\beta)^3}{4} \right) e^{i\xi j \Delta x},\\
-&S_4 = \beta \left(1-\Delta t\beta
-+ \frac{(\Delta t\beta)^2}{2}-\frac{(\Delta t\beta)^3}{4} \right) e^{i\xi j \Delta x}.
-\end{align*}
-Thus the growth factor $g(\xi)$ is
-\begin{align*}
-g(\xi)= & 1-\frac{\Delta t}{6}\bigg[ \beta + 
-2 \beta \left(1-\frac{\Delta t\beta}{2} \right) +
-2 \beta\left(1- \frac{\Delta t\beta}{2}+\frac{(\Delta t\beta)^2}{4} \right) \\ 
-&+ \beta \left(1-\Delta t\beta
-+ \frac{(\Delta t\beta)^2}{2}-\frac{(\Delta t\beta)^3}{4} \right)
-\bigg] \\
-= & 1-\frac{1}{6}\left(
-6\Delta t\beta -3(\Delta t\beta)^2 +(\Delta t\beta)^3-\frac{(\Delta t\beta)^4}{4}
-\right).
-\end{align*}
-Since $\beta$ is an imaginary number,
-let $\Delta t\beta= \gamma i$ for some real $\gamma$, and then we have
-\begin{align*}
-g(\gamma) & = 1-
-\frac{1}{2}\gamma^2 +\frac{\gamma^4}{24} + \left(\frac{\gamma^3}{6} -\gamma \right)i \\
-|g(\gamma)|^2 & = 1 + \frac{1}{4}\gamma^4 + \frac{\gamma^8}{24^2} -\gamma^2 + \frac{\gamma^4}{12}
--\frac{\gamma^6}{24} + \gamma^2 + \frac{\gamma^6}{36} -\frac{\gamma^4}{3} \\
-& = 1 -\frac{1}{72}\gamma^6 + \frac{1}{576}\gamma^8.
-\end{align*}
-If $|\gamma|<2\sqrt{2}$, then $|g(\gamma)|<1$. 
-The sufficient condition for stability is 
+If $|\gamma|<2\sqrt{2}$  then $|g^+(\gamma)/g^1|<1$. 
+Hence, a sufficient condition for stability of the second step of the hybrid scheme is 
 \begin{align}
 \left| \frac{\Delta t}{\Delta x} \cdot \frac{ \sin(\xi \Delta x)(1-  \cos(\xi \Delta x)) }
                      { \Delta x^2 +2(1-\cos(\xi \Delta x))} \right| < \sqrt{2}, 
