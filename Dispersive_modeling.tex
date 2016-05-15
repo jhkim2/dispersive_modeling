@@ -1128,7 +1128,7 @@ model is more similar to Serre's equations than Peregrine's equations.
 
 \section{Stability of the hybrid scheme}
 \label{append:stab}
-It is difficult to analyse the numerical stability for  our full Boussinesq
+It is difficult to analyze the numerical stability for  our full Boussinesq
 equations. 
 To obtain some insight in the  stability of the proposed hybrid numerical scheme,
 we thus consider a closely related, but simpler, equation, namely the 
@@ -1139,7 +1139,7 @@ u_t + u_x = u_{txx}.
 \label{eq:basic_1}
 \end{align}
 This equation describes weakly dispersive, uni-directional waves in constant
-depth $h=1$. The equation replaces the momentum equation, wheras no separate
+depth $h=1$. The equation replaces the momentum equation, whereas no separate
 continuity equation is involved.
 
 Following, as far as possible, the steps of section \ref{sec:Num_scheme}
@@ -1164,14 +1164,14 @@ Then the Runge-Kutta  method is applied to,
 which is the counterpart to  (\ref{eq:hybrid_mom_fdm}).
 
 If we use the centered spatial difference approximation of $O(\Delta x^2)$
-accuracy on a regular grid and a uniform time step we may employ a standard von Neumann analysis where we calculate the growth of an harmonic mode over a single time step.
+accuracy on a regular grid we may employ a standard von Neumann analysis where we calculate the growth of an harmonic mode over a single time step.
 Expressing the coefficients of the velocity array before the time step as  $u_j= e^{i\xi j \Delta x}$ we then replace the coefficient of $\textbf{M}^q$, defined in section \ref{sec:Num_scheme}, by  $M_j^q=U_j^q= g_qe^{i\xi j \Delta x}$, 
-where $q$ is 1, 2, 3, 4 or +. Correspondingly, the coefficients of the $\mathbf{S}^k$ array, which contains auxilary,  nodal values for $u_t$,  is
+where $q$ is 1, 2, 3, 4 or +. Correspondingly, the coefficients of the $\mathbf{S}^k$ array, which contains auxiliary,  nodal values for $u_t$,  is
 expressed $(S_j^k)= s^k e^{i\xi j \Delta x}$. 
 
 We assume that the first step, where (\ref{eq:append_advec}) is solved, is absolutely 
-stable. Hence, we simplify by assuming that $g_1$ is constant and has an absolute value
-less than unity. 
+stable in the sense that a small damping is involved. However, the method employed is not suited for a von Neumann stability analysis and we thus apply this technique to the second step only. \marginpar{\footnote What can be said on the actual stability properties of the flux limiter method?}
+ Hence, we may put $g_1$ to unity, but it is preferable to retain it in the calculations. 
 The Runge-Kutta scheme for time stepping, (\ref{eq:rk4_S}), may  now be
 expressed as
 \begin{flalign} 
@@ -1186,7 +1186,7 @@ The discrete version of (\ref{eq:append_mom_fdm}), which is the counterpart to
 & S_j^k - \frac{S_{j+1}^k-2S_j^k+S_{j-1}^k}{\Delta x^2} = 
 -\frac{U_{j+2}^k - 2U_{j+1}^k +2U_{j-1}^k -U_{j-2}^k}{2\Delta x^3},
 \end{align*}
-which, inserted the harmonic expression, implies
+which, inserted the harmonic expressions, implies
 \begin{align}
 s^k=i\gamma g^k,\quad \gamma = \frac{ 2\sin(\xi \Delta x)(1-  \cos(\xi \Delta x)) }
                      { \Delta x^3 +2\Delta x(1-\cos(\xi \Delta x))}.
@@ -1201,7 +1201,7 @@ s^1+2s^2+2s^3+s^4
 \label{append:rk4_assemble}
 \end{flalign}
 
-By combination of (\ref{eq:rk4_Neumann}) and (\ref{append:rk4_1}) $S^k$ and $g^k$, $k=1..4$ can be calculated sequentially  and combined in (\ref{append:rk4_assemble}) to provide
+By combination of (\ref{eq:rk4_Neumann}) and (\ref{append:rk4_1}) $S^k$ and $g^k$, $k=1..4$ can be calculated successively  and combined in (\ref{append:rk4_assemble}) to provide
 the value of $g^+$, 
 \begin{align*}
 g^+(\gamma) & = \left(1-
@@ -1220,11 +1220,12 @@ Hence, a sufficient condition for stability of the second step of the hybrid sch
 For small $\Delta x$, this condition approximately reduces to
 \[
 \frac{\Delta t}{\Delta x} < 2\sqrt{2}.
-\]
+\] 
 The CFL condition for the advection equation
 (\ref{eq:append_advec}) is a sufficient condition. 
 Therefore, if the CFL condition is satisfied in the advection equation,
 the fractional step is always stable with the suggested numerical scheme. 
+\marginpar{\footnotesize: Geir: It is not clear to me what is meant }
 
 \section{Energy estimates and dissipation}
 \label{append:energy}
