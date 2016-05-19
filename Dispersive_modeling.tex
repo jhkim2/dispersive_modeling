@@ -215,10 +215,10 @@ which is designed to solve the nonlinear shallow water equations.
 Boussinesq-type equations
 with an addition of a Pad{\'e} approximation 
 of the linear dispersion relation.
-The  equations read 
+The equations read 
 \begin{flalign}
 & H_t + (Hu)_x  = 0, \label{eq:madsen_cons_mass} & \\ 
-& (1-D)\big\lbrack(Hu)_t\big\rbrack + \left( Hu^2 + \frac{g}{2}H^2 \right)_x - gHh_x -Bgh^2\left(h\eta_x\right)_{xx} =0, & \label{eq:madsen_momx}
+& (1-D)\big\lbrack(Hu)_t\big\rbrack + \left( Hu^2 + \frac{g}{2}H^2 \right)_x - gHh_x -Bgh^2\left(h\eta_x\right)_{xx} =0, \label{eq:madsen_momx} &
 \end{flalign}
 where the operator $D$ is defined as
 \begin{flalign}
@@ -863,8 +863,15 @@ Figure \ref{fig:wave_break_criteria} shows
 the amplitude to depth ratio, $\epsilon_B$, as function of the crest location. 
 With BIM simulations, the wave starts breaking at $x=4.09$. 
 When the crest in the \textsc{BoussClaw} simulation reaches $x=4.09$ we find
-$A/h=1.97$, the free surface speed is $u_s/c=1.04$ and maximum surface slope angle of $39.1^\circ$.
-\marginpar{\footnote Geir: how do we compute $u_s$ ? Is it the speed of tghe crest location}
+$A/h=1.97$, the maximum free surface speed is $u_s/c=1.04$ and maximum surface slope angle of $39.1^\circ$.
+The ratio $u_s/c$ is derived by \citet{matsuyama2007study} as
+\begin{flalign*}
+\frac{u_s}{c} = \frac{\eta}{H} - \frac{h}{3H}\left[
+H\frac{\partial^2 \eta}{\partial x^2} 
+- 2 \left(\frac{\partial\eta}{\partial x}\right)^2
+\right].
+\end{flalign*}
+
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=.7\textwidth]{_fig/wave_break}
