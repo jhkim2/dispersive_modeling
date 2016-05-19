@@ -73,7 +73,9 @@ In this work, an operational Boussinesq solver,
 for modeling fully non-linear dispersive tsunami propagation, 
 taking into account inundation. 
 In the \textsc{BoussClaw} model,
-the Boussinesq equations by \citet{schaffer1993boussinesq}
+Boussinesq equations from the literatures, 
+based on the depth-averaged velocity 
+and with enhanced dispersion properties, 
 are implemented with a hybrid of the finite volume
 and finite difference methods.
 In order to validate \textsc{BoussClaw}, 
@@ -511,7 +513,7 @@ and \ref{append:energy}.
         \caption{Relative error of energy}
         \label{fig:soliton_energy_dx}
     \end{subfigure}
-    \caption{The energy of a soliton 
+    \caption{The energy of a solitary wave
     with $\Delta x = 0.2$ (left), 
     and log-log plot of relative error 
     at $t=10$ for $\Delta x = 0.05, 0.1, 0.2$ and $0.5$ (right).}
@@ -523,7 +525,6 @@ wave is shown with $A/h=0.2$ and $\Delta x = 0.2$.
 There are fluctuations both in the potential and kinetic energy that is evident when we zoom in,
 and the total energy decreases 
 showing that the numerical procedure has dissipation.
-\marginpar{\footnotesize  Geir I don't understand figure 2a}
 In Figure \ref{fig:soliton_energy_dx},
 the relative error of the energy at $t=10$,
 \begin{flalign*}
@@ -827,8 +828,11 @@ Especially, the wave amplitudes are correctly determined by these models.
 In order to catch wave breaking in a heuristic fashion,
 we may choose to invoke the threshold $\epsilon_B:=\eta/h$ for \textsc{BoussClaw}.
 When the threshold is reached, the wave breaking is supposed to be initiated, 
-and the dispersive terms are suppressed. At the breaking, the set of equations is
-switched to the shallow water equations in the vicinity of the wave crest\marginpar{\footnotesize Geir: what is happening here ?}.
+and the dispersive terms are suppressed. 
+At the breaking, the set of equations is locally 
+switched to the shallow water equations for the corresponding wave packet,
+and the trailing waves are solved with the Boussinesq equations
+if the thresholds are not reached. 
 In the numerical simulation of the \textsc{BoussClaw} model,
 the ratio $\epsilon_B$ reaches the threshold $0.8$ at $t=14.9$
 when the peak of the wave is at $x=8.03227$.
@@ -863,14 +867,8 @@ Figure \ref{fig:wave_break_criteria} shows
 the amplitude to depth ratio, $\epsilon_B$, as function of the crest location. 
 With BIM simulations, the wave starts breaking at $x=4.09$. 
 When the crest in the \textsc{BoussClaw} simulation reaches $x=4.09$ we find
-$A/h=1.97$, the maximum free surface speed is $u_s/c=1.04$ and maximum surface slope angle of $39.1^\circ$.
-The ratio $u_s/c$ is derived by \citet{matsuyama2007study} as
-\begin{flalign*}
-\frac{u_s}{c} = \frac{\eta}{H} - \frac{h}{3H}\left[
-H\frac{\partial^2 \eta}{\partial x^2} 
-- 2 \left(\frac{\partial\eta}{\partial x}\right)^2
-\right].
-\end{flalign*}
+$A/h=1.97$, the ratio of wave speed to celerity ($u/\sqrt{gH}$)
+is $1.034$ and maximum surface slope angle of $39.1^\circ$.
 
 \begin{figure}[!htb]
 \centering
