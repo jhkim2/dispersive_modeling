@@ -1142,30 +1142,31 @@ we thus consider a closely related, but simpler, equation, namely the
 linearized Benjamin-Bona-Mahony (BBM)
 equation (\cite{benjamin1972model}) 
 \begin{align}
-u_t + u_x = u_{txx}.
+u_t + c u_x = \frac{h^2}{6}u_{txx},
 \label{eq:basic_1}
 \end{align}
+where $c=sqrt{gh}$.
 This equation describes weakly dispersive, uni-directional waves in constant
-depth $h=1$. The equation replaces the momentum equation, whereas no separate
+depth. The equation replaces the momentum equation, whereas no separate
 continuity equation is involved.
 
 Following, as far as possible, the steps of section \ref{sec:Num_scheme}
 we rearrange 
 the equation (\ref{eq:basic_1}) as
 \begin{align}
-(I-D)(u_t + u_x) +Du_x = 0, \label{eq:basic_2}
+(I-D)(u_t + c u_x) +Du_x = 0, \label{eq:basic_2}
 \end{align}
-where $D=\partial_x^2$.
+where $D=\frac{h^2}{6}\partial_x^2$.
 The first step of  hybrid scheme for  this equation is integration of
  the advection equation
 \begin{align}
-u_t + u_x = 0,
+u_t + c u_x = 0,
 \label{eq:append_advec}
 \end{align}
 by the finite volume method. 
 Then the Runge-Kutta  method is applied to,
 \begin{align}
-(1-D)u_t + Du_x = 0.
+(1-D)u_t + cDu_x = 0.
 \label{eq:append_mom_fdm}
 \end{align}
 which is the counterpart to  (\ref{eq:hybrid_mom_fdm}).
@@ -1176,8 +1177,9 @@ Expressing the coefficients of the velocity array before the time step as  $u_j=
 where $q$ is 1, 2, 3, 4 or +. Correspondingly, the coefficients of the $\mathbf{S}^k$ array, which contains auxiliary,  nodal values for $u_t$,  is
 expressed $(S_j^k)= s^k e^{i\xi j \Delta x}$. 
 
-We assume that the first step, where (\ref{eq:append_advec}) is solved, is absolutely 
-stable in the sense that a small damping is involved. However, the method employed is not suited for a von Neumann stability analysis and we thus apply this technique to the second step only. \marginpar{\footnote What can be said on the actual stability properties of the flux limiter method?}
+The stability  of the first step,(\ref{eq:append_advec}),  is assured by the standard CFL criterion
+\[\frac{c\Delta t}{\Delta x} <1.\]
+If we instead solve the NLSW equations, as in BoussClaw, $c$ must be replaced by the nonlinear characteristic velocity, which may lead to a more strict criterion. However, the method employed in the first step is not suited for a von Neumann stability analysis and we thus apply this technique to the second step only. 
  Hence, we may put $g_1$ to unity, but it is preferable to retain it in the calculations. 
 The Runge-Kutta scheme for time stepping, (\ref{eq:rk4_S}), may  now be
 expressed as
@@ -1190,15 +1192,16 @@ g^4 = g^3 + \Delta t s^3,
 The discrete version of (\ref{eq:append_mom_fdm}), which is the counterpart to
 (\ref{eq:rk4_1}) for the BBM equation reads 
 \begin{align*}
-& S_j^k - \frac{S_{j+1}^k-2S_j^k+S_{j-1}^k}{\Delta x^2} = 
--\frac{U_{j+2}^k - 2U_{j+1}^k +2U_{j-1}^k -U_{j-2}^k}{2\Delta x^3},
+& S_j^k - \frac{h^2}{6}\frac{S_{j+1}^k-2S_j^k+S_{j-1}^k}{\Delta x^2} = 
+-\frac{ch^2}{6}\frac{U_{j+2}^k - 2U_{j+1}^k +2U_{j-1}^k -U_{j-2}^k}{2\Delta x^3},
 \end{align*}
 which, inserted the harmonic expressions, implies
 \begin{align}
-s^k=i\gamma g^k,\quad \gamma = \frac{ 2\sin(\xi \Delta x)(1-  \cos(\xi \Delta x)) }
-                     { \Delta x^3 +2\Delta x(1-\cos(\xi \Delta x))}.
+s^k=i \frac{\gamma}{\Delta t} g^k,\quad \gamma = c\Delta t \frac{ 2\sin(\xi \Delta x)(1-  \cos(\xi \Delta x)) }
+                     { 6\Delta x^3h^{-2} +2\Delta x(1-\cos(\xi \Delta x))},
 \label{append:rk4_1}
 \end{align}
+where the $\Delta t$ factors are included for convenience.
 The assembling of the intermediate values in the Runge-Kutta procedure, 
 (\ref{eq:rk4_assemble}), now yields 
 \begin{flalign}
@@ -1208,7 +1211,7 @@ s^1+2s^2+2s^3+s^4
 \label{append:rk4_assemble}
 \end{flalign}
 
-By combination of (\ref{eq:rk4_Neumann}) and (\ref{append:rk4_1}) $S^k$ and $g^k$, $k=1..4$ can be calculated successively  and combined in (\ref{append:rk4_assemble}) to provide
+By combination of (\ref{eq:rk4_Neumann}) and (\ref{append:rk4_1}) $s^k$ and $g^k$, $k=1..4$ can be calculated successively  and combined in (\ref{append:rk4_assemble}) to provide
 the value of $g^+$, 
 \begin{align*}
 g^+(\gamma) & = \left(1-
@@ -1217,22 +1220,18 @@ g^+(\gamma) & = \left(1-
 -\frac{\gamma^6}{24} + \gamma^2 + \frac{\gamma^6}{36} -\frac{\gamma^4}{3}\right)|g^1|^2 \\
 & = \left(1 -\frac{1}{72}\gamma^6 + \frac{1}{576}\gamma^8\right)|g^1|^2.
 \end{align*}
-If $|\gamma|<2\sqrt{2}$  then $|g^+(\gamma)/g^1|<1$. 
+Stability requires  $|g^+(\gamma)/g^1|<1$ which is 
+equivalent to  $|\gamma|<2\sqrt{2}$. Moreover, it is easily seen that 
+$\gamma<c\Delta t/\Delta x$. 
 Hence, a sufficient condition for stability of the second step of the hybrid scheme is 
-\begin{align}
-\left| \frac{\Delta t}{\Delta x} \cdot \frac{ \sin(\xi \Delta x)(1-  \cos(\xi \Delta x)) }
-                     { \Delta x^2 +2(1-\cos(\xi \Delta x))} \right| < \sqrt{2}, 
-                     \quad \textrm{for~} \forall \xi \Delta x.
-\end{align}
-For small $\Delta x$, this condition approximately reduces to
 \[
-\frac{\Delta t}{\Delta x} < 2\sqrt{2}.
+\frac{c\Delta t}{\Delta x} < 2\sqrt{2}.
 \] 
-The CFL condition for the advection equation
-(\ref{eq:append_advec}) is a sufficient condition. 
+This is more relaxed than the CFL condition for the advection equation
+(\ref{eq:append_advec}). 
 Therefore, if the CFL condition is satisfied in the advection equation,
 the fractional step is always stable with the suggested numerical scheme. 
-\marginpar{\footnotesize: Geir: It is not clear to me what is meant }
+
 
 \section{Energy estimates and dissipation}
 \label{append:energy}
