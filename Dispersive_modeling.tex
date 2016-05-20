@@ -76,19 +76,21 @@ In the \textsc{BoussClaw} model,
 Boussinesq equations from the literatures, 
 based on the depth-averaged velocity 
 and with enhanced dispersion properties, 
-are implemented with a hybrid of the finite volume
+are implemented using a hybrid of the finite volume
 and finite difference methods.
 In order to validate \textsc{BoussClaw}, 
 numerical results are compared 
 to the analytical solutions and laboratory experiments. 
 Furthermore, the  wave steepening and breaking motion
 is explored with the help of the full potential 
-boundary integral model. 
+boundary integral model, 
+and we demonstrate that the point of wave breaking
+may be misinterpreted in Boussinesq models. 
 
 \end{abstract}
 
 \begin{keyword}
-
+Breaking wave, Boussinesq equation, finite volume method
 \end{keyword}
 
 \end{frontmatter}
@@ -102,16 +104,16 @@ depth-averaged wave models are consequently widely used in the study of their pr
 Through the use of numerical shock capturing techniques for modeling
 the nearshore bore formation of the tsunami, {\em nonlinear shallow water} (NLSW) models
 have become the standard model for modeling tsunami propagation and run-up, see e.g. 
-\citet{titov1995modeling,Imamura1996b,Harig2008,BergerGeorgeLeVequeMandli11}.
+\citep{titov1995modeling,Imamura1996b,Harig2008,BergerGeorgeLeVequeMandli11}.
 Well known applications include inundation modeling of the recent major tsunami events 
 such as the 2004 Indian Ocean tsunami \citep{Borrero2006,Kaiser2011} and the 2011 Tohoku tsunami \citep{Hooper2013,Romano2014}. 
 
 The  NLSW models do not incorporate frequency dispersion and  are valid only for large wavelength-to-depth-ratios ($\lambda/h>20$).
 The accumulated effect of the frequency dispersion for the wave propagation over the open sea is 
-a function of propagation time and the shape of the disturbance \cite{Glimsdal2013},
-and may become important for some tsunamis, in particular for landslide sources \cite{Lovholt2015}. 
+a function of propagation time and the shape of the disturbance \citep{Glimsdal2013},
+and may become important for some tsunamis, in particular for landslide sources \citep{Lovholt2015}. 
 Dispersion may further be of importance, in combination with non-linear effects,
-for the evolution of undular bores \cite{Behrens2015}.
+for the evolution of undular bores \citep{Behrens2015}.
 {\em Boussinesq-type models} that allow for more accurate modeling of shorter waves, may be used to model dispersive tsunamis.
 In the last decades we have seen a development on long wave expansions and their numerical formulations. 
 New Boussinesq type formulations, such as those introduced by \cite{madsen1992new}, and \cite{nwogu1993alternative}, displayed improved accuracy, as well as extended validity ranges in comparison to the standard formulation of \cite{peregrine1967long}.
@@ -123,8 +125,10 @@ several strategies have therefore been suggested. For instance, \citet{peregrine
 as the break threshold, while pointing out that this value could reaches around $2$ in laboratory experiments. 
 Another way of incorporating the breaking that was suggested by \cite{Kennedy2000} included diffusive terms
 in the momentum equation to smear out sharp fronts. \citet{Lovholt:2013a} similarly employed a diffusive model including transport terms, but pointed out that breaking wave Boussinesq models were prone to instabilities. 
-\citet{schaffer1993boussinesq} introduced the concept of the {\em surface roller}. \citet{lynett2006nearshore} investigated $\eta_t/c$, $\eta_x$, $u_{s_{xx}} H^2/c$, and $u_s/c$, 
-where $c=\sqrt{gH}$ and $u_s$ = free surface speed, and then identified that the critical front slope ($\eta_x$) 
+\citet{schaffer1993boussinesq} introduced the concept of the {\em surface roller}. \citet{lynett2006nearshore} investigated $\eta_t/c$, $\eta_x$, $u_{xx} H^2/c$, and $u/c$, 
+where $c=\sqrt{gH}$, $u$ is the wave speed and $\eta$ is 
+the water surface elevation, 
+and then identified that the critical front slope ($\eta_x$) 
 is the least sensitive breaking threshold. \citet{tissier2012new} suggested
 a breaking decision model based on the surface roller, the maximal front angle and the Froude number.
 An alternative non-linear diffusive ad-hoc breaking term was suggested \citet{matsuyama2007study},
@@ -681,8 +685,8 @@ on the wave breaking point.
 The ratio of amplitude to depth, $A/h$, 
 is about $2.01$ at the break point.
 The potential flow model cannot be run much beyond the
-breaking points (until attachment of the plunger only) and 
-gives no information on the following  bore propagation.
+breaking points (until the attachment of the plunger only) and 
+gives no information on the following bore propagation.
 In Figure \ref{fig:sw_timeseries}, 
 computations of the shallow water equations
 (present model without the second fractional step) 
@@ -712,7 +716,7 @@ A vertical front is observed at $t=18.6$. }
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=\textwidth]{_fig/sw_dx05_time_series.png}
-\caption{Computational results from SWE at $t=10,15,17$ and $18.6$.}
+\caption{Computational results from NLSW at $t=10,15,17$ and $18.6$.}
 \label{fig:sw_timeseries}
 \end{figure}
 
@@ -727,45 +731,13 @@ A vertical front is observed at $t=18.6$. }
 \section{Pre-breaking and breaking wave evolution using depth averaged models}
 \label{sec:num_breaking}
 
-\iffalse
-
-As the wave approaches the shoreline,
-the wave amplitude increases and the wavelength shortens. 
-In numerical simulations,
-the grid size should be small enough 
-to be able to capture the short wavelength 
-In Figure \ref{fig:boussclaw_grids}, 
-the computational results at t=$18$, $20$ and $22$ are shown 
-with grid size $\Delta x = 0.025, 0.05$ and $0.1$ m. 
-When the wave is smooth at $t=18$, the different grid sizes
-show similar results. 
-As the wave approaches the shoreline,
-the wave amplitude increases and the wavelength shortens. 
-At t=$22$ , the wave is condensed,
-and the wavelength is shortened.
-Thus small grid $\Delta x=0.025$ is necessary 
-in order to capture the wave steepening properly at t=$22$.
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[width=.9\textwidth]{_fig/boussclaw_grids_t18.png}\\
-\includegraphics[width=.9\textwidth]{_fig/boussclaw_grids_t20.png}\\
-\includegraphics[width=.9\textwidth]{_fig/boussclaw_grids_t22.png}
-\caption{Snapshot of the \textsc{BoussClaw} results 
-at t=$18$, $20$ and $22$
-with $\Delta x=0.025$, $0.05$ and $0.1$ m.}
-\label{fig:boussclaw_grids}
-\end{figure}
-
-\fi
-
-We use the setup described in section \ref{sec:wave_break} for the Boussinesq modeling of
+We use the set-up described in section \ref{sec:wave_break} for the Boussinesq modeling of
 solitary waves on a slope. Figure \ref{fig:bim_boussclaw} shows the snapshots of 
 the water surface at t=$16$ and $18.6$
 from BIM and \textsc{BoussClaw} with B=$0$ and $1/15$.
 When the wave is smooth at t=16, the \textsc{BoussClaw}
-results are similar.        . 
-At the break point, $t=18.6$, larger differences are observed. 
+results are similar.
+At the breaking point, $t=18.6$, larger differences are observed. 
 If $B=0$, the wave speed is slightly faster 
 than the BIM result, but the wave amplitude is similar. 
 When $B=1/15$, the wave speed matches the BIM results better,
@@ -785,7 +757,7 @@ with $B=0$ and $1/15$.
 
 Next, the \textsc{BoussClaw} simulations are compared
 with those of other Boussinesq solvers, namely
- \textsc{Funwave} \citet{shi2012high}, \textsc{GloBouss} \citet{lovholt2010coupling} and the Serre type formulation \citet{Lovholt:2013a}.
+ \textsc{Funwave} \citep{shi2012high}, \textsc{GloBouss} \citep{lovholt2010coupling} and the Serre type formulation \citep{Lovholt:2013a}.
 As noted above, 
 the original Serre's equations are enhanced by adding the \citet{schaffer1993boussinesq} terms. 
 %And the boundary integral method (BIM) for the full potential theory is also considered. 
@@ -849,14 +821,14 @@ the application of this threshold.
 %\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_etaB8_160.png}\\
 \includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_etaB8_170.png}\\
 \includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_etaB8_186.png}
-\caption{Comparison of BIM, \textsc{BoussClaw} and SWE 
+\caption{Comparison of BIM, \textsc{BoussClaw} and NLSW 
 with $\epsilon_B=0.8$ at t =$15$, $17$ and $18.6$.}
 \label{fig:boussclaw_th08}
 \end{figure}
 
 In Figure \ref{fig:boussclaw_th08}, snapshots are shown at 
 t=$15$, $17$, and $18.6$ from BIM, \textsc{BoussClaw} 
-and SWE.
+and NLSW.
 At t=$15$, the difference between BIM and \textsc{BoussClaw}
 is small, but the difference becomes noticeable 
 in the wave shape and amplitude at t = $17$ and $18.6$ . 
@@ -899,9 +871,9 @@ which are given in (\ref{eq:energy_e0}) and (\ref{eq:energy_e1}).
         \caption{$E_0+E_1$}
         \label{fig:e1_boussclaw_eb08}
     \end{subfigure}
-    \caption{Energy plots of SWE and \textsc{BoussClaw}.
+    \caption{Energy plots of NLSW and \textsc{BoussClaw}.
     The vertical line is at $x=8.03227$ m where $\epsilon_B=0.8$,
-    and the governing equations are switched to the SWE from
+    and the governing equations are switched to the NLSW from
     the Boussinesq equations. }
     \label{fig:energy_boussclaw_swe}
 \end{figure}
@@ -1148,7 +1120,7 @@ This equation describes weakly dispersive, uni-directional waves in constant
 depth. The equation replaces the momentum equation, whereas no separate
 continuity equation is involved.
 
-Following, as far as possible, the steps of section \ref{sec:Num_scheme}
+Following the steps of section \ref{sec:Num_scheme},
 we rearrange 
 the equation (\ref{eq:basic_1}) as
 \begin{align}
@@ -1171,20 +1143,21 @@ which is the counterpart to  (\ref{eq:hybrid_mom_fdm}).
 
 If we use the centered spatial difference approximation of $O(\Delta x^2)$
 accuracy on a regular grid we may employ a standard von Neumann analysis where we calculate the growth of an harmonic mode over a single time step.
-Expressing the coefficients of the velocity array before the time step as  $u_j= e^{i\xi j \Delta x}$ we then replace the coefficient of $\textbf{M}^q$, defined in section \ref{sec:Num_scheme}, by  $M_j^q=U_j^q= g_qe^{i\xi j \Delta x}$, 
+Expressing the coefficients of the velocity array before the time step as  $u_j= e^{i\xi j \Delta x}$ we then replace the coefficient of $\textbf{M}^q$, defined in section \ref{sec:Num_scheme}, 
+by $M_j^q=U_j^q= g^qe^{i\xi j \Delta x}$, 
 where $q$ is 1, 2, 3, 4 or +. Correspondingly, the coefficients of the $\mathbf{S}^k$ array, which contains auxiliary,  nodal values for $u_t$,  is
 expressed $(S_j^k)= s^k e^{i\xi j \Delta x}$. 
 
-The stability  of the first step,(\ref{eq:append_advec}),  is assured by the standard CFL criterion
+The stability  of the first step, (\ref{eq:append_advec}),  is assured by the standard CFL criterion
 \[\frac{c\Delta t}{\Delta x} <1.\]
 If we instead solve the NLSW equations, as in BoussClaw, $c$ must be replaced by the nonlinear characteristic velocity, which may lead to a more strict criterion. However, the method employed in the first step is not suited for a von Neumann stability analysis and we thus apply this technique to the second step only. 
- Hence, we may put $g_1$ to unity, but it is preferable to retain it in the calculations. 
+ Hence, we may put $g^1$ to unity, but it is preferable to retain it in the calculations. 
 The Runge-Kutta scheme for time stepping, (\ref{eq:rk4_S}), may  now be
 expressed as
 \begin{flalign} 
 g^2 = g^1 + \frac{\Delta t}{2}s^1, \quad
 g^3 = g^1 + \frac{\Delta t}{2}s^2, \quad
-g^4 = g^3 + \Delta t s^3,
+g^4 = g^1 + \Delta t s^3,
 \label{eq:rk4_Neumann}
 \end{flalign}
 The discrete version of (\ref{eq:append_mom_fdm}), which is the counterpart to
