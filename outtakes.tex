@@ -103,3 +103,9 @@ The CFL condition for the advection equation
 (\ref{eq:append_advec}) is a sufficient condition. 
 Therefore, if the CFL condition is satisfied in the advection equation,
 the fractional step is always stable with the suggested numerical scheme. 
+\begin{align}
+\left| \frac{\Delta t}{\Delta x} \cdot \frac{ \sin(\xi \Delta x)(1-  \cos(\xi \Delta x)) }
+                     { \Delta x^2 +2(1-\cos(\xi \Delta x))} \right| < \sqrt{2}, 
+                     \quad \textrm{for~} \forall \xi \Delta x.
+\end{align}
+For small $\Delta x$, this condition approximately reduces to
