@@ -109,3 +109,158 @@ the fractional step is always stable with the suggested numerical scheme.
                      \quad \textrm{for~} \forall \xi \Delta x.
 \end{align}
 For small $\Delta x$, this condition approximately reduces to
+
+\section{Comparison of the Boussinesq equations}
+\label{append:a}
+
+A class of the Boussinesq-type equations can be written 
+in the following form,
+\begin{flalign}
+& (H)_t + (Hu)_x = 0, \\
+& (Hu)_t + \left( Hu^2 + \frac{gH²}{2} \right)_x + gHh_x + \psi = 0,
+\end{flalign}
+where $\psi$ represents dispersion terms.
+If 
+\begin{flalign}
+\psi = \frac{Hh^2}{6} u_{xxt} - \frac{Hh}{2} (hu)_{xxt},
+\label{eq:peregrine_disp}
+\end{flalign}
+then these are called 
+the Peregrine's equations.
+
+We claim that the Boussinesq equations 
+by \citet{schaffer1993boussinesq}
+can be approximately reduced to the Peregrine's form when $B=0$.
+Since $H=h+\eta$, the dispersion terms of Sch{\"a}ffer and Madsen
+with $B=0$, can be written as, 
+\begin{flalign}
+\psi = & \frac{1}{6}h^3 \left(\frac{Hu}{h} \right)_{xxt}
+- \frac{1}{2}h^2 (Hu)_{xxt} \nonumber \\
+= & \frac{1}{6}h^3 u_{xxt}
++ \frac{1}{6}h^3 \left( \frac{\eta u}{h} \right)_{xxt}
+- \frac{1}{2}h^2 (hu)_{xxt} - \frac{1}{2}h^2 (\eta u)_{xxt} \nonumber \\
+= & \frac{H h^2}{6} u_{xxt} - \frac{H h}{2} (hu)_{xxt} \nonumber \\
+&- \frac{\eta h^2}{6} u_{xxt}
++ \frac{h^3}{6} \left( \frac{\eta u}{h} \right)_{xxt}
++ \frac{\eta h}{2} (hu)_{xxt}
+- \frac{h^2}{2} (\eta u)_{xxt} \label{eq:append_schaffer_disp1} \\
+= & \frac{H h^2}{6} u_{xxt} - \frac{H h}{2} (hu)_{xxt}
++ \mathcal{O}(\epsilon). \nonumber
+\end{flalign}
+Because the last four terms in (\ref{eq:append_schaffer_disp1})
+are $\mathcal{O}(\epsilon$),
+the dispersion terms of Sch{\"a}ffer and Madsen are approximately same as
+the Peregrine's. 
+However, due to the higher order terms in (\ref{eq:append_schaffer_disp1}),
+Sch{\"a}ffer and Madsen's wave model has lower peak 
+near the wave break
+than the Peregrine's model. 
+
+Now we will study the connection between 
+Sch{\"a}ffer and Madsen's equations 
+and Serre's equations. 
+Use $H=h+\eta$ and $\eta_t = H_t = -(Hu)_x$,
+and assume $\eta_{xx}$ is small. 
+The dispersion terms of Sch{\"a}ffer and Madsen 
+can be rewritten in a different form, 
+\begin{flalign*}
+\psi = & \frac{1}{6}h^3 \left(\frac{Hu}{h} \right)_{xxt}
+- \frac{1}{2}h^2 (Hu)_{xxt} \\
+= & - Hh h_xu_{xt} -\frac{1}{3} H h^2 u_{xxt}- H h \eta_xu_{xt} \\
+& - \frac{1}{6} Hh \eta u_{xxt} 
++ \frac{1}{6} h \eta^2 u_{xxt} + h \eta (h+\eta)_x u_{xt} 
++ \frac{1}{6} h^3 \left( \frac{\eta u}{h} \right)_{xxt}
+\end{flalign*}
+Meanwhile
+\begin{flalign*}
+\left( \frac{\eta u}{h} \right)_{xxt} 
+= & -\frac{2 h_x}{h^2}\eta u_{xt} 
++ \frac{2}{h} \eta_x u_{xt}
++ \frac{1}{h} \eta u_{xxt} 
++ \frac{2 h_x}{h^2} (Hu)_x u_{x} \\
+&- \frac{2}{h} (Hu)_{xx} u_x 
+- \frac{1}{h} (Hu)_x u_{xx}.
+\end{flalign*}
+Therefore $\psi$ reduces to 
+\begin{flalign*}
+\psi 
+= & Hh\eta_xu_{xt} + \left( \frac{2}{3} h_x \eta  
+- \frac{2}{3} h \eta_x  \right) hu_{xt} \\
+& + \frac{1}{6} h^3 \left(\frac{2 h_x}{h^2} (Hu)_x u_{x}
+- \frac{2}{h} (Hu)_{xx} u_x 
+- \frac{1}{h} (Hu)_x u_{xx}  \right)  \\
+= & - Hh h_xu_{xt} -\frac{1}{3} H h^2 u_{xxt}
++ \left( \frac{2}{3} h_x \eta  
+- \frac{2}{3} h \eta_x  \right) hu_{xt} \\
+& + \frac{1}{6} h^3 \left(\frac{2 h_x}{h^2} (Hu)_x u_{x}
+- \frac{2}{h} (Hu)_{xx} u_x 
+- \frac{1}{h} (Hu)_x u_{xx}  \right)
+\end{flalign*}
+Now consider the last term 
+\begin{flalign*}
+ & \frac{1}{6} h^3 \left(\frac{2 h_x}{h^2} (Hu)_x u_{x}
+- \frac{2}{h} (Hu)_{xx} u_x 
+- \frac{1}{h} (Hu)_x u_{xx}  \right) \\
+= & \frac{1}{3} h \left( h_x (Hu)_x u_{x}
+- h (Hu)_{xx} u_x 
+- \frac{h}{2} (Hu)_x u_{xx}  \right) \\
+= & \frac{1}{3} h \left( h_x \left( H_xu + Hu_x \right) u_{x}
+- h \left( 2H_xu_x + Hu_{xx} \right) u_x 
+- \frac{h}{2} (H_xu + Hu_x) u_{xx}  \right) \\
+= & \frac{1}{3} h \left( h_x H (u_x)^2 
+- 2H_x h (u_x)^2 - H h u_x u_{xx} 
+- \frac{h}{2} H_x u u_{xx} - \frac{h}{2} H u_x u_{xx} \right) \\
+= & \frac{1}{3} h \left( \left( h_x H - 2H_x h \right) (u_x)^2 
+- \frac{3 H h}{2} u_x u_{xx} 
+- \frac{h}{2} H_x u u_{xx} \right)
+\end{flalign*}
+If we rearrange (\ref{eq:madsen_new_disp_x}) and
+assume that $h_x\eta$, $h_{xx}$ and $\eta_{xx}$ are small,
+then 
+the Madsen's dispersion terms can be written as
+\begin{flalign*}
+\psi 
+\approx & - Hh h_xu_{xt} -\frac{Hh^2}{3} u_{xxt}- H h \eta_xu_{xt}
+- \frac{1}{6} Hh \eta u_{xxt} 
++ \frac{1}{6} h^3 \left( \frac{\eta u}{h} \right)_{xxt}.
+\end{flalign*}
+Since $\eta_t = -(Hu)_x$, we have
+\begin{flalign*}
+\left( \frac{\eta u}{h} \right)_{xxt} 
+\approx & \frac{2 \eta_x}{h} u_{xt}
++ \frac{\eta}{h} u_{xxt}  &+ \frac{2 h_x}{h^2} (Hu)_x u_{x}
+- \frac{2}{h} (Hu)_{xx} u_x 
+- \frac{1}{h} (Hu)_x u_{xx}.
+\end{flalign*}
+Plugging in and dropping small terms yields to 
+\begin{flalign}
+\psi 
+\approx & - Hh h_xu_{xt} -\frac{Hh^2}{3} u_{xxt}- H h \eta_xu_{xt} 
+- \frac{1}{6} Hh \eta u_{xxt} \nonumber \\
+& +\frac{h^2\eta_x}{3} u_{xt}
++ \frac{h^2\eta}{6} u_{xxt} + \frac{h h_x}{3} (Hu)_x u_{x}
+- \frac{h^2}{3} (Hu)_{xx} u_x 
+- \frac{h^2}{6} (Hu)_x u_{xx} \nonumber \\
+\approx & - Hh h_xu_{xt} -\frac{Hh^2}{3} u_{xxt}- H h \eta_xu_{xt} \nonumber \\
+& +\frac{h^2\eta_x}{3} u_{xt}
+ + \frac{h h_x}{3} (Hu)_x u_{x}
+- \frac{h^2}{3} (Hu)_{xx} u_x 
+- \frac{h^2}{6} (Hu)_x u_{xx}. \label{eq:madsen_disp_v3}
+\end{flalign}
+%\marginpar{\small I am not sure how to conclude the relation between Boussinesq and Serre.}
+
+The Serre's equations of \citep{su1969korteweg}
+has the following dispersion terms,
+\begin{flalign}
+\psi= &-Hhh_xu_{xt} - \frac{Hh^2}{3}u_{xxt}
+- Hh\eta_xu_{xt} \nonumber \\
+& - \frac{2}{3} Hh\eta u_{xxt}
++ \frac{Hh^2}{3}\left[ (u_x)^2-uu_{xx} \right]_x.
+\label{eq:serre_disp}
+\end{flalign}
+It is observed that (\ref{eq:madsen_disp_v3}) and (\ref{eq:serre_disp}) share common terms.
+As shown in Figure \ref{fig:bim_boussclaw_fun}
+numerical results also show that Sch{\"a}ffer and Madsen's 
+model is more similar to Serre's equations than Peregrine's equations.
+
+
