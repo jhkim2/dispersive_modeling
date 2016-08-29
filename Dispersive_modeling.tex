@@ -64,8 +64,9 @@ Oslo, Norway}
 \begin{abstract}
 
 The nonlinear shallow water model is widely used
-in the study of tsunami propagations
-where the wave dispersion is ignorable.
+in the study of tsunami propagations,
+but an increasing number of studies 
+are dedicated to the dispersion dynamics of tsunamis.
 If the wave dispersion becomes important,
 Boussinesq-type models are often used. 
 In this work, an operational Boussinesq solver, 
@@ -122,7 +123,7 @@ In their original formulation, Boussinesq-type models
 do not take into account the post-breaking motion. 
 In order to combine breaking with  the Boussinesq-type equations
 several strategies have therefore been suggested. For instance, \citet{peregrine1967long} used $A/h=0.6$ 
-as the break threshold, while pointing out that this value could reaches around $2$ in laboratory experiments. 
+as the break threshold, while pointing out that this value could reach around $2$ in laboratory experiments. 
 Another way of incorporating the breaking that was suggested by \cite{Kennedy2000} included diffusive terms
 in the momentum equation to smear out sharp fronts. \citet{Lovholt:2013a} similarly employed a diffusive model including transport terms, but pointed out that breaking wave Boussinesq models were prone to instabilities. 
 \citet{schaffer1993boussinesq} introduced the concept of the {\em surface roller}. \citet{lynett2006nearshore} investigated $\eta_t/c$, $\eta_x$, $u_{xx} H^2/c$, and $u/c$, 
@@ -184,9 +185,10 @@ evolution with Boussinesq type models.
 Boussinesq-type equations include non-hydrotstic pressure in an approximate way
 treat short waves more accurately
 than the shallow water equations. 
-The Boussinesq-type wave models have been derived by retaining 
-$\mathcal{O}(\epsilon)$ and $\mathcal{O}(\mu)$ terms, 
-where $\epsilon$ and $\mu$ 
+The Boussinesq-type wave models have been derived 
+on the assumption that 
+$\mathcal{O}(\epsilon)$ and $\mathcal{O}(\mu)$ terms
+are small, where $\epsilon$ and $\mu$ 
 denote the ratio of wave amplitude to depth
 and the ratio of depth to wavelength respectively. 
 Various models have been suggested,
@@ -206,7 +208,8 @@ The \textsc{BoussClaw} model
 is a hybrid of the finite volume and finite difference solvers
 with the operation splitting technique.
 The \textsc{Geoclaw} software is 
-a part of \textsc{Clawpack} \citet{clawpack}
+a part of \citet{clawpack}
+developed mainly by
 by \citet{leveque1997wave}, \citet{george2008augmented}
 and \citet{BergerGeorgeLeVequeMandli11}
 which is designed to solve the nonlinear shallow water equations.
@@ -854,6 +857,71 @@ BIM shows the wave break at $x=4.09$. }
 \label{fig:wave_break_criteria}
 \end{figure}
 
+\subsection{Wave Run-up}
+
+When a wave reaches a coastline, 
+the coastline changes in time
+as the wave runs up the slope and recedes eventually. 
+For the numerical simulations, 
+it has been a challenge to compute the inundation correctly.
+In the \textsc{BoussClaw},
+the governing equations are locally switched 
+to the shallow water equation solver \textsc{Geoclaw}
+near the coastline.
+The \textsc{Geoclaw} software can handle 
+the wet and dry states,
+and it has the depth positivity
+property via the HLLE solver.
+Details can be found at \cite{george2008augmented}. 
+
+If friction terms are not included,
+the run-up heights of the numerical tests
+are higher than the experiments.
+For example, the bottom left panel of Figure \ref{fig:BoussClaw_runup}
+shows that the run-up height without the friction terms 
+is much larger than the experiments.
+We use the Manning friction as follows,
+\begin{flalign*}
+	f_D = -\frac{g C_d^2 u |u|}{H^{5/3}},
+\end{flalign*}
+where $C_d$ is a Manning drag coefficient.
+For the numerical simulations, 
+a threshold for the dry state needs to be chosen.
+If the water depth is smaller than this threshold, $H<d^*$,
+then we set $H=0$. 
+In this paper, we use $C_d=0.02$, and
+the dry tolerance depth is set as $d^*=10^{-4}$. 
+
+\cite{antuono2012role} derived an approximate solution
+of the shoreline for the shallow water equations 
+with the Chezy friction,
+and showed the effect of the frictional coefficient and 
+the water depth tolerance. 
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=.45\textwidth]{_fig/BoussClaw_lab_Cd_t25}
+\includegraphics[width=.45\textwidth]{_fig/BoussClaw_eD_t25}\\
+\includegraphics[width=.45\textwidth]{_fig/BoussClaw_lab_Cd_t30}
+\includegraphics[width=.45\textwidth]{_fig/BoussClaw_eD_t30}
+\caption{BoussClaw results at t=25 and 30. On the left column, 
+	$\epsilon_D$ is fixed at 2, and 
+	on the right column, $C_d$ is fixed at 0.02.}
+\label{fig:BoussClaw_runup}
+\end{figure}
+
+Figure \ref{fig:BoussClaw_runup} shows
+the effect of the parameters $C_d$ and $\epsilon_D$.
+On the left column, snapshots at t=25 and 30 are shown
+with $C_d$ = 0 and 0.02, 
+and the experiment of \cite{synolakis1987runup} is shown as red dots.
+The numerical result is in a good agreement with the experiment
+when $C_d$ = 0.02. 
+On the right column, the \textsc{BoussClaw} results 
+are shown with $\epsilon_D$ = 0.8 and 2.
+The run-up heights with different $\epsilon_D$ are comparable,
+but small dispersive waves are observed for $\epsilon_D$ = 0.8. 
+
 \subsection{Wave Energy}
 
 The wave energy is nearly conserved when the wave is smooth, 
@@ -1122,3 +1190,4 @@ where
 
 \end{document}
 ---
+\grid
