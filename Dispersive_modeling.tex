@@ -83,10 +83,9 @@ In order to validate \textsc{BoussClaw},
 numerical results are compared 
 to the analytical solutions and laboratory experiments. 
 Furthermore, the  wave steepening and breaking motion
-is explored with the help of the full potential 
-boundary integral model, 
+is carefully scrutinized, 
 and we demonstrate that the point of wave breaking
-may be misinterpreted in Boussinesq models. 
+may be wrongly identified  in many of the commonly used Boussinesq models. 
 
 \end{abstract}
 
@@ -101,23 +100,25 @@ Breaking wave, Boussinesq equation, finite volume method
 \section{Introduction}
 
 Tsunamis are often considered as long waves compared to the water depth, and 
-depth-averaged wave models are consequently widely used in the study of their propagation and inundation.
+long-wave models are consequently widely used in the study of their propagation and inundation.
 Through the use of numerical shock capturing techniques for modeling
 the nearshore bore formation of the tsunami, {\em nonlinear shallow water} (NLSW) models
-have become the standard model for modeling tsunami propagation and run-up, see e.g. 
+did become the standard model for modeling tsunami propagation and run-up, see e.g. 
 \citep{titov1995modeling,Imamura1996b,Harig2008,BergerGeorgeLeVequeMandli11}.
-Well known applications include inundation modeling of the recent major tsunami events 
-such as the 2004 Indian Ocean tsunami \citep{Borrero2006,Kaiser2011} and the 2011 Tohoku tsunami \citep{Hooper2013,Romano2014}. 
 
-The  NLSW models do not incorporate frequency dispersion and  are valid only for large wavelength-to-depth-ratios ($\lambda/h>20$).
-The accumulated effect of the frequency dispersion for the wave propagation over the open sea is 
+The  NLSW models do not incorporate frequency dispersion, which may be included by ascending in the hierarchy of long wave expansion to the Boussinesq type 
+equations. Numerical models based on Boussinesq type equations have been used
+for idealized studies of wave processes since 1966 \citep{Peregrine:1966} and 
+additionally to simpler problems in coastal engineering in the following decades \citep{Brocchini:2013}. 
+However, the accumulated effect of the frequency dispersion for the wave propagation over the open sea is 
 a function of propagation time and the shape of the disturbance \citep{Glimsdal2013},
 and may become important for some tsunamis, in particular for landslide sources \citep{Lovholt2015}. 
 Dispersion may further be of importance, in combination with non-linear effects,
-for the evolution of undular bores \citep{Behrens2015}.
-{\em Boussinesq-type models} that allow for more accurate modeling of shorter waves, may be used to model dispersive tsunamis.
+for the evolution of undular bores for tsunamis \citep{Glimsdal2013,Grue:2008,Lovholt:2008b,Behrens2015}.
 In the last decades we have seen a development on long wave expansions and their numerical formulations. 
-New Boussinesq type formulations, such as those introduced by \cite{madsen1992new}, and \cite{nwogu1993alternative}, displayed improved accuracy, as well as extended validity ranges in comparison to the standard formulation of \cite{peregrine1967long}.
+In the 1990s the modeling with  Boussinesq type equations were vitalized by 
+new formulations, in particular those of  \cite{madsen1992new} and \cite{nwogu1993alternative} which  displayed improved dispersion properties in comparison to the standard formulation of \cite{peregrine1967long}.
+{\bf A few more lines here}
 
 In their original formulation, Boussinesq-type models 
 do not take into account the post-breaking motion. 
