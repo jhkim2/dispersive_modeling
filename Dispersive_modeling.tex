@@ -705,14 +705,12 @@ in the shallow water equations simulation
 is markedly smaller than that of the 
 potential flow model when the latter indicates breaking.
 
-\begin{figure}[!htb]
-\centering
-\includegraphics[width=\textwidth]{_fig/bim_n7_time_series.png}
-\caption{Computational results from BIM of a wave with $A/h=0.28$ 
-on a slope of $1:19.85$.
-A vertical front is observed at $t=18.6$. }
-\label{fig:bim_breaking}
-\end{figure}
+%\begin{figure}[!htb]
+%\centering
+%\includegraphics[width=\textwidth]{_fig/bim_n7_time_series.png}
+%\caption{Computational results from BIM of a wave with $A/h=0.28$ on a slope of $1:19.85$.A vertical front is observed at $t=18.6$. }
+%\label{fig:bim_breaking}
+%\end{figure}
 
 %The computation of BIM can not proceed further after $t=19.2$ because of the singularity.
 
@@ -721,12 +719,12 @@ A vertical front is observed at $t=18.6$. }
 %Figure \ref{fig:sw_timeseries} and \ref{fig:bous_timeseries} show the computational results from depth-averaged models, and both models do not capture the wave breaking properly.
 %In Figure \ref{fig:bous_timeseries}, the numerical results from the \textsc{BoussClaw} are given, the amplitude of the incoming wave continues to increase and the wave does not break. 
 
-\begin{figure}[!htb]
-\centering
-\includegraphics[width=\textwidth]{_fig/sw_dx05_time_series.png}
-\caption{Computational results from NLSW at $t=10,15,17$ and $18.6$.}
-\label{fig:sw_timeseries}
-\end{figure}
+%\begin{figure}[!htb]
+%\centering
+%\includegraphics[width=\textwidth]{_fig/sw_dx05_time_series.png}
+%\caption{Computational results from NLSW at $t=10,15,17$ and $18.6$.}
+%\label{fig:sw_timeseries}
+%\end{figure}
 
 %\begin{figure}[!htb]
 %\centering
@@ -753,14 +751,14 @@ but the amplitude is slightly smaller.
 In general, the computational results are rather similar
 with $B=0$ and $1/15$. 
 
-\begin{figure}[!htb]
-\centering
-\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_160.png}\\
-\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_186.png}
+%\begin{figure}[!htb]
+%\centering
+%\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_160.png}\\
+%\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_186.png}
 %\includegraphics[width=.7\textwidth]{_fig/bim_boussclaw_192.png}
-\caption{Snapshots of BIM and \textsc{BoussClaw} with B=$0$ and $1/15$ at t=$16$, and $18.6$.}
-\label{fig:bim_boussclaw}
-\end{figure}
+%\caption{Snapshots of BIM and \textsc{BoussClaw} with B=$0$ and $1/15$ at t=$16$, and $18.6$.}
+%\label{fig:bim_boussclaw}
+%\end{figure}
 %\marginpar{\footnotesize Lines in figure 10 indistinguishable Change line style or color} 
 
 Next, the \textsc{BoussClaw} simulations are compared
@@ -773,23 +771,19 @@ the original Serre's equations are enhanced by adding the \citet{schaffer1993bou
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_fun_glob_150.png}\\
-%\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_fun_glob_160.png}\\
-\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_fun_glob_170.png}\\
-\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_fun_glob_180.png}
+\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_fun_glob.png}
 \caption{Snapshots of BIM, Serre, \textsc{GloBouss}, \textsc{BoussClaw}
-and \textsc{Funwave} at t = $15$, $17$ and $18$.
+and \textsc{Funwave} at t = $16$, $18$ and $20$.
 The \textsc{BoussClaw} is used with B=$1/15$,
 and the Peregrine's form is used for \textsc{GloBouss}.}
 \label{fig:bim_boussclaw_fun}
 \end{figure}
 
 In Figure \ref{fig:bim_boussclaw_fun}, snapshots from different
-numerical models are shown at t=$15$, $17$ and $18$. 
-At t=$15$, the computational results
-from different numerical tools show slightly different results,
-but the general pattern is similar.
-At t=$17$, some discrepancies are observed 
+numerical models are shown at t=$16$, $18$ and $20$. 
+At t=$16$, the computational results
+from the Boussinesq-type equations show similar results.
+At t=$18$, some discrepancies are observed 
 that can be split into two groups, and
 \textsc{GloBouss} and \textsc{Funwave} 
 are similar while \textsc{BoussClaw}
@@ -797,13 +791,14 @@ and Serre's results are similar.
 The wave amplitudes computed by \textsc{GloBouss} and \textsc{Funwave},
 are more than 10 \% larger than BIM.
 The wave amplitude continues to increase 
-with \textsc{GloBouss} and \textsc{Funwave} simulations,
-and the difference from the BIM result becomes larger at t = $18$. 
+with \textsc{GloBouss} simulations,
+and the difference from the \textsc{BoussClaw} result 
+becomes larger at t = $20$. 
 The results from the Serre and \textsc{BoussClaw} models clearly
 more similar to those of the BIM model. 
 Especially, the wave amplitudes are correctly determined by these models.
 
-\subsection{Wave Breaking}
+\subsection{Wave breaking and run-up}
 
 In order to catch wave breaking in a heuristic fashion,
 we may choose to invoke the threshold $\epsilon_B:=\eta/h$ for \textsc{BoussClaw}.
@@ -823,25 +818,68 @@ the application of this threshold.
 %to the shallow water equations.
 %Meanwhile, the BIM results show $x=4.02$ m and  $\epsilon_B=2.01$ at the start of the wave breaking.
 
+When a wave reaches the coastline, 
+the coastline changes in time
+as the wave runs up the slope and recedes eventually. 
+For the numerical simulations, 
+it has been a challenge to compute the inundation correctly.
+At the coastline, the \textsc{BoussClaw}
+use the \textsc{Geoclaw} software 
+which can handle 
+wet and dry states with the depth positivity property.
+Details can be found at \cite{george2008augmented}. 
+
+Friction terms are necessary in the numerical simulations
+to capture the inundation appropriately. 
+For example, the Figure \ref{fig:BoussClaw_runup}
+shows that the run-up height is larger than the experiments 
+without the friction terms.
+\textsc{BoussClaw} uses the Manning-type frictions as follows,
+\begin{flalign*}
+f_D = -\frac{g C_d^2 u |u|}{H^{5/3}},
+\end{flalign*}
+where $C_d$ is a Manning drag coefficient.
+Another parameter $d^*$ needs to be chosen
+so that the water depth is set as $H=0$
+if the water depth is smaller than this threshold, $H<d^*$.
+\cite{antuono2012role} derived an approximate solution
+of the shoreline for the shallow water equations 
+with the Chezy friction,
+and studied the effect of the frictional coefficient and 
+the water depth tolerance.
+In this work, the parameter $d^*$ is set as $10^{-4}$. 
+
 \begin{figure}[!htb]
-\centering
-\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_etaB8_150.png}\\
-%\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_etaB8_160.png}\\
-\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_etaB8_170.png}\\
-\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_etaB8_186.png}
-\caption{Comparison of BIM, \textsc{BoussClaw} and NLSW 
-with $\epsilon_B=0.8$ at t =$15$, $17$ and $18.6$.}
-\label{fig:boussclaw_th08}
+	\centering
+	\includegraphics[width=.45\textwidth]{_fig/BoussClaw_lab_Cd_t25}
+	\includegraphics[width=.45\textwidth]{_fig/BoussClaw_lab_Cd_t30}
+	\caption{Comparison of experiments and BoussClaw results 
+		at t=25 and 30.}
+	\label{fig:BoussClaw_runup}
 \end{figure}
 
 In Figure \ref{fig:boussclaw_th08}, snapshots are shown at 
-t=$15$, $17$, and $18.6$ from BIM, \textsc{BoussClaw} 
-and NLSW.
-At t=$15$, the difference between BIM and \textsc{BoussClaw}
-is small, but the difference becomes noticeable 
-in the wave shape and amplitude at t = $17$ and $18.6$ . 
-As the governing equations are switched to the shallow water equations,
-the a bore is forming, and the wave amplitude decreases.
+t=$20$, $25$, and $30$ from \textsc{BoussClaw} and NLSW
+with firction forces $C_d=0.02$.
+We compared the NLSW and \textsc{BoussClaw} with $\epsilon_B=0.8$
+and without the threshold. 
+At t=20, the difference in the wave height is clearly observed. 
+With $\epsilon_B=0.8$, the governing equations have 
+already switched to NLSW, and the bore is formed at the front. 
+At t=25 and 30, the wave is running up the slope, 
+and the difference in the run-up height is relatively small. 
+At t=30, two \textsc{BoussClaw} results are similar
+in the run-up height, but small waves are observed
+around $x=7$ for the BoussClaw with $\epsilon_B=0.8$. 
+
+\begin{figure}[tbh!]
+\centering
+\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_etaB8}
+\caption{Comparison of \textsc{BoussClaw} and NLSW 
+with $\epsilon_B=0.8$ at t =$20$, $25$ and $30$.
+Fiction forces have been added with $C_d=0.02$.}
+\label{fig:boussclaw_th08}
+\end{figure}
 
 Figure \ref{fig:wave_break_criteria} shows 
 the amplitude to depth ratio, $\epsilon_B$, as function of the crest location. 
@@ -857,70 +895,6 @@ is $1.034$ and maximum surface slope angle of $39.1^\circ$.
 BIM shows the wave break at $x=4.09$. }
 \label{fig:wave_break_criteria}
 \end{figure}
-
-\subsection{Wave Run-up}
-
-When a wave reaches a coastline, 
-the coastline changes in time
-as the wave runs up the slope and recedes eventually. 
-For the numerical simulations, 
-it has been a challenge to compute the inundation correctly.
-In the \textsc{BoussClaw},
-the governing equations are locally switched 
-to the shallow water equation solver \textsc{Geoclaw}
-near the coastline.
-The \textsc{Geoclaw} software can handle 
-the wet and dry states,
-and it has the depth positivity
-property via the HLLE solver.
-Details can be found at \cite{george2008augmented}. 
-
-If friction terms are not included,
-the run-up heights of the numerical tests
-are higher than the experiments.
-For example, the bottom left panel of Figure \ref{fig:BoussClaw_runup}
-shows that the run-up height without the friction terms 
-is much larger than the experiments.
-We use the Manning friction as follows,
-\begin{flalign*}
-	f_D = -\frac{g C_d^2 u |u|}{H^{5/3}},
-\end{flalign*}
-where $C_d$ is a Manning drag coefficient.
-For the numerical simulations, 
-a threshold for the dry state needs to be chosen.
-If the water depth is smaller than this threshold, $H<d^*$,
-then we set $H=0$. 
-In this paper, we use $C_d=0.02$, and
-the dry tolerance depth is set as $d^*=10^{-4}$. 
-\cite{antuono2012role} derived an approximate solution
-of the shoreline for the shallow water equations 
-with the Chezy friction,
-and showed the effect of the frictional coefficient and 
-the water depth tolerance. 
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[width=.45\textwidth]{_fig/BoussClaw_lab_Cd_t25}
-\includegraphics[width=.45\textwidth]{_fig/BoussClaw_eD_t25}\\
-\includegraphics[width=.45\textwidth]{_fig/BoussClaw_lab_Cd_t30}
-\includegraphics[width=.45\textwidth]{_fig/BoussClaw_eD_t30}
-\caption{BoussClaw results at t=25 and 30. On the left column, 
-	$\epsilon_D$ is fixed at 2, and 
-	on the right column, $C_d$ is fixed at 0.02.}
-\label{fig:BoussClaw_runup}
-\end{figure}
-
-Figure \ref{fig:BoussClaw_runup} shows
-the effect of the parameters $C_d$ and $\epsilon_D$.
-On the left column, snapshots at t=25 and 30 are shown
-with $C_d$ = 0 and 0.02, 
-and the experiment of \cite{synolakis1987runup} is shown as red dots.
-The numerical result is in a good agreement with the experiment
-when $C_d$ = 0.02. 
-On the right column, the \textsc{BoussClaw} results 
-are shown with $\epsilon_D$ = 0.8 and 2.
-The run-up heights with different $\epsilon_D$ are comparable,
-but small dispersive waves are observed for $\epsilon_D$ = 0.8. 
 
 \subsection{Wave Energy}
 
