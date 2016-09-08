@@ -737,20 +737,19 @@ potential flow model when the latter indicates breaking.
 \section{Pre-breaking and breaking wave evolution using depth averaged models}
 \label{sec:num_breaking}
 
-We use the set-up described in section \ref{sec:wave_break} for the Boussinesq modeling of
-solitary waves on a slope. Figure \ref{fig:bim_boussclaw} shows the snapshots of 
-the water surface at t=$16$ and $18.6$
-from BIM and \textsc{BoussClaw} with B=$0$ and $1/15$.
-When the wave is smooth at t=16, the \textsc{BoussClaw}
-results are similar.
-At the breaking point, $t=18.6$, larger differences are observed. 
-If $B=0$, the wave speed is slightly faster 
-than the BIM result, but the wave amplitude is similar. 
-When $B=1/15$, the wave speed matches the BIM results better,
-but the amplitude is slightly smaller. 
-In general, the computational results are rather similar
-with $B=0$ and $1/15$. 
-
+We use the set-up described in section \ref{sec:wave_break} for the Boussinesq modeling of solitary waves on a slope. 
+%Figure \ref{fig:bim_boussclaw} shows the snapshots of 
+%the water surface at t=$16$ and $18.6$
+%from BIM and \textsc{BoussClaw} with B=$0$ and $1/15$.
+%When the wave is smooth at t=16, the \textsc{BoussClaw}
+%results are similar.
+%At the breaking point, $t=18.6$, larger differences are observed. 
+%If $B=0$, the wave speed is slightly faster 
+%than the BIM result, but the wave amplitude is similar. 
+%When $B=1/15$, the wave speed matches the BIM results better,
+%but the amplitude is slightly smaller. 
+%In general, the computational results are rather similar
+%with $B=0$ and $1/15$. 
 %\begin{figure}[!htb]
 %\centering
 %\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_160.png}\\
@@ -760,8 +759,7 @@ with $B=0$ and $1/15$.
 %\label{fig:bim_boussclaw}
 %\end{figure}
 %\marginpar{\footnotesize Lines in figure 10 indistinguishable Change line style or color} 
-
-Next, the \textsc{BoussClaw} simulations are compared
+The \textsc{BoussClaw} simulations are compared
 with those of other Boussinesq solvers, namely
  \textsc{Funwave} \citep{shi2012high}, \textsc{GloBouss} \citep{lovholt2010coupling} and the Serre type formulation \citep{Lovholt:2013a}.
 As noted above, 
@@ -771,7 +769,7 @@ the original Serre's equations are enhanced by adding the \citet{schaffer1993bou
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_fun_glob.png}
+\includegraphics[width=.8\textwidth]{_fig/bim_boussclaw_fun_glob.png}
 \caption{Snapshots of BIM, Serre, \textsc{GloBouss}, \textsc{BoussClaw}
 and \textsc{Funwave} at t = $16$, $18$ and $20$.
 The \textsc{BoussClaw} is used with B=$1/15$,
@@ -781,6 +779,9 @@ and the Peregrine's form is used for \textsc{GloBouss}.}
 
 In Figure \ref{fig:bim_boussclaw_fun}, snapshots from different
 numerical models are shown at t=$16$, $18$ and $20$. 
+For the \textsc{BoussClaw}, the parameter $B=1/15$ is used, 
+but the computational results are rather similar with $B=0$
+for this case. 
 At t=$16$, the computational results
 from the Boussinesq-type equations show similar results.
 At t=$18$, some discrepancies are observed 
@@ -797,6 +798,8 @@ becomes larger at t = $20$.
 The results from the Serre and \textsc{BoussClaw} models clearly
 more similar to those of the BIM model. 
 Especially, the wave amplitudes are correctly determined by these models.
+Previously, \cite{wei1995fully} compared the Boussinesq equations
+and potential flow model, and observed similar results. 
 
 \subsection{Wave breaking and run-up}
 
@@ -849,7 +852,7 @@ and studied the effect of the frictional coefficient and
 the water depth tolerance.
 In this work, the parameter $d^*$ is set as $10^{-4}$. 
 
-\begin{figure}[!htb]
+\begin{figure}[tbh!]
 	\centering
 	\includegraphics[width=.45\textwidth]{_fig/BoussClaw_lab_Cd_t25}
 	\includegraphics[width=.45\textwidth]{_fig/BoussClaw_lab_Cd_t30}
@@ -870,11 +873,11 @@ At t=25 and 30, the wave is running up the slope,
 and the difference in the run-up height is relatively small. 
 At t=30, two \textsc{BoussClaw} results are similar
 in the run-up height, but small waves are observed
-around $x=7$ for the BoussClaw with $\epsilon_B=0.8$. 
+around $x=8$ for the BoussClaw with $\epsilon_B=0.8$. 
 
 \begin{figure}[tbh!]
 \centering
-\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_etaB8}
+\includegraphics[width=.8\textwidth]{_fig/bim_boussclaw_etaB8}
 \caption{Comparison of \textsc{BoussClaw} and NLSW 
 with $\epsilon_B=0.8$ at t =$20$, $25$ and $30$.
 Fiction forces have been added with $C_d=0.02$.}
@@ -888,7 +891,7 @@ When the crest in the \textsc{BoussClaw} simulation reaches $x=4.09$ we find
 $A/h=1.97$, the ratio of wave speed to celerity ($u/\sqrt{gH}$)
 is $1.034$ and maximum surface slope angle of $39.1^\circ$.
 
-\begin{figure}[!htb]
+\begin{figure}[tbh!]
 \centering
 \includegraphics[width=.7\textwidth]{_fig/wave_break}
 \caption{Plot of $A/\eta$, $u_s/c$ and maximum angle of waves vs. crest location. 
@@ -905,7 +908,7 @@ for the shallow water equations and Boussinesq equations
 are $E_0$ and $E_0+E_1$  respectively, 
 which are given in (\ref{eq:energy_e0}) and (\ref{eq:energy_e1}). 
 
-\begin{figure}[!htb]
+\begin{figure}[tbh!]
     \centering
     \begin{subfigure}[b]{0.45\textwidth}
         \includegraphics[width=\textwidth]{_fig/e0_boussclaw_eb08.png}
