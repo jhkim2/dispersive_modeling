@@ -120,18 +120,19 @@ In the 1990s the modeling with  Boussinesq type equations were vitalized by
 new formulations, in particular those of  \cite{madsen1992new} and \cite{nwogu1993alternative} which  displayed improved dispersion properties in comparison to the standard formulation of \cite{peregrine1967long}.
 {\bf A few more lines here}
 
-In their original formulation, Boussinesq-type models 
-do not take into account the post-breaking motion. 
-In order to combine breaking with  the Boussinesq-type equations
-several strategies have therefore been suggested. For instance, \citet{peregrine1967long} used $A/h=0.6$ 
-as the break threshold, while pointing out that this value could reach around $2$ in laboratory experiments. 
-Another way of incorporating the breaking that was suggested by \cite{Kennedy2000} included diffusive terms
-in the momentum equation to smear out sharp fronts. \citet{Lovholt:2013a} similarly employed a diffusive model including transport terms, but pointed out that breaking wave Boussinesq models were prone to instabilities. 
-\citet{schaffer1993boussinesq} introduced the concept of the {\em surface roller}. \citet{lynett2006nearshore} investigated $\eta_t/c$, $\eta_x$, $u_{xx} H^2/c$, and $u/c$, 
-where $c=\sqrt{gH}$, $u$ is the wave speed and $\eta$ is 
-the water surface elevation, 
-and then identified that the critical front slope ($\eta_x$) 
-is the least sensitive breaking threshold. \citet{tissier2012new} suggested
+ Boussinesq-type equations differ in mathematical structure from the NLSW equations and do not
+inherit characteristics in the same simple form. Hence, other stratergies have been attempted for inclusion of wave breaking and  
+post-breaking motion in Boussinesq models. 
+\citet{schaffer1993boussinesq} employed the concept of the {\em surface roller},
+first proposed by \citet{Svendsen:}, which is volume of water passively riding at
+the bore front.
+ Another way of incorporating the breaking that was suggested by \cite{Kennedy2000} who included diffusive terms
+in the momentum equation which was activated and deactivated as a steepness measure crosses thresholds. The original steepness measure was the temporal rate of surface elevation corresponding to a very steep solitary wave.
+Later, \citet{lynett2006nearshore} investigated a variety of steepness measures and
+then identified that the surface steepness provides 
+the least sensitive breaking threshold. 
+ \citet{Lovholt:2013a} similarly employed a diffusive model including transport terms, but pointed out that breaking wave Boussinesq models were prone to instabilities. 
+ \citet{tissier2012new} suggested
 a breaking decision model based on the surface roller, the maximal front angle and the Froude number.
 An alternative non-linear diffusive ad-hoc breaking term was suggested \citet{matsuyama2007study},
 based on their large scale experiments of the wave propagation of undular bores on various slope angles. 
@@ -144,9 +145,10 @@ based on their large scale experiments of the wave propagation of undular bores 
 %\end{align*}
 %as a wave breaking criterion.
 
-Recent developments of operational Boussinesq models, have made use of more sophisticated hybrid numerical techniques
+However, there is a natural desire to exploit the effeciennt and well established shock capturing framework for NLSW models also in a dispersive context.
+Hence, recently developed of operational Boussinesq models are often based on hybrid numerical techniques
 such as use of approximate Riemann solvers combined with TVD limiters for the conserved variables, and finite differences
-for additional higher order terms \citep{Erduran2005,Kim2009,shi2012high}, leading among others to the popular
+for additional higher order terms \citep{Erduran2005,Kim2009,shi2012high}. Among other models, this have led to the popular
 \textsc{Funwave-TVD} and \textsc{Coulwave-TVD} applications. For instance in \citet{shi2012high}, Boussinesq terms are 
 switched off the near-shore region where large amplitude-to-depth-ratios occur,
 implying that only NLSW terms remain in the shallowest region.
