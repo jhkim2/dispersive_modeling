@@ -9,6 +9,9 @@
 \usepackage{subcaption}
 \usepackage{tikz}
 
+\usepackage[colorinlistoftodos]{todonotes}   % provides \todo for margin notes
+
+
 \journal{Coastal Engineering}
 
 %%%%%%%%%%%%%%%%%%%%%%%
@@ -74,7 +77,7 @@ In this work, an operational Boussinesq solver,
 for modeling fully non-linear dispersive tsunami propagation, 
 taking into account inundation. 
 In the \textsc{BoussClaw} model,
-Boussinesq equations from the literatures, 
+Boussinesq equations from the literature, 
 based on the depth-averaged velocity 
 and with enhanced dispersion properties, 
 are implemented using a hybrid of the finite volume
@@ -124,7 +127,8 @@ new formulations, in particular those of  \cite{madsen1992new} and \cite{nwogu19
 inherit characteristics in the same simple form. Hence, other stratergies have been attempted for inclusion of wave breaking and  
 post-breaking motion in Boussinesq models. 
 \citet{schaffer1993boussinesq} employed the concept of the {\em surface roller},
-first proposed by \citet{Svendsen:}, which is volume of water passively riding at
+first proposed by \citet{Svendsen:}, \todo{missing reference}
+which is volume of water passively riding at
 the bore front.
  Another way of incorporating the breaking that was suggested by \cite{Kennedy2000} who included diffusive terms
 in the momentum equation which was activated and deactivated as a steepness measure crosses thresholds. The original steepness measure was the temporal rate of surface elevation corresponding to a very steep solitary wave.
@@ -203,18 +207,18 @@ are representative examples.
 
 In this work, a new numerical model, 
 called \textsc{BoussClaw}, is introduced. 
-It is an extension of \textsc{Geoclaw} \citet{clawpack},
+It is an extension of \textsc{Geoclaw} \citep{clawpack},
 and solves 
 the Boussinesq-type equations derived by
 \citet{schaffer1993boussinesq}.
 The \textsc{BoussClaw} model
 is a hybrid of the finite volume and finite difference solvers
-with the operation splitting technique.
+with the fractional step technique.
 The \textsc{Geoclaw} software is 
-a part of \citet{clawpack}
+a part of \textsc{Clawpack} \citep{clawpack}
 developed mainly by
-by \citet{leveque1997wave}, \citet{george2008augmented}
-and \citet{BergerGeorgeLeVequeMandli11}
+\citet{leveque1997wave}, \citet{george2008augmented}
+and \citet{BergerGeorgeLeVequeMandli11},
 which is designed to solve the nonlinear shallow water equations.
 %with properties such as high-resolution, total variation diminishing (TVD) and adaptive mesh refinements (AMR).
 % The wave propagation algorithms by LeVeque (1997) \cite{leveque1997wave} is implemented, and the steady state is preserved. 
@@ -243,7 +247,7 @@ and thus $H(x,t)=h(x)+\eta(x,t)$.
 Moreover, $g$ is the acceleration of gravity, 
 and $B$ is a dispersion parameter. 
 \citet{madsen1992new} 
-has chosen the parameter $B=1/15$ 
+have chosen the parameter $B=1/15$ 
 from a Pad{\'e}
 expansion of the linear dispersion analysis.
 When $B=0$, this set of the Boussinesq-type equations
@@ -254,15 +258,18 @@ the hydrostatic parts of (\ref{eq:madsen_momx})
 are written in a conservative form. Moreover, some nonlinearity is introduced
 in the dispersion term for convenience. 
 Even though (\ref{eq:madsen_cons_mass}), 
-(\ref{eq:madsen_momx}) and (\ref{eq:madsen_new_op}) do not constitute a fully nonlinear set of Boussinesq, they do describe shoaling of solitary waves markedly
-better than, for instance, Peregrine equations, as will be demonstrated in 
+(\ref{eq:madsen_momx}) and (\ref{eq:madsen_new_op}) do not constitute a fully nonlinear set of Boussinesq, 
+\todo{RJL: I'm not sure what you mean by ``do not constitute a fully nonlinear
+set of Boussinesq''?} 
+they do describe shoaling of solitary waves markedly
+better than, for instance, the Peregrine equations, as will be demonstrated in 
 section  \ref{sec:num_breaking}.
 
 
 The \textsc{BoussClaw} model
 solves the Boussinesq-type equations (\ref{eq:madsen_cons_mass}) and (\ref{eq:madsen_momx}) numerically
 with a hybrid combination of the finite volume and finite difference methods that will be explained in a moment. 
-There have been several studies on this type of hybrid schemes.
+There have been several studies of this type of hybrid schemes.
 For example, see \citet{tissier2011serre}, \citet{shi2012high} and \citet{dutykh2013finite}.
 
 
@@ -540,6 +547,7 @@ There are fluctuations both in the potential and kinetic energy that is evident 
 and the total energy decreases 
 showing that the numerical procedure has dissipation.
 In Figure \ref{fig:soliton_energy_dx},
+\todo{RJL: Is it possible to increase the fontsize in labels of Figure 2b?}
 the relative error of the energy at $t=10$,
 \begin{flalign*}
 Error = \frac{\left| E_{t=0}-E_{t=10} \right|}{\left|E_{t=0}\right|}, &
@@ -781,6 +789,7 @@ and the Peregrine's form is used for \textsc{GloBouss}.}
 
 In Figure \ref{fig:bim_boussclaw_fun}, snapshots from different
 numerical models are shown at t=$16$, $18$ and $20$. 
+\todo{RJL: Why no BIM solution at t = 20?}
 For the \textsc{BoussClaw}, the parameter $B=1/15$ is used, 
 but the computational results are rather similar with $B=0$
 for this case. 
@@ -800,7 +809,7 @@ becomes larger at t = $20$.
 The results from the Serre and \textsc{BoussClaw} models clearly
 more similar to those of the BIM model. 
 Especially, the wave amplitudes are correctly determined by these models.
-Previously, \cite{wei1995fully} compared the Boussinesq equations
+Previously, \citet{wei1995fully} compared the Boussinesq equations
 and potential flow model, and observed similar results. 
 
 \subsection{Wave breaking and run-up}
@@ -828,8 +837,9 @@ the coastline changes in time
 as the wave runs up the slope and recedes eventually. 
 For the numerical simulations, 
 it has been a challenge to compute the inundation correctly.
-At the coastline, the \textsc{BoussClaw}
-use the \textsc{Geoclaw} software 
+At the coastline, \textsc{BoussClaw}
+switches to the NLSW solver of the \textsc{Geoclaw} software,
+\todo{RJL: I modified this sentence, is this correct?}
 which can handle 
 wet and dry states with the depth positivity property.
 Details can be found at \cite{george2008augmented}. 
@@ -845,14 +855,14 @@ f_D = -\frac{g C_d^2 u |u|}{H^{5/3}},
 \end{flalign*}
 where $C_d$ is a Manning drag coefficient.
 Another parameter $d^*$ needs to be chosen
-so that the water depth is set as $H=0$
+so that the water depth is set to $H=0$
 if the water depth is smaller than this threshold, $H<d^*$.
 \cite{antuono2012role} derived an approximate solution
 of the shoreline for the shallow water equations 
 with the Chezy friction,
 and studied the effect of the frictional coefficient and 
 the water depth tolerance.
-In this work, the parameter $d^*$ is set as $10^{-4}$. 
+In this work, the parameter $d^*$ is set to $10^{-4}$. 
 
 \begin{figure}[tbh!]
 	\centering
@@ -957,6 +967,9 @@ then starts to decrease as a shock is formed.
 \label{sec:conclusion}
 
 In the present paper we have presented a new operational 
+\todo{RJL: Here and in the abstract, is ``operational'' the right word? 
+To me this means a code that is used in practical work such at 
+tsunami warning centers.}
 Boussinesq type model, \textsc{BoussClaw},
 for modeling fully non-linear dispersive tsunami propagation, taking also into account drying-wetting during inundation and withdrawal on the beach.
 \textsc{BoussClaw} resembles much used operational models such as \textsc{Funwave-TVD} and
