@@ -682,8 +682,13 @@ tuning the friction models is not the scope of this work.
 \end{figure}
 
 %\marginpar{\footnotesize Geir: A very shallow region may yield %important frictional effects? But, surely, the wave should  break %in the shallowest region?}
+\subsection{Runup on a steep slope}
+\label{sec:10degrunup}
+On a $10^\circ$ slope an incident solitary wave of amplitude $A/h=0.3$ will not break until the end of the draw-down phase \cite{Grilli:1997}.
+Still, this may be a challenging task for Boussinesq type models\cite{Lovholt:2013a}. Runup on a $10^\circ$ was investigated experimentally
+by \citet{Pedersen:2013} who found a theoretical overshoot of roughly 20\% in the maximum runup height. This was alloted to the viscous boundary layer on the beach and capillary effects. Moreover, the measurements showed that the boundary layer flow during runup was mostly laminar, albeit indications of transition was observed in the upper part of the swash tongue close to flow reversal. Hence, it is not appropriate to employ a manning friction term and we compare the models without any bed friction, while leaving the experiments out. 
 
-\section{Simulation of wave steepening and breaking using a BIM model}
+\subsection{Comparsion with experiments on a breaking wave}
 \label{sec:wave_break}
 
 %Depth-averaged models are not capable of handling the wave breaking unless they are modified by incorporating the energy dissipation. In this work, a breaking solitary wave will be considered on a uniform slope. For laboratory experiments, see Synolakis \{synolakis1987runup}.
@@ -725,8 +730,10 @@ In this way, the initial solitary wave has a negligible interaction with the slo
 %Then $t=0$ is set as soon as the peak of wave is at $x=L$.
 
 In Figure \ref{fig:lab_bim}, the laboratory measurements
-are shown with the computational results from the BIM model
-for a breaking wave case of Synolakis with $A/h=0.28$ and $1:19.85$ slope at $t=15$.
+are shown with the computational results from the \BoussClaw (in Boussinesq and NLSW mode) and the BIM models
+for $A/h=0.28$ and a $1:19.85$ slope at $t=15$. This is before the w3ave breaks and
+both \BoussClaw and the BIM model are in good agreement with the experiments\marginpar{\footnotesize Also include the BoussClaw
+results and NLSW in fig.~\ref{fig:lab_bim}}.
 %The results are in good agreement. 
 
 \begin{figure}[!htb]
@@ -737,12 +744,6 @@ on a slope of $1:19.85$.}
 \label{fig:lab_bim}
 \end{figure}
 
-Figure \ref{fig:bim_breaking} shows
-the numerical results from the BIM model at $t=17$, $18$ and  $18.6$.
-In the BIM results a vertical front is observed at $x=4.02$ and $t=18.6$
-with the maximum wave amplitude $A=0.414$, and this shows similarity with 
-the analysis of \citet{titov1995modeling}
-on the wave breaking point.
 %\marginpar{\footnotesize What is the result of Titov and Synolakis?} 
 %and the undisturbed depth is $h=0.206$ m. 
 The ratio of amplitude to depth, $A/h$, 
@@ -750,6 +751,22 @@ is about $2.01$ at the break point.
 The potential flow model cannot be run much beyond the
 breaking points (until the attachment of the plunger only) and 
 gives no information on the following bore propagation.
+In figure \ref{fig:BoussClaw_runup} we have compared the \BoussClaw model, with and without 
+a Manning friction, with the experimental data. The agreement is good and the introduction of bed-friction 
+even seem to match the truncated swash tongue of the experiments well. However, this may a coincidence. Even though
+the the wave has broken and some irregular flow features are introduced thereby, we have no evidence of the flow state being
+anywhere near turbulent, which is required for a quadratic bottom resistance to be appropriate. Capillary effects and 
+experimental errors may also affect the comparison.
+\begin{figure}[tbh!]
+	\centering
+	\includegraphics[width=.45\textwidth]{_fig/BoussClaw_lab_Cd_t25}
+	\includegraphics[width=.45\textwidth]{_fig/BoussClaw_lab_Cd_t30}
+	\caption{Comparison of experiments and BoussClaw results 
+		at t=25 and 30.}
+	\label{fig:BoussClaw_runup}
+\end{figure}
+
+
 In Figure \ref{fig:sw_timeseries}, 
 computations of the shallow water equations
 (present model without the second fractional step) 
@@ -760,12 +777,6 @@ in the shallow water equations simulation
 is markedly smaller than that of the 
 potential flow model when the latter indicates breaking.
 
-%\begin{figure}[!htb]
-%\centering
-%\includegraphics[width=\textwidth]{_fig/bim_n7_time_series.png}
-%\caption{Computational results from BIM of a wave with $A/h=0.28$ on a slope of $1:19.85$.A vertical front is observed at $t=18.6$. }
-%\label{fig:bim_breaking}
-%\end{figure}
 
 %The computation of BIM can not proceed further after $t=19.2$ because of the singularity.
 
@@ -789,7 +800,8 @@ potential flow model when the latter indicates breaking.
 %\label{fig:bous_timeseries}
 %\end{figure}
 
-\section{Pre-breaking and breaking wave evolution using depth averaged models}
+\section{Shoaling and breaking phenomena}
+\subsection{Pre-breaking}
 \label{sec:num_breaking}
 
 We use the set-up described in section \ref{sec:wave_break} for the Boussinesq modeling of solitary waves on a slope. 
@@ -868,14 +880,6 @@ the application of this threshold.
 %to the shallow water equations.
 %Meanwhile, the BIM results show $x=4.02$ m and  $\epsilon_B=2.01$ at the start of the wave breaking.
 
-\begin{figure}[tbh!]
-	\centering
-	\includegraphics[width=.45\textwidth]{_fig/BoussClaw_lab_Cd_t25}
-	\includegraphics[width=.45\textwidth]{_fig/BoussClaw_lab_Cd_t30}
-	\caption{Comparison of experiments and BoussClaw results 
-		at t=25 and 30.}
-	\label{fig:BoussClaw_runup}
-\end{figure}
 
 In Figure \ref{fig:boussclaw_th08}, snapshots are shown at 
 t=$20$, $25$, and $30$ of the solutions from \BoussClaw and NLSW
