@@ -11,8 +11,8 @@
 
 \usepackage[colorinlistoftodos]{todonotes}   % provides \todo for margin notes
 
-\newcommand{\BoussClaw}{\textsc{BoussClaw}}
-
+\newcommand{\BoussClaw}{\textsc{BoussClaw} }
+\newcommand{\BoussClawt}{\textsc{BoussClaw}}
 \journal{Coastal Engineering}
 
 %%%%%%%%%%%%%%%%%%%%%%%
@@ -74,7 +74,7 @@ are dedicated to the dispersion dynamics of tsunamis.
 If the wave dispersion becomes important,
 Boussinesq-type models are often used. 
 In this work, an operational Boussinesq solver, 
-\BoussClaw, is introduced
+\BoussClawt, is introduced
 for modeling fully non-linear dispersive tsunami propagation, 
 taking into account inundation. 
 In the \BoussClaw model,
@@ -83,7 +83,7 @@ based on the depth-averaged velocity
 and with enhanced dispersion properties, 
 are implemented using a hybrid of the finite volume
 and finite difference methods.
-In order to validate \BoussClaw, 
+In order to validate \BoussClawt, 
 numerical results are compared 
 to the analytical solutions and laboratory experiments. 
 Furthermore, the  wave steepening and breaking motion
@@ -128,7 +128,7 @@ new formulations, in particular those of  \cite{madsen1992new} and \cite{nwogu19
 inherit characteristics in the same simple form. Hence, other stratergies have been attempted for inclusion of wave breaking and  
 post-breaking motion in Boussinesq models. 
 \citet{schaffer1993boussinesq} employed the concept of the {\em surface roller},
-first proposed by \citet{Svendsen:}, \todo{missing reference}
+first proposed by \citet{Svendsen:1984}, 
 which is volume of water passively riding at
 the bore front.
  Another way of incorporating the breaking that was suggested by \cite{Kennedy2000} who included diffusive terms
@@ -162,7 +162,7 @@ the $A/h = 0.8$ threshold suggested by \citep{shi2012high}
 based on the Froude similarity analysis by \citet{tonelli2009hybrid}, have in many ways become the standard for incorporating
 breaking in a feasible and practical way.
 
-In this paper, we present a new hybrid Boussinesq type model \BoussClaw, 
+In this paper, we present a new hybrid Boussinesq type model \BoussClawt, 
 of similiar mould as \textsc{Funwave-TVD} and \textsc{Coulwave-TVD}. The emphasis is twofold.
 First, to present a careful validation of the model, both towards  
 laboratory experiments and more general reference models. Second, we use the new model
@@ -207,7 +207,7 @@ and \citet{wei1995time}
 are representative examples. 
 
 In this work, a new numerical model, 
-called \BoussClaw, is introduced. 
+called \BoussClawt, is introduced. 
 It is an extension of \textsc{Geoclaw} \citep{clawpack},
 and solves 
 the Boussinesq-type equations derived by
@@ -259,9 +259,7 @@ the hydrostatic parts of (\ref{eq:madsen_momx})
 are written in a conservative form. Moreover, some nonlinearity is introduced
 in the dispersion term for convenience. 
 Even though (\ref{eq:madsen_cons_mass}), 
-(\ref{eq:madsen_momx}) and (\ref{eq:madsen_new_op}) do not constitute a fully nonlinear set of Boussinesq, 
-\todo{RJL: I'm not sure what you mean by ``do not constitute a fully nonlinear
-set of Boussinesq''?} 
+(\ref{eq:madsen_momx}) and (\ref{eq:madsen_new_op}) do not constitute a fully nonlinear set of Boussinesq equations, 
 they do describe shoaling of solitary waves markedly
 better than, for instance, the Peregrine equations, as will be demonstrated in 
 section  \ref{sec:num_breaking}.
@@ -409,12 +407,12 @@ Correspondingly, the $i$-th element of $\bar{\Psi(\textbf{H},\textbf{q})}$ is
 for $i=1,2,\dots,n$.
 \subsubsection{Additional numerical features}
 \label{sec_add_num}
-Following \cite{Shi...201} we may catch wave breaking in a heuristic fashion 
+Following \cite{shi2012high} we may catch wave breaking in a heuristic fashion 
 through  invokation of a threshold $\epsilon_B:=\eta/h=0.8$ in \BoussClaw.
 When the threshold is reached, the wave breaking is supposed to be initiated, 
 and the dispersive terms are suppressed. 
 At the breaking, the set of equations is locally 
-switched to the shallow water equations for the corresponding wave packet,
+switched to the shallow water equations for the corresponding wave packet\todo{G: wave packet is too loose. Must specify.},
 and the trailing waves are solved with the Boussinesq equations
 if the thresholds are not reached. 
 
@@ -429,13 +427,11 @@ switches to the NLSW solver of the \textsc{Geoclaw} software,
 \todo{RJL: I modified this sentence, is this correct?}
 which can handle 
 wet and dry states with the depth positivity property.
-Details can be found at \cite{george2008augmented}. 
+Details can be found in \cite{george2008augmented}. 
 
-Friction terms are necessary in the numerical simulations
-to capture the inundation appropriately. 
+Friction terms are important for inundation on gentle slopes. 
 For example, the Figure \ref{fig:BoussClaw_runup}
-shows that the run-up height is larger than the experiments 
-without the friction terms.
+shows that the run-up height is much reduced by the friction terms.
 \BoussClaw uses the Manning-type frictions as follows,
 \begin{flalign*}
 f_D = -\frac{g C_d^2 u |u|}{H^{5/3}},
@@ -486,7 +482,7 @@ is based on Peregrine-type equations and discretization on a staggered grid. Fur
 
 For comparison also the version 2.1 of the  \textsc{Funwave-TVD} model
 by \citet{shi2012high} is used. The
-\textsc{Funwave-TVD} model shares important features with \BoussClaw, employing a hybrid 
+\textsc{Funwave-TVD} model shares important features with \BoussClawt, employing a hybrid 
 of the finite volume and finite difference
 scheme to solve the fully non-linear higher order dispersive Boussinesq model numerically.
 While we refer to \citet{shi2012high} for details, we briefly note that \textsc{Funwave-TVD} is based the fully nonlinear 
@@ -529,7 +525,7 @@ which represent the wave amplitude and the undisturbed water depth
 respectively.
 
 In Figure \ref{fig:soliton_ts}, 
-snapshots from the \BoussClaw's simulation are shown 
+snapshots from the \BoussClaw simulation are shown 
 at $t=0,4,8$ and $12$ with $\Delta x = 0.1$. 
 For the initial conditions, the solution (\ref{eq:anal_serre})
 is used with $A=0.2$, $h=1$ and $g=9.81$.
@@ -559,7 +555,7 @@ and the Boussinesq equations are $E_0$ and $E_0+E_1$, respectively, where
 + \frac{1}{2}H^2h_x\bar{u}\bar{u}_x + \frac{1}{2}Hh_x^2\bar{u}^2.
 \label{eq:energy_e1}
 \end{flalign}
-Details are given in \citep{madsen1997surf} 
+Details are given in \citet{madsen1997surf} 
 and \ref{append:energy}.
 
 %The wave energy is conserved 
@@ -685,7 +681,7 @@ tuning the friction models is not the scope of this work.
 \subsection{Runup on a steep slope}
 \label{sec:10degrunup}
 On a $10^\circ$ slope an incident solitary wave of amplitude $A/h=0.3$ will not break until the end of the draw-down phase \cite{Grilli:1997}.
-Still, this may be a challenging task for Boussinesq type models\cite{Lovholt:2013a}. Runup on a $10^\circ$ was investigated experimentally
+Still, this may be a challenging task for Boussinesq type models \citep{Lovholt:2013a}. Runup on a $10^\circ$ was investigated experimentally
 by \citet{Pedersen:2013} who found a theoretical overshoot of roughly 20\% in the maximum runup height. This was alloted to the viscous boundary layer on the beach and capillary effects. Moreover, the measurements showed that the boundary layer flow during runup was mostly laminar, albeit indications of transition was observed in the upper part of the swash tongue close to flow reversal. Hence, it is not appropriate to employ a manning friction term and we compare the models without any bed friction, while leaving the experiments out. 
 
 \subsection{Comparsion with experiments on a breaking wave}
@@ -753,8 +749,8 @@ breaking points (until the attachment of the plunger only) and
 gives no information on the following bore propagation.
 In figure \ref{fig:BoussClaw_runup} we have compared the \BoussClaw model, with and without 
 a Manning friction, with the experimental data. The agreement is good and the introduction of bed-friction 
-even seem to match the truncated swash tongue of the experiments well. However, this may a coincidence. Even though
-the the wave has broken and some irregular flow features are introduced thereby, we have no evidence of the flow state being
+even seem to match the truncated swash tongue of the experiments well. However, this may be a coincidence. Even though
+the  wave has broken and some irregular flow features are introduced thereby, we have no evidence of the flow state being
 anywhere near turbulent, which is required for a quadratic bottom resistance to be appropriate. Capillary effects and 
 experimental errors may also affect the comparison.
 \begin{figure}[tbh!]
@@ -766,16 +762,6 @@ experimental errors may also affect the comparison.
 	\label{fig:BoussClaw_runup}
 \end{figure}
 
-
-In Figure \ref{fig:sw_timeseries}, 
-computations of the shallow water equations
-(present model without the second fractional step) 
-display a premature bore formation which checks the
-amplification during the subsequent shoaling. 
-As a consequence the amplitude 
-in the shallow water equations simulation 
-is markedly smaller than that of the 
-potential flow model when the latter indicates breaking.
 
 
 %The computation of BIM can not proceed further after $t=19.2$ because of the singularity.
@@ -803,7 +789,12 @@ potential flow model when the latter indicates breaking.
 \section{Shoaling and breaking phenomena}
 \subsection{Pre-breaking}
 \label{sec:num_breaking}
-
+\citet{wei1995fully} made computation of pre-breaking solitary wave shoaling with
+ their fully nonlinear extension of Nwogu's model with full potential 
+theory and the weakly nonlinear version of Nwogu's model.
+They found that the fully nonlinear Boussinesq equations were superior to those of Nwogu in the later stages of the shoaling.
+In this subsection we will do a similar comparison for our models on the $1:19.85$ slope which was not included in the reference.
+ 
 We use the set-up described in section \ref{sec:wave_break} for the Boussinesq modeling of solitary waves on a slope. 
 %Figure \ref{fig:bim_boussclaw} shows the snapshots of 
 %the water surface at t=$16$ and $18.6$
@@ -845,20 +836,24 @@ and the Peregrine's form is used for \textsc{GloBouss}.}
 \end{figure}
 
 In Figure \ref{fig:bim_boussclaw_fun}, snapshots from different
-numerical models are shown at t=$16$, $18$ and $20$. 
-\todo{RJL: Why no BIM solution at t = 20?}
-For the \BoussClaw, the parameter $B=1/15$ is used, 
+numerical models are shown at $t=16$, $18$ and $20$.
+At the $t=20$ there are no results from the BIM model as  the wave has broken.
+\todo{RJL: Why no BIM solution at t = 20? G: could we include t=19.1 instead, with the BIM in place ?}
+For the \BoussClawt, the parameter $B=1/15$ is used, 
 but the computational results are rather similar with $B=0$
 for this case. 
 At t=$16$, the computational results
 from the Boussinesq-type equations show similar results.
+The NLSW model, on the other hand, has yieldes a premature breaking 
+causing a too low amplitude. Moreover, the wave celerity is also over-estimated
+by the hydrostatic model. 
 At t=$18$, some discrepancies are observed 
 that can be split into two groups, and
 \textsc{GloBouss} and \textsc{Funwave} 
-are similar while \BoussClaw
-and Serre's results are similar. 
-The wave amplitudes computed by \textsc{GloBouss} and \textsc{Funwave},
-are more than 10 \% larger than BIM.
+are similar while the \BoussClaw
+and the Serre results are similar. 
+The wave amplitudes computed by the \textsc{GloBouss} and \textsc{Funwave} models,
+are more than 20 \%\todo{Is the figure 20\% OK. The old 10 was far too small} larger than those from the BIM model.
 The wave amplitude continues to increase 
 with \textsc{GloBouss} simulations,
 and the difference from the \BoussClaw result 
@@ -866,10 +861,16 @@ becomes larger at t = $20$.
 The results from the Serre and \BoussClaw models clearly
 more similar to those of the BIM model. 
 Especially, the wave amplitudes are correctly determined by these models.
-Previously, \citet{wei1995fully} compared the Boussinesq equations
-and potential flow model, and observed similar results. 
-
+Our observations are in line with those of \citet{wei1995fully}.
+ 
 \subsection{Wave breaking and run-up}
+In the BIM model we may identify the onset of breaking according when and where we first observe a vertical slope at the wave front.
+For an incident amplitude of $A/h=0.28$ on a $1:19.85$ slope
+breaking then starts at $x=4.09$\todo{What are the height, time, etc for the BIM simulation}. 
+When the crest in the \BoussClaw simulation reaches $x=4.09$ we find
+$A/h=1.97$, the ratio of wave speed to celerity ($u/\sqrt{gH}$)
+is $1.034$ and maximum surface slope angle of $39.1^\circ$.
+
 For an incident amplitude of $A/h=0.28$ and a $1:19.85$ slope the \BoussClaw model,
 the treshold $\epsilon_B=0.8$ (se sec.~\ref{sec_add_num}) is  reached at $t=14.9$
 when the peak of the wave is at $x=8.03227$.
@@ -886,15 +887,16 @@ t=$20$, $25$, and $30$ of the solutions from \BoussClaw and NLSW
 with the Manning coefficient $C_d=0.02$.
 We compared the NLSW and \BoussClaw with $\epsilon_B=0.8$
 and without the threshold. 
-At $t=20$ the simulation with $\epsilon_B=0.8$ have already been in NLSW mode for $5$ time units and the difference in the wave height 
+At $t=20$ the simulation with $\epsilon_B=0.8$ has already been in NLSW mode for $5$ time units and the difference in the wave height 
 from the full Boussinesq simulation is significant. In fact, the treshold solution is closer to the NLSW solution.
 is clearly observed. 
 
 At $t=25$ and $t=30$, the wave is running up the slope, 
-and the difference in the run-up height is relatively small. 
-At t=30, two \BoussClaw results are similar
-in the run-up height, but irregularities are observed
-around $x=8$ for the \BoussClaw simulation with $\epsilon_B=0.8$. 
+and the difference in the swash tongue is relatively small. 
+On the other hand, while \BoussClaw simulation with $\epsilon_B=0.8$ is
+smooth at $t=20$ irregularities are observed
+around $x=8$ due to the accumulated errors generated by the splicing of 
+Boussinesq and NLSW equations.\todo{How does this eveolve? Is it seen in other paper ?} 
 
 \begin{figure}[tbh!]
 \centering
@@ -907,10 +909,6 @@ Fiction forces have been added with $C_d=0.02$.}
 
 Figure \ref{fig:wave_break_criteria} shows 
 the amplitude to depth ratio, $\epsilon_B$, as function of the crest location. 
-With BIM simulations, the wave starts breaking at $x=4.09$. 
-When the crest in the \BoussClaw simulation reaches $x=4.09$ we find
-$A/h=1.97$, the ratio of wave speed to celerity ($u/\sqrt{gH}$)
-is $1.034$ and maximum surface slope angle of $39.1^\circ$.
 
 \begin{figure}[tbh!]
 \centering
@@ -979,7 +977,7 @@ In the present paper we have presented a new operational
 \todo{RJL: Here and in the abstract, is ``operational'' the right word? 
 To me this means a code that is used in practical work such at 
 tsunami warning centers.}
-Boussinesq type model, \BoussClaw,
+Boussinesq type model, \BoussClawt,
 for modeling fully non-linear dispersive tsunami propagation, taking also into account drying-wetting during inundation and withdrawal on the beach.
 \BoussClaw resembles much used operational models such as \textsc{Funwave-TVD} and
 \textsc{Coulwave-TVD}, but is based on a slightly simpler and more transparent set of governing equations,
@@ -988,7 +986,7 @@ analytical solitary wave expressions as well as laboratory experiments.
 
 Making use of the experiments of \citet{synolakis1987runup} 
 enabled us to
-constrain a set of different long wave models, including \BoussClaw, as well as a full potential
+constrain a set of different long wave models, including \BoussClawt, as well as a full potential
 BIM reference model. Using the BIM, we were able to explore in detail the post-breaking behaviour,
 and to identify the point of breaking accurately. This was useful for determining the 
 validity of the respective long wave models. First, we found that by using standard NLSW models,
@@ -1070,7 +1068,7 @@ expressed $(S_j^k)= s^k e^{i\xi j \Delta x}$.
 
 The stability  of the first step, (\ref{eq:append_advec}),  is assured by the standard CFL criterion
 \[\frac{c\Delta t}{\Delta x} <1.\]
-If we instead solve the NLSW equations, as in BoussClaw, $c$ must be replaced by the nonlinear characteristic velocity, which may lead to a more strict criterion. However, the method employed in the first step is not suited for a von Neumann stability analysis and we thus apply this technique to the second step only. 
+If we instead solve the NLSW equations, as in \BoussClawt, $c$ must be replaced by the nonlinear characteristic velocity, which may lead to a more strict criterion. However, the method employed in the first step is not suited for a von Neumann stability analysis and we thus apply this technique to the second step only. 
  Hence, we may put $g^1$ to unity, but it is preferable to retain it in the calculations. 
 The Runge-Kutta scheme for time stepping, (\ref{eq:rk4_S}), may  now be
 expressed as
