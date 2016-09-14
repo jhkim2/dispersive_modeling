@@ -73,7 +73,7 @@ but an increasing number of studies
 are dedicated to the dispersion dynamics of tsunamis.
 If the wave dispersion becomes important,
 Boussinesq-type models are often used. 
-In this work, an operational Boussinesq solver, 
+In this work, a general purpose Boussinesq solver, 
 \BoussClawt, is introduced
 for modeling fully non-linear dispersive tsunami propagation, 
 taking into account inundation. 
@@ -151,7 +151,7 @@ based on their large scale experiments of the wave propagation of undular bores 
 %as a wave breaking criterion.
 
 However, there is a natural desire to exploit the effecient and well established shock capturing framework for NLSW models also in a dispersive context.
-Hence, recently developed of operational Boussinesq models are often based on hybrid numerical techniques
+Hence, recently developed of  Boussinesq models are often based on hybrid numerical techniques
 such as use of approximate Riemann solvers combined with TVD limiters for the conserved variables, and finite differences
 for additional higher order terms \citep{Erduran2005,Kim2009,shi2012high}. Among other models, this have led to the popular
 \textsc{Funwave-TVD} and \textsc{Coulwave-TVD} applications. For instance in \citet{shi2012high}, Boussinesq terms are 
@@ -547,16 +547,18 @@ and the analytic solutions are black solid lines.}
 \label{fig:soliton_ts}
 \end{figure}
 
-The wave energies for the shallow water equations 
-and the Boussinesq equations are $E_0$ and $E_0+E_1$, respectively, where
+The verically integrated wave energy densities for the shallow water equations 
+and the Boussinesq equations are $e_0$ and $e_0+e_1$, respectively, where
 \begin{flalign}
-& E_0 = \frac{1}{2}\left( g\eta^2 + H\bar{u}^2 \right), \label{eq:energy_e0} \\
-& E_1 = \frac{1}{6}H^3\bar{u}_x^2
+& e_0 = \frac{1}{2}\left( g\eta^2 + H\bar{u}^2 \right), \label{eq:energy_e0} \\
+& e_1 = \frac{1}{6}H^3\bar{u}_x^2
 + \frac{1}{2}H^2h_x\bar{u}\bar{u}_x + \frac{1}{2}Hh_x^2\bar{u}^2.
 \label{eq:energy_e1}
 \end{flalign}
 Details are given in \citet{madsen1997surf} 
-and \ref{append:energy}.
+and \ref{append:energy}. When the densities are integrated over the whole 
+horizontal domain we obtain the corresponding total energies (per width), 
+denoted as $E_0$ and $E_1$.
 
 %The wave energy is conserved 
 %as long as the wave is smooth and do not break,
@@ -841,7 +843,7 @@ For the \BoussClawt, the parameter $B=1/15$ is used,
 but the computational results are rather similar with $B=0$
 for this case. 
 At t=$16$, the computational results
-from the Boussinesq-type equations show similar results.
+from all the Boussinesq-type equations show similar results.
 The NLSW model, on the other hand, has yieldes a premature breaking 
 causing a too low amplitude. Moreover, the wave celerity is also over-estimated
 by the hydrostatic model. 
@@ -879,7 +881,7 @@ the application of this threshold.
 %to the shallow water equations.
 %Meanwhile, the BIM results show $x=4.02$ m and  $\epsilon_B=2.01$ at the start of the wave breaking.
 
-
+\todo{Are there Synolakis data for t=20 ?}
 In Figure \ref{fig:boussclaw_th08}, snapshots are shown at 
 t=$20$, $25$, and $30$ of the solutions from \BoussClaw and NLSW
 with the Manning coefficient $C_d=0.02$.
@@ -918,9 +920,7 @@ BIM shows the wave break at $x=4.09$. }
 
 \subsection{Wave Energy}
 
-The wave energy is nearly conserved when the wave is smooth, 
-but decreases as the wave breaks.
-The wave energy expressions 
+The integrated wave energies  
 for the shallow water equations and Boussinesq equations
 are $E_0$ and $E_0+E_1$  respectively, 
 which are given in (\ref{eq:energy_e0}) and (\ref{eq:energy_e1}). 
@@ -944,40 +944,34 @@ which are given in (\ref{eq:energy_e0}) and (\ref{eq:energy_e1}).
     \label{fig:energy_boussclaw_swe}
 \end{figure}
 
-In Figure \ref{fig:energy_boussclaw_swe}, 
-the wave energy $E_0$ and $E_0+E_1$ are shown. 
-The energy denotes the aggregate 
-of the wave energy in the entire computational domain 
-and is shown as function of the crest location.
-In the left panel, 
-the energy $E_0$ is well-preserved 
-for the shallow water equations 
-before the wave forms a shock,
-and then the energy dissipates after a shock is formed.
-In the right panel, 
-$E_0+E_1$ is well-preserved for the \BoussClaw simulation during deep water propagation, but
-the value decreases slightly as the wave steepens
-near the shoreline.
-When the threshold $\epsilon_B=0.8$ is used,
-the energy $E_0+E_1$ is well-preserved 
-as shown on the right figure before the threshold is reached. 
-When the crest is located
-at $x=8.03227$ with $\epsilon_B=0.8$, 
-the wave energy $E_0$ on the left figure 
-does not decrease immediately.
-The energy $E_0$ is preserved for a while, 
-then starts to decrease as a shock is formed. 
+In Figure \ref{fig:energy_boussclaw_swe} the energy densities are depicted as 
+functions of the crest location, $x_c$. 
+In the left panel 
+we observe that the $E_0$ is nearly constant 
+for the shallow water equations until a shock is formed around $x_c=13$.
+Thereafter, energy is quickly dissipated. 
+In  the \BoussClaw simulation with no treshold (right panel) 
+$E_0+E_1$ is nearly when the wave propagates in constant depth. 
+On the deeper parts of the slope there is first a very moderate increase, then a
+very gentle reduction. This may be due to the absence of strict energy  conservation in the Boussinesq equations in the first place. 
+Close to the shoreline there is stronger, but still mild, energy dissipation.
+When the threshold $\epsilon_B=0.8$ is invoked there is no difference from the full Boussinesq solution until the the treshold is reached for 
+ $x_c=x_B=8.03227$. Then, in fact, there is marked increase in $E_0+E_1$ followed by a stronger  reduction then for the full solution.
+The increase is presumeably a consequence of errors introduced by changing the 
+governing equations from a Boussinesq to a NLSW type. 
+After  $x_c=x_B$  
+the hydrostatic energy measure, $E_0$, may be appropriate in this case.
+The artificial energy maximum  is then reduced and is only slightly higher than
+the general overshoot for $E_0$ and Boussinesq equations for $x_c>x_B$.  
+\todo{G: Most appropriatly $e_0$ should be integrated from the NLSW part, while $e_0+e_1$ should be used elsewhere. How to conclude ?  }
 
 \section{Conclusion}
 \label{sec:conclusion}
 
-In the present paper we have presented a new operational 
-\todo{RJL: Here and in the abstract, is ``operational'' the right word? 
-To me this means a code that is used in practical work such at 
-tsunami warning centers.}
+In the present paper we have presented a new  
 Boussinesq type model, \BoussClawt,
 for modeling fully non-linear dispersive tsunami propagation, taking also into account drying-wetting during inundation and withdrawal on the beach.
-\BoussClaw resembles much used operational models such as \textsc{Funwave-TVD} and
+\BoussClaw resembles much used general purpose models such as \textsc{Funwave-TVD} and
 \textsc{Coulwave-TVD}, but is based on a slightly simpler and more transparent set of governing equations,
 and has a slightly different numerical scheme. We have tested numerical implementation towards
 analytical solitary wave expressions as well as laboratory experiments.
@@ -1176,12 +1170,12 @@ h_x^2 \bar{u}^2 + H h_x\bar{u} \bar{u}_x + \frac{1}{3} H^2 \bar{u}_x^2
 \end{flalign*}
 Thus the energy of a wave can be approximated as 
 \begin{flalign*}
-& E = \epsilon^2 \left( E_0 +\mu^2 E_1 + O (\mu^4)\right)
+& e = \epsilon^2 \left( e_0 +\mu^2 e_1 + O (\mu^4)\right)
 \end{flalign*}
 where
 \begin{flalign*}
-& E_0 = \frac{1}{2}\left( g\eta^2 + H\bar{u}^2 \right), \\
-& E_1 = \frac{1}{6}H^3\bar{u}_x^2
+& e_0 = \frac{1}{2}\left( g\eta^2 + H\bar{u}^2 \right), \\
+& e_1 = \frac{1}{6}H^3\bar{u}_x^2
 + \frac{1}{2}H^2h_x\bar{u}\bar{u}_x + \frac{1}{2}Hh_x^2\bar{u}^2.
 \end{flalign*}
 
