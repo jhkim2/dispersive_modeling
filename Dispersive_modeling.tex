@@ -122,7 +122,7 @@ for the evolution of undular bores for tsunamis \citep{Glimsdal2013,Grue:2008,Lo
 In the last decades we have seen a development on long wave expansions and their numerical formulations. 
 In the 1990s the modeling with  Boussinesq type equations were vitalized by 
 new formulations, in particular those of  \cite{madsen1992new} and \cite{nwogu1993alternative} which  displayed improved dispersion properties in comparison to the standard formulation of \cite{peregrine1967long}.
-Later still more extensions and improvements have followed as described in the reviews \citep{Madsen:2003a}, \citep{Brocchini:2013}
+Later still more extensions and improvements have followed as described in the reviews \citep{Madsen:2003a,Brocchini:2013}
 
 
  Boussinesq-type equations differ in mathematical structure from the NLSW equations and do not
@@ -413,7 +413,7 @@ through  invokation of a threshold $\epsilon_B:=\eta/h=0.8$ in \BoussClaw.
 When the threshold is reached, the wave breaking is supposed to be initiated, 
 and the dispersive terms are suppressed. 
 At the breaking, the set of equations is locally 
-switched to the shallow water equations for the corresponding wave packet\todo{G: wave packet is too loose. Must specify.},
+switched to the shallow water equations for the corresponding leading wave, %packet\todo{G: wave packet is too loose. Must specify.},
 and the trailing waves are solved with the Boussinesq equations
 if the thresholds are not reached. 
 
@@ -423,9 +423,9 @@ the coastline changes in time
 as the wave runs up the slope and recedes eventually. 
 For the numerical simulations, 
 it has been a challenge to compute the inundation correctly.
-At the coastline, \BoussClaw
+At the coastline above the sea level, \BoussClaw
 switches to the NLSW solver of the \textsc{Geoclaw} software,
-\todo{RJL: I modified this sentence, is this correct?}
+%\todo{RJL: I modified this sentence, is this correct?}
 which can handle 
 wet and dry states with the depth positivity property.
 Details can be found in \cite{george2008augmented}. 
@@ -684,14 +684,14 @@ tuning the friction models is not the scope of this work.
 \label{sec:10degrunup}
 On a $10^\circ$ slope an incident solitary wave of amplitude $A/h=0.3$ will not break until the end of the draw-down phase \cite{Grilli:1997}.
 Still, this may be a challenging task for Boussinesq type models \citep{Lovholt:2013a}. Runup on a $10^\circ$ was investigated experimentally
-by \citet{Pedersen:2013} who found a theoretical overshoot of roughly 20\% in the maximum runup height. This was alloted to the viscous boundary layer on the beach and capillary effects. Moreover, the measurements showed that the boundary layer flow during runup was mostly laminar, albeit indications of transition was observed in the upper part of the swash tongue close to flow reversal. Hence, it is not appropriate to employ a manning friction term and we compare the models without any bed friction, while leaving the experiments out. 
+by \citet{Pedersen:2013} who found a theoretical overshoot of roughly 20\% in the maximum runup height. This was alloted to the viscous boundary layer on the beach and capillary effects. Moreover, the measurements showed that the boundary layer flow during runup was mostly laminar, albeit indications of transition was observed in the upper part of the swash tongue close to flow reversal. Hence, it is not appropriate to employ a Manning friction term and we compare the models without any bed friction, while leaving the experiments out. 
 
 \subsection{Comparsion with experiments on a breaking wave}
 \label{sec:wave_break}
 
 %Depth-averaged models are not capable of handling the wave breaking unless they are modified by incorporating the energy dissipation. In this work, a breaking solitary wave will be considered on a uniform slope. For laboratory experiments, see Synolakis \{synolakis1987runup}.
 
-\citet{synolakis1987runup} performed a series of laboratory experiments for the run-up of solitary waves
+\citet{synolakis1987runup} performed a series of laboratory expseriments for the run-up of solitary waves
 on uniform slopes. Here, we are interested in the  breaking cases. 
 One such example in \citet{synolakis1987runup} is a solitary wave of amplitude $A/h=0.28$ 
 approaching a slope of $1:19.85$. In Figure \ref{fig:init_setup}, the initial set-up for a test is shown. 
@@ -729,7 +729,10 @@ In this way, the initial solitary wave has a negligible interaction with the slo
 
 In Figure \ref{fig:lab_bim}, the laboratory measurements
 are shown with the computational results from the \BoussClaw (in Boussinesq and NLSW mode) and the BIM models
-for $A/h=0.28$ and a $1:19.85$ slope at $t=15$. This is before the wave breaks and
+for $A/h=0.28$ and a $1:19.85$ slope at $t=15$. 
+The grid size $\Delta x$ is 0.05 in the following simulations
+unless stated otherwise.
+This is before the wave breaks and
 both \BoussClaw and the BIM model are in good agreement with the experiments.
 %\marginpar{\footnotesize Also include the BoussClaw results and NLSW in fig.~\ref{fig:lab_bim}}.
 
@@ -854,7 +857,7 @@ that can be split into two groups, and
 are similar while the \BoussClaw
 and the Serre results are similar. 
 The wave amplitudes computed by the \textsc{GloBouss} and \textsc{Funwave} models,
-are more than 20 \%\todo{Is the figure 20\% OK. The old 10 was far too small} larger than those from the BIM model.
+are more than 20 \% \todo{Is the figure 20\% OK. The old 10 was far too small} larger than those from the BIM model.
 The wave amplitude continues to increase 
 with \textsc{GloBouss} simulations,
 and the difference from the \BoussClaw result 
@@ -867,13 +870,15 @@ Our observations are in line with those of \citet{wei1995fully}.
 \subsection{Wave breaking and run-up}
 In the BIM model we may identify the onset of breaking according when and where we first observe a vertical slope at the wave front.
 For an incident amplitude of $A/h=0.28$ on a $1:19.85$ slope
-breaking then starts at $x=4.09$\todo{What are the height, time, etc for the BIM simulation}. 
-When the crest in the \BoussClaw simulation reaches $x=4.09$ we find
+breaking then starts at $t=18.6$ and $x=4.09$ with $A/h=2.01$.
+%\todo{What are the height, time, etc for the BIM simulation}
+When the crest in the \BoussClaw simulation reaches $x=4.09$, 
+we find
 $A/h=1.97$, the ratio of wave speed to celerity ($u/\sqrt{gH}$)
 is $1.034$ and maximum surface slope angle of $39.1^\circ$.
 
 For an incident amplitude of $A/h=0.28$ and a $1:19.85$ slope the \BoussClaw model,
-the treshold $\epsilon_B=0.8$ (se sec.~\ref{sec_add_num}) is  reached at $t=14.9$
+the treshold $\epsilon_B=0.8$ (see sec.~\ref{sec_add_num}) is  reached at $t=14.9$
 when the peak of the wave is at $x=8.03227$.
 In the following, we explore the wave evolution with and without
 the application of this threshold.
@@ -1018,10 +1023,6 @@ maximum runup, convergence.
 \item What to say about breaking performance ?
 \item Old figures 9b, 10bc. Reinserted ?
 \end{enumerate}
-
-\section*{References}
-
-\bibliography{mybibfile}
 
 \appendix
 
@@ -1191,6 +1192,8 @@ where
 + \frac{1}{2}H^2h_x\bar{u}\bar{u}_x + \frac{1}{2}Hh_x^2\bar{u}^2.
 \end{flalign*}
 
+\section*{References}
+
+\bibliography{mybibfile}
+
 \end{document}
----
-\grid
