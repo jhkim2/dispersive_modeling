@@ -190,28 +190,25 @@ evolution with Boussinesq type models.
 \section{Model Description}
 \label{sec:model}
 
-Boussinesq-type equations include non-hydrotstic pressure in an approximate way
-treat short waves more accurately
-than the shallow water equations. 
-The Boussinesq-type wave models have been derived 
-on the assumption that 
-$\mathcal{O}(\epsilon)$ and $\mathcal{O}(\mu)$ terms
-are small, where $\epsilon$ and $\mu$ 
-denote the ratio of wave amplitude to depth
-and the ratio of depth to wavelength respectively. 
-Various models have been suggested,
-and the papers of \citet{peregrine1967long},
-\citet{madsen1992new}, \citet{nwogu1993alternative},
-\citet{lynett2002modeling},
-and \citet{wei1995time}
-are representative examples. 
+Boussinesq-type equations are   derived 
+on the assumption that the ratio of depth to wavelength, $\mu$,
+is small. In addition one may assume that 
+the ratio of wave amplitude to depth, $\epsilon$ is small.
+Different kinds of long wave assumptions are then generally characterized
+by relative errors in terms of these two parameters.
+Herein we will neither derive Boussinesq equation nor make the equations 
+dimensionless. Still, $\mu$ and $\epsilon$ will be used to indicate relative errors.
 
+
+\subsection{\BoussClaw - a new long wave model for tsunami propagation and run-up}
 In this work, a new numerical model, 
 called \BoussClawt, is introduced. 
 It is an extension of \textsc{Geoclaw} \citep{clawpack},
 and solves 
 the Boussinesq-type equations derived by
-\citet{schaffer1993boussinesq}.
+The extened model is formulated in two horizontal directions, but herein we focus on the description of plane waves for simplicity. Tests and details on the 
+performance with two horizontal directions are found in \cite{kim2014finite}.
+
 The \BoussClaw model
 is a hybrid of the finite volume and finite difference solvers
 with the fractional step technique.
@@ -221,14 +218,14 @@ developed mainly by
 \citet{leveque1997wave}, \citet{george2008augmented}
 and \citet{BergerGeorgeLeVequeMandli11},
 which is designed to solve the nonlinear shallow water equations.
+
+
 %with properties such as high-resolution, total variation diminishing (TVD) and adaptive mesh refinements (AMR).
 % The wave propagation algorithms by LeVeque (1997) \cite{leveque1997wave} is implemented, and the steady state is preserved. 
 
-\subsection{\BoussClaw - a new long wave model for tsunami propagation and run-up}
-
 \subsubsection{Boussinesq-type equations}
 
-\citet{schaffer1993boussinesq} derived 
+\citet{schaffer1993boussinesq}\todo{Is it Schaeffer or M and S ?} derived 
 Boussinesq-type equations
 with an addition of a Pad{\'e} approximation 
 of the linear dispersion relation.
@@ -259,7 +256,7 @@ the hydrostatic parts of (\ref{eq:madsen_momx})
 are written in a conservative form. Moreover, some nonlinearity is introduced
 in the dispersion term for convenience. 
 Even though (\ref{eq:madsen_cons_mass}), 
-(\ref{eq:madsen_momx}) and (\ref{eq:madsen_new_op}) do not constitute a fully nonlinear set of Boussinesq equations, 
+(\ref{eq:madsen_momx}) and (\ref{eq:madsen_new_op}) do not constitute a fully nonlinear set of Boussinesq equations, inheriting relative errors of order $\mu^2,\,\epsilon\mu^2$, 
 they do describe shoaling of solitary waves markedly
 better than, for instance, the Peregrine equations, as will be demonstrated in 
 section  \ref{sec:num_breaking}.
@@ -1143,57 +1140,59 @@ the fractional step is always stable with the suggested numerical scheme.
 To derive the energy estimates for the Boussinesq-type equations, 
 we define the depth-averaged velocity as,  
 \begin{flalign*}
-\bar{u} = \frac{1}{H}\int_{-h}^{\epsilon \eta} u dz .
+\bar{u} = \frac{1}{H}\int_{-h}^{\eta} u dz .
 \end{flalign*}
 Then the velocity $u$ can be expressed as
-$u = \bar{u} + \mu^2 u_1$ where
+$u = \bar{u} + u_1$ where $u_1=O(\mu^2\bar{u})$ and
 \begin{align}
 \int_{-h}^{\epsilon \eta} u_1 dz=0. \label{eq:avg_u1}
 \end{align}
 Then the kinematic boundary condition at the bottom and zero divergence
 implies
 \begin{flalign*}
-w = -h_x u  - \bar{u}_x (z+h) + O(\mu^2). 
+w = -h_x \bar{u}  - \bar{u}_x (z+h) + O(\mu^2). 
 \end{flalign*}
 
 \subsection{Energy integrals}
 
 The potential energy density per horizontal area is 
 \begin{flalign*}
-V = \int_{-h}^{\epsilon \eta} g z dz = \frac{1}{2}\epsilon^2 g \eta^2 
+V = \int_{-h}^{\eta} g z dz = \frac{1}{2}g \eta^2 
 - \frac{1}{2} g h^2, 
 \end{flalign*}
-where the last term $\frac{1}{2} g h^2$ is the equilibrium energy.
+where the last term, $\frac{1}{2} g h^2$, is the equilibrium energy, while the
+first term is of order $\epsilon^2$ relative to the first.
 The kinematic energy density has two contributions,
 \begin{flalign*}
 T=T_u+T_w; 
-\quad T_u = \frac{1}{2}\epsilon^2 \int_{-h}^{\epsilon \eta} u^2 dz, 
-\quad T_w = \frac{1}{2}\epsilon^2 \mu^2 \int_{-h}^{\epsilon \eta} w^2 dz. 
+\quad T_u = \frac{1}{2}\int_{-h}^{\eta} u^2 dz, 
+\quad T_w = \frac{1}{2}\int_{-h}^{\eta} w^2 dz. 
 \end{flalign*}
+where $T_w=O(\mu^2T_u)$.
 For the horizontal part, $T_u$ is 
 \begin{flalign*}
-T_u = \frac{1}{2}\epsilon^2 \int_{-h}^{\epsilon \eta} u^2 dz
+T_u = \frac{1}{2}\int_{-h}^{\eta} u^2 dz
 = \frac{1}{2}\epsilon^2 \int_{-h}^{\epsilon \eta} 
-\bar{u}^2+2\mu^2\bar{u}u_2 + \mu^4u_1^2 dz
-= \frac{1}{2}\epsilon^2 H \bar{u}^2 + O(\epsilon^2 \mu^4),
+\bar{u}^2+2\bar{u}u_1 + u_1^2 dz
+= \frac{1}{2}\epsilon^2 H \bar{u}^2(1 + O(\mu^4)),
 \end{flalign*}
-since $\bar{u}$ is independent of $z$ and by (\ref{eq:avg_u1}).
-Assuming $\frac{1}{H}\int_{-h}^{\epsilon \eta} u^2 dz = \bar{u}^2$,
-the vertical part is 
+since $\bar{u}$ is independent of $z$ and $u_1=O(\mu^2\bar{u})$.
+The vertical part becomes 
 \begin{flalign*}
-\quad T_u & = \frac{1}{2}\epsilon^2 \mu^2 \int_{-h}^{\epsilon \eta} 
-h_x^2u^2 +2h_xu\bar{u}_x(z+h)
-+ \bar{u}_x^2 (z+h)^2 dz + O(\epsilon^2\mu^4) \\
-& = \frac{1}{2}\epsilon^2 \mu^2 H
+\quad T_w & = \frac{1}{2}\int_{-h}^{\eta} 
+h_x^2\bar{u}^2 +2h_x\bar{u}\bar{u}_x(z+h)
++ \bar{u}_x^2 (z+h)^2 dz  \\
+& = \frac{1}{2} H
 \left(
 h_x^2 \bar{u}^2 + H h_x\bar{u} \bar{u}_x + \frac{1}{3} H^2 \bar{u}_x^2
-\right) + O(\epsilon^2\mu^4).
+\right),
 \end{flalign*}
+where relative errors of order $\mu^2$ are implicit.
 Thus the energy of a wave can be approximated as 
 \begin{flalign*}
-& e = \epsilon^2 \left( e_0 +\mu^2 e_1 + O (\mu^4)\right)
+& e = \left( e_0 +e_1 + O (\mu^4e_0)\right)
 \end{flalign*}
-where
+where $e_1=O(\mu^2 e_0)$ and
 \begin{flalign*}
 & e_0 = \frac{1}{2}\left( g\eta^2 + H\bar{u}^2 \right), \\
 & e_1 = \frac{1}{6}H^3\bar{u}_x^2
