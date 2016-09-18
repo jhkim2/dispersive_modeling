@@ -232,9 +232,10 @@ of the linear dispersion relation.
 The equations read 
 \begin{flalign}
 & H_t + (Hu)_x  = 0, \label{eq:madsen_cons_mass} & \\ 
-& (1-D)\big\lbrack(Hu)_t\big\rbrack + \left( Hu^2 + \frac{g}{2}H^2 \right)_x - gHh_x -Bgh^2\left(h\eta_x\right)_{xx} =0, \label{eq:madsen_momx} &
+& (1-D)\big\lbrack(Hu)_t\big\rbrack + \left( Hu^2 + \frac{g}{2}H^2 \right)_x - gHh_x -Bgh^2\left(h\eta_x\right)_{xx} =f_D, \label{eq:madsen_momx} &
 \end{flalign}
-where the operator $D$ is defined as
+where $f_D$ is a Manning type friction term, defined in eq.~(\ref{eq:Manning}),
+and the operator $D$ is defined as
 \begin{flalign}
  D (w) &= \left(B+\frac{1}{2} \right)h^2 w_{xx} -\frac{1}{6} h^3 \left(\frac{w}{h}\right)_{xx}, & \label{eq:madsen_new_op}
 \end{flalign}
@@ -276,11 +277,12 @@ operator, while balancing with extra terms in the $\Psi$, to obtain
 \end{flalign}
 where
 \begin{flalign}
-\Psi(x,t)= & \left(B+\frac{1}{2} \right) h^2 \left( (Hu^2)_{x} + g H \eta_x \right)_{xx} \nonumber\\
+\Psi(x,t)= & \left(B+\frac{1}{2} \right) h^2 \left( (Hu^2)_{x} + g H \eta_x \right)_{xx} +f_D\nonumber\\
 & -\frac{1}{6}h^3 \left( \frac{ (Hu^2)_x +gH\eta_x }{h} \right)_{xx}
 -Bgh^2\left(h\eta_x\right)_{xx}. &
 \label{eq:madsen_new_disp_x}
 \end{flalign}
+\todo{Is the Manning term included in $\Psi$ ?}
 
 \subsubsection{Numerical scheme}
 \label{sec:Num_scheme}
@@ -430,9 +432,10 @@ Friction terms are important for inundation on gentle slopes.
 For example, the Figure \ref{fig:BoussClaw_runup}
 shows that the run-up height is much reduced by the friction terms.
 \BoussClaw uses the Manning-type frictions as follows,
-\begin{flalign*}
+\begin{equation}
+\label{eq:Manning}
 f_D = -\frac{g C_d^2 u |u|}{H^{5/3}},
-\end{flalign*}
+\end{equation}
 where $C_d$ is a Manning drag coefficient.
 Another parameter $d^*$ needs to be chosen
 so that the water depth is set to $H=0$
@@ -751,7 +754,7 @@ both \BoussClaw and the BIM model are in good agreement with the experiments.
 on a slope of $1:19.85$.}
 \label{fig:lab_bim}
 \end{figure}
-
+\todo{Add Serre results in figure and give web adress for data as reference}
 %\marginpar{\footnotesize What is the result of Titov and Synolakis?} 
 %and the undisturbed depth is $h=0.206$ m. 
 The ratio of amplitude to depth, $A/h$, 
@@ -784,7 +787,7 @@ steeper slope there is insufficient time for the second effect to fully
 counterbalance the first. For the gentler slope the early onset of breaking
 in the NLSW model, at a long distance form the shoreline, causes a large 
 dissipation which dominates over the first effects.   
-
+{\em Add figure with shorelines and table with maximum runup heights}
 
 %The computation of BIM can not proceed further after $t=19.2$ because of the singularity.
 
@@ -811,11 +814,13 @@ dissipation which dominates over the first effects.
 \section{Shoaling and breaking phenomena}
 \subsection{Pre-breaking}
 \label{sec:num_breaking}
-\citet{wei1995fully} made computation of pre-breaking solitary wave shoaling with
- their fully nonlinear extension of Nwogu's model, with full potential 
-theory and the weakly nonlinear version of Nwogu's model.
+\citet{wei1995fully} made computation of pre-breaking solitary wave shoaling using
+ their fully nonlinear extension of Nwogu's model, full potential 
+theory, and the weakly nonlinear version of Nwogu's model.
 They found that the fully nonlinear Boussinesq equations were superior to those of Nwogu in the later stages of the shoaling.
-In this subsection we will do a similar comparison for our models on the $1:19.85$ slope which was not included in the reference.
+In this subsection we will do a similar comparison for our models on the $1:19.85$ slope which was not included in the reference. Our fully nonlinear Boussinesq model is different from that of the references, as it is a Serre type model, 
+and our hybrid \BoussClaw model is not fully nonlinear. Hence, it is imperative
+to test the shoaling properties, particularly for the latter model.   
  
 We use the set-up described in section \ref{sec:wave_break} for the Boussinesq modeling of solitary waves on a slope. 
 %Figure \ref{fig:bim_boussclaw} shows the snapshots of 
@@ -1041,14 +1046,13 @@ be even more pronounced for steeper slopes.
 %\end{itemize}
 
 \section*{Temporary section: What to do}
-These are in addition to margin-notes.
+These may be in addition to margin-notes.
 \begin{enumerate}
-\item Add references to introduction.
 \item More figures for section \ref{sec:10degrunup}; snapshots, shorelines 
 maximum runup, convergence.
 \item Grid increments must be described, somehow, for all results.
-\item What to say about breaking performance ?
-\item Old figures 9b, 10bc. Reinserted ?
+\item What to say about breaking performance ? End of introduction, discussion in in 4.1, 4.2 and conclusion must be looked at.
+\item Old figures 9b, 10bc. Reinserted ? No.............
 \end{enumerate}
 
 \appendix
