@@ -409,7 +409,8 @@ through  invokation of a threshold $\epsilon_B:=\eta/h=0.8$ in \BoussClaw.
 When the threshold is reached, the wave breaking is supposed to be initiated, 
 and the dispersive terms are suppressed. 
 At the breaking, the set of equations is locally 
-switched to the shallow water equations for the corresponding leading wave, %packet\todo{G: wave packet is too loose. Must specify.},
+switched to the shallow water equations for the corresponding leading wave, defines as stretching from the first nearshore elevation to the first negative 
+trough following the crest that surpases the treshold, \todo{G: May have to modify according to new simulations.},
 and the trailing waves are solved with the Boussinesq equations
 if the thresholds are not reached. 
 
@@ -421,7 +422,6 @@ For the numerical simulations,
 it has been a challenge to compute the inundation correctly.
 At the coastline above the sea level, \BoussClaw
 switches to the NLSW solver of the \textsc{Geoclaw} software,
-%\todo{RJL: I modified this sentence, is this correct?}
 which can handle 
 wet and dry states with the depth positivity property.
 Details can be found in \cite{george2008augmented}. 
@@ -443,7 +443,9 @@ with the Chezy friction,
 and studied the effect of the frictional coefficient and 
 the water depth tolerance.
 In this work, the parameter $d^*$ is set to $10^{-4}$. 
-
+The dispersion terms of the Boussinesq equations imply an extended computational
+stencil as compared to that for the NLSW equations. To prevent this stencil 
+from including non-wetted nodes and thereby produce irregularities and even instabililities, the dispersion terms are switched off when $H<Nd^*$, where the number $N$ is set to 100 for the simulations herein.\todo{G: Jihwan, check this}  
 
 \subsection{Models for comparison}
 The performance of the Boussinesq model presented here is 
@@ -676,34 +678,19 @@ tuning the friction models is not the scope of this work.
 \end{figure}
 
 %\marginpar{\footnotesize Geir: A very shallow region may yield %important frictional effects? But, surely, the wave should  break %in the shallowest region?}
-\subsection{Runup on a steep slope}
-\label{sec:10degrunup}
-On a $10^\circ$ slope an incident solitary wave of amplitude $A/h=0.3$ will not break until the end of the draw-down phase \cite{Grilli:1997}.
-Still, this may be a challenging task for Boussinesq type models \citep{Lovholt:2013a}. Runup on a $10^\circ$ was investigated experimentally
-by \citet{Pedersen:2013} who found a theoretical overshoot of roughly 20\% in the maximum runup height. This was alloted to the viscous boundary layer on the beach and capillary effects. Moreover, the measurements showed that the boundary layer flow during runup was mostly laminar, albeit indications of transition was observed in the upper part of the swash tongue close to flow reversal. Hence, it is not appropriate to employ a Manning friction term and we compare the models without any bed friction, while leaving the experiments out. 
-
-\subsection{Comparsion with experiments on a breaking wave}
-\label{sec:wave_break}
-
-%Depth-averaged models are not capable of handling the wave breaking unless they are modified by incorporating the energy dissipation. In this work, a breaking solitary wave will be considered on a uniform slope. For laboratory experiments, see Synolakis \{synolakis1987runup}.
-
-\citet{synolakis1987runup} performed a series of laboratory expseriments for the run-up of solitary waves
-on uniform slopes. Here, we are interested in the  breaking cases. 
-One such example in \citet{synolakis1987runup} is a solitary wave of amplitude $A/h=0.28$ 
-approaching a slope of $1:19.85$. In Figure \ref{fig:init_setup}, the initial set-up for a test is shown. 
+\subsection{Shoaling and runup of solitary waves}
+In Figure \ref{fig:init_setup}, the initial set-up for a test is shown. 
 %, and the experiment results include various cases with the wave amplitudes and slope angles. Synolakis identified the breaking and non-breaking wave cases. 
-
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=.7\textwidth]{_fig/initial_setup.png}
-\caption{Set-up of a numerical test for Synolakis' experiments.}
+\caption{Set-up of a numerical test for shoaling and runup of solitary waves.}
 \label{fig:init_setup}
 \end{figure}
-
 The set-up of the wave tank in the simulations follows the laboratory experiments by \citet{synolakis1987runup}. 
 The bathymetry of the wave tank is composed of a horizontal bottom and 
 a uniform slope as shown in Figure \ref{fig:init_setup}. 
-A solitary wave of amplitude $A/h=0.28$ is generated at the right end of
+A solitary wave of amplitude $A$ is generated at the right end of
 the tank and propagates leftwards
 to the beach. 
 
@@ -721,6 +708,31 @@ started to interact with the solitary wave. To avoid any such interaction obscur
 our analysis, we instead place the initial solitary wave using equation (\ref{eq:anal_serre}) 
 at $L + 5c$, where $c$ is the shallow water wave celerity.
 In this way, the initial solitary wave has a negligible interaction with the slope when initialized. 
+
+\subsubsection{Runup on a steep slope}
+\label{sec:10degrunup}
+On a $10^\circ$ slope an incident solitary wave of amplitude $A/h=0.3$ will not break until the end of the draw-down phase \cite{Grilli:1997}.
+Still, this may be a challenging task for Boussinesq type models \citep{Lovholt:2013a}. Runup on a $10^\circ$ was investigated experimentally
+by \citet{Pedersen:2013} who found a theoretical overshoot of roughly 20\% in the maximum runup height. This was alloted to the viscous boundary layer on the beach and capillary effects. Moreover, the measurements showed that the boundary layer flow during runup was mostly laminar, albeit indications of transition was observed in the upper part of the swash tongue close to flow reversal. Hence, it is not appropriate to employ a Manning friction term and we compare the models without any bed friction, while leaving the experiments out. 
+...............
+The agreement between the dispersive models are very good. Even though the fully nonlinear Serre model follows the BIM slightly better the \BoussClaw is also 
+very close to full potential theory. For the given parameters the NLSW model yields premature breaking (see discussion on theoretical and observed breaking in \cite{Pedersen:2013}) and a too high maximum runup height. The small wrinkles observed on the 
+surface from the \BoussClaw are due\todo{Check statement on wrinkles} to the
+switch to NLSW at the shore. Even though these small artifacts are enhanced by increasing resolution they do not give rise to instability or severe 
+performance degradation for resolutions used. Instead, as demonstrated in figure ..., we obtain a solid grid convergence for tyhe \BoussClaw model. This is in 
+sharp to contrast to observations for other models as presented in  \cite{Lovholt:2013a}.    
+{\em Add figure with stages in the runup, including \BoussClaw (without the treshold), NLSW, BIM and Serre. Add figure with shoreline history until maximum runup. Add figure with convergence of BoussClaw results. Add small table with maximum runup}
+ 
+\subsubsection{Comparsion with experiments on a breaking wave}
+\label{sec:wave_break}
+
+%Depth-averaged models are not capable of handling the wave breaking unless they are modified by incorporating the energy dissipation. In this work, a breaking solitary wave will be considered on a uniform slope. For laboratory experiments, see Synolakis \{synolakis1987runup}.
+
+\citet{synolakis1987runup} performed a series of laboratory expseriments for the run-up of solitary waves
+on uniform slopes. Here, we are interested in the  breaking cases. 
+One such example in \citet{synolakis1987runup} is a solitary wave of amplitude $A/h=0.28$ 
+approaching a slope of $1:19.85$. 
+
 %Then $t=0$ is set as soon as the peak of wave is at $x=L$.
 
 In Figure \ref{fig:lab_bim}, the laboratory measurements
@@ -761,7 +773,17 @@ experimental errors may also affect the comparison.
 		at t=25 and 30.}
 	\label{fig:BoussClaw_runup}
 \end{figure}
-
+.....
+Unlike what was observed for $\theta=10^\circ$, the NLSW model this time
+reduces the run up height. The opposite behaviour for the two slope may be 
+explained by two competing effects of neglection of dispersion. First, for a
+ non-breaking wave the omission of non-hydrostatic effecs lead to an excessive 
+steepening of the wave front which imply higher runup. On the other hand, 
+premature breaking dissipated energy and will reduce runup heights. For the 
+steeper slope there is insufficient time for the second effect to fully 
+counterbalance the first. For the gentler slope the early onset of breaking
+in the NLSW model, at a long distance form the shoreline, causes a large 
+dissipation which dominates over the first effects.   
 
 
 %The computation of BIM can not proceed further after $t=19.2$ because of the singularity.
