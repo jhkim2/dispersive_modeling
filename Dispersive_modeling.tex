@@ -154,22 +154,30 @@ However, there is a natural desire to exploit the efficient and well established
 Hence, recently developed of  Boussinesq models are often based on hybrid numerical techniques
 such as use of approximate Riemann solvers combined with TVD limiters for the conserved variables, and finite differences
 for additional higher order terms \citep{Erduran2005,Kim2009,Shiach:2009,Roeber:2010,Dutykh:2011,shi2012high}. Among other models, this have led to the popular
-\textsc{Funwave-TVD} and \textsc{Coulwave-TVD} applications. For instance in \citet{shi2012high}, Boussinesq terms are 
-switched off the near-shore region where large amplitude-to-depth-ratios occur,
-implying that only NLSW terms remain in the shallowest region.
-This allows for a relatively robust treatment of the modeling of the post breaking phase. To this end,
-the $A/h = 0.8$ threshold suggested by \citep{shi2012high} 
-based on the Froude similarity analysis by \citet{tonelli2009hybrid}, have in many ways become the standard for incorporating
-breaking in a feasible and practical way.
+\textsc{Funwave-TVD} and \textsc{Coulwave-TVD} applications. 
+In most Boussinesq models that include runup on beaches the dispersion term
+is turned off in the vicinity of the shoreline to avoid interference of
+the wetting-drying techniques with the
+larger computational stencils from the dispersion terms. Still,
+the dispersion terms are often seen to cause stability problems in
+the extremely nonlinear parts of the shoaling process \citep{Lovholt:2013a}.
+In a fact, a practice of  
+switching to the NLSW equations in the near-shore region, where large amplitude-to-depth-ratios occur, has evolved.
+This allows for a relatively robust treatment of the modeling of the post breaking phase. To this end, \cite{tonelli2009hybrid} and \citep{shi2012high}, for instance, employ the $A/h = 0.8$ threshold which is motivated by the maximum 
+height of an undular bore, which again is related to the extreme solitary wave.
+This treshold is a pragmatic choice for gentle   bottom gradients and
+may be questionable under other circumstances.  
 
 In this paper, we present a new hybrid Boussinesq type model \BoussClawt, 
-of similiar mould as \textsc{Funwave-TVD} and \textsc{Coulwave-TVD}. The emphasis is twofold.
-First, to present a careful validation of the model, both towards  
-laboratory experiments and more general reference models. Second, we use the new model
-in comparison with a full potential reference model to explore how accurate the Boussinesq models 
-can represent the wave evolution until the point of breaking. In the present example,
-we are finally able to demonstrate that Boussinesq models may be employed
-to accurately model the near shore tsunami propagation beyond the standard $A/h = 0.8$ threshold depth.
+of similiar mould as \textsc{Funwave-TVD} and \textsc{Coulwave-TVD}, but with a different Boussinesq formulation. In particular, the dispersion term is simpler
+and not fully nonlinear. The goal of the present article is twofold.
+First, to present a careful validation of the \BoussClaw model, both towards  
+laboratory experiments and reference models. Second, we use the new model
+to explore the breaking phenomena in the context of Boussinesq equations.
+It is investigated how different Boussinesq type models 
+can represent the wave evolution until the point of breaking. In the presented example,
+we are finally able to demonstrate that Boussinesq models may stably
+compute the near shore tsunami propagation beyond the standard $A/h = 0.8$ threshold depth.
 Conversely, we find that the use of the standard $A/h = 0.8$ threshold depth 
 invokes a too early formation of a breaking bore. This points out that  
 that the breaking criteria employed so far lacks generality.
@@ -786,7 +794,7 @@ premature breaking dissipated energy and will reduce runup heights. For the
 steeper slope there is insufficient time for the second effect to fully 
 counterbalance the first. For the gentler slope the early onset of breaking
 in the NLSW model, at a long distance form the shoreline, causes a large 
-dissipation which dominates over the first effects.   
+dissipation which dominates over the first effects.\todo{Geir: But, Li and Raichlen obtained a smaller runup height; Manning friction ? Check.}   
 {\em Add figure with shorelines and table with maximum runup heights}
 
 %The computation of BIM can not proceed further after $t=19.2$ because of the singularity.
@@ -1008,7 +1016,7 @@ the general overshoot for $E_0$ and Boussinesq equations for $x_c>x_B$.
 
 In the present paper we have presented a new  
 Boussinesq type model, \BoussClawt,
-for modeling fully non-linear dispersive tsunami propagation, taking also into account drying-wetting during inundation and withdrawal on the beach.
+for modeling non-linear dispersive tsunami propagation. The model is an extenson of the \textsc{GeoClaw} package and  take also into account drying-wetting during inundation and withdrawal on the beach.
 \BoussClaw resembles much used general purpose models such as \textsc{Funwave-TVD} and
 \textsc{Coulwave-TVD}, but is based on a slightly simpler and more transparent set of governing equations,
 and has a slightly different numerical scheme. We have tested numerical implementation towards
