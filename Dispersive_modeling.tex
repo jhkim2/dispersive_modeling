@@ -8,6 +8,11 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{tikz}
+\usepackage{floatrow}
+% Table float box with bottom caption, box width adjusted to content
+\newfloatcommand{capbtabbox}{table}[][\FBwidth]
+
+\usepackage{blindtext}
 
 \usepackage[colorinlistoftodos]{todonotes}   % provides \todo for margin notes
 
@@ -233,7 +238,7 @@ which is designed to solve the nonlinear shallow water equations.
 
 \subsubsection{Boussinesq-type equations}
 
-\citet{schaffer1993boussinesq}\todo{Is it Schaeffer or M and S ?} derived 
+\citet{madsen1992new} \todo{Is it Schaeffer or M and S ? J: same as M\&S(1992) Part2} derived 
 Boussinesq-type equations
 with an addition of a Pad{\'e} approximation 
 of the linear dispersion relation.
@@ -290,7 +295,7 @@ where
 -Bgh^2\left(h\eta_x\right)_{xx}. &
 \label{eq:madsen_new_disp_x}
 \end{flalign}
-\todo{Is the Manning term included in $\Psi$ ?}
+\todo{Is the Manning term included in $\Psi$ ? J:It is included in $\Psi$, but computationally we solve $(hu)_t = -f_D$ separately}
 
 \subsubsection{Numerical scheme}
 \label{sec:Num_scheme}
@@ -420,7 +425,7 @@ When the threshold is reached, the wave breaking is supposed to be initiated,
 and the dispersive terms are suppressed. 
 At the breaking, the set of equations is locally 
 switched to the shallow water equations for the corresponding leading wave, defines as stretching from the first nearshore elevation to the first negative 
-trough following the crest that surpases the treshold, \todo{G: May have to modify according to new simulations.},
+trough following the crest that surpases the threshold, \todo{G: May have to modify according to new simulations.},
 and the trailing waves are solved with the Boussinesq equations
 if the thresholds are not reached. 
 
@@ -456,7 +461,8 @@ the water depth tolerance.
 In this work, the parameter $d^*$ is set to $10^{-4}$. 
 The dispersion terms of the Boussinesq equations imply an extended computational
 stencil as compared to that for the NLSW equations. To prevent this stencil 
-from including non-wetted nodes and thereby produce irregularities and even instabililities, the dispersion terms are switched off when $H<Nd^*$, where the number $N$ is set to 100 for the simulations herein.\todo{G: Jihwan, check this}  
+from including non-wetted nodes and thereby produce irregularities and even instabililities, the dispersion terms are switched off when $H<Nd^*$, where the number $N$ is set to 100 for the simulations herein.
+%\todo{G: Jihwan, check this}  
 
 \subsection{Models for comparison}
 The performance of the Boussinesq model presented here is 
@@ -549,9 +555,9 @@ The amplitudes decreases very gently as the wave propagates.
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=.8\textwidth]{_fig/soliton_ts.png}
+\includegraphics[width=.7\textwidth]{_fig/soliton_ts.png}
 \caption{Snapshot of the analytic and computed solitary wave 
-at $t=0,4,8$ and $12$ with $A/h=0.2$. 
+at $t=0,4,8$ and $12$ with $A/h=0.2$ and $\Delta x=0.05$. 
 The wave propagates from right to left,
 and the analytic solutions are black solid lines.}
 \label{fig:soliton_ts}
@@ -725,14 +731,63 @@ In this way, the initial solitary wave has a negligible interaction with the slo
 On a $10^\circ$ slope an incident solitary wave of amplitude $A/h=0.3$ will not break until the end of the draw-down phase \cite{Grilli:1997}.
 Still, this may be a challenging task for Boussinesq type models \citep{Lovholt:2013a}. Runup on a $10^\circ$ was investigated experimentally
 by \citet{Pedersen:2013} who found a theoretical overshoot of roughly 20\% in the maximum runup height. This was alloted to the viscous boundary layer on the beach and capillary effects. Moreover, the measurements showed that the boundary layer flow during runup was mostly laminar, albeit indications of transition was observed in the upper part of the swash tongue close to flow reversal. Hence, it is not appropriate to employ a Manning friction term and we compare the models without any bed friction, while leaving the experiments out. 
-...............
-The agreement between the dispersive models are very good. Even though the fully nonlinear Serre model follows the BIM slightly better the \BoussClaw is also 
-very close to full potential theory. For the given parameters the NLSW model yields premature breaking (see discussion on theoretical and observed breaking in \cite{Pedersen:2013}) and a too high maximum runup height. The small wrinkles observed on the 
-surface from the \BoussClaw are due\todo{Check statement on wrinkles} to the
-switch to NLSW at the shore. Even though these small artifacts are enhanced by increasing resolution they do not give rise to instability or severe 
-performance degradation for resolutions used. Instead, as demonstrated in figure ..., we obtain a solid grid convergence for tyhe \BoussClaw model. This is in 
-sharp to contrast to observations for other models as presented in  \cite{Lovholt:2013a}.    
-{\em Add figure with stages in the runup, including \BoussClaw (without the treshold), NLSW, BIM and Serre. Add figure with shoreline history until maximum runup. Add figure with convergence of BoussClaw results. Add small table with maximum runup}
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[height=4.6cm]{_fig/bim_serre_boussclaw_slope10}
+\includegraphics[height=4.6cm]{_fig/bim_serre_boussclaw_slope10_zoom}
+\caption{Left figure is a snapshot of BIM, Serre(GloBouss) and \BoussClaw at
+	t = 10,15 and 20. Right figure is a zoom of the results at t=15}
+\label{fig:bim_serre_boussclaw_slope10}
+\end{figure}
+
+In Figure \ref{fig:bim_serre_boussclaw_slope10}, the numerical results
+from BIM, Serre, and \BoussClaw are shown at t=10,15 and 20, 
+and a zoom at t=15 is shown on the right. 
+The agreement between the dispersive models are very good. Even though the fully nonlinear Serre model follows the BIM slightly better, 
+the \BoussClaw is also very close to full potential theory. 
+For the given parameters the NLSW model yields premature breaking (see discussion on theoretical and observed breaking in \cite{Pedersen:2013}) and a too high maximum runup height. 
+The small wrinkles observed on the surface 
+%\todo{Check statement on wrinkles}
+from the \BoussClaw (right of Figure \ref{fig:bim_serre_boussclaw_slope10}), 
+are due to the switch to NLSW at the shore. 
+Even though these small artifacts are enhanced by increasing resolution they do not give rise to instability or severe 
+performance degradation for resolutions used. 
+Instead, as demonstrated in Figure \ref{fig:runup_meshrefinement}, 
+we obtain a solid grid convergence for tyhe \BoussClaw model. This is in 
+sharp to contrast to observations for other models as presented in  \cite{Lovholt:2013a}.
+
+\begin{figure}[!htb]
+	\begin{floatrow}
+		\ffigbox{%
+			\includegraphics[width=.45\textwidth]{_fig/runup_meshrefinement}
+		}{%
+		\caption{Maximum run-up divided by amplitude (R/A) 
+			from \BoussClaw with different grid sizes.
+			The dashed line is from BIM. The grid size $\Delta x$ is
+			0.04/N and 0.025/N for $N=1,2,4$ }%
+		\label{fig:runup_meshrefinement}
+        }
+        \ffigbox{%
+        	\includegraphics[width=.45\textwidth]{_fig/runup_slope10}
+        }{\caption{Run-up height in time 
+        	from different Serre, \BoussClaw and NLSW.}%
+        \label{fig:runup_slope10}
+    }
+\end{floatrow}
+\end{figure}
+
+\begin{table}[!htb]
+	\begin{tabular}{c|c|c|c|c} \hline
+		Model & BIM & Serre & \BoussClaw & NLSW \\ \hline
+		Max. Run-up/Amp. & 4.2432 & 4.2488 & 4.0941 & 4.6561 \\
+		\hline
+	\end{tabular}
+	\caption{Maximum run-up height divided by the incoming wave amplitude (R/A).}
+    \label{tab:runup_slope10}
+\end{table}
+
+%{\em Add figure with stages in the runup, including \BoussClaw (without the treshold), NLSW, BIM and Serre. Add figure with shoreline history until maximum runup. Add figure with convergence of BoussClaw results. Add small table with maximum runup}
  
 \subsubsection{Comparsion with experiments on a breaking wave}
 \label{sec:wave_break}
@@ -751,20 +806,24 @@ are shown with the computational results from the \BoussClaw (in Boussinesq and 
 for $A/h=0.28$ and a $1:19.85$ slope at $t=15$. 
 The grid size $\Delta x$ is 0.05 in the following simulations
 unless stated otherwise.
+Synolakis' experiment data can be found at 
+NOAA's tsunami benchmark webpage \url{http://nctr.pmel.noaa.gov/benchmark/}
+for example.
 This is before the wave breaks and
 both \BoussClaw and the BIM model are in good agreement with the experiments.
 %\marginpar{\footnotesize Also include the BoussClaw results and NLSW in fig.~\ref{fig:lab_bim}}.
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=\textwidth]{_fig/lab_bim_t15.png}
-\caption{Comparison of the laboratory experiments, BIM, NLSW and BoussClaw at t=15 with $A/h=0.28$ 
+\includegraphics[width=\textwidth]{_fig/lab_bim_bouss_t15.png}
+\caption{Comparison of the laboratory experiments, BIM, Serre, \BoussClaw and NLSW at t=15 with $A/h=0.28$ 
 on a slope of $1:19.85$.}
 \label{fig:lab_bim}
 \end{figure}
-\todo{Add Serre results in figure and give web adress for data as reference}
+%\todo{Add Serre results in figure and give web adress for data as reference}
 %\marginpar{\footnotesize What is the result of Titov and Synolakis?} 
 %and the undisturbed depth is $h=0.206$ m. 
+
 The ratio of amplitude to depth, $A/h$, 
 is about $2.01$ at the break point.
 The potential flow model cannot be run much beyond the
@@ -796,6 +855,29 @@ counterbalance the first. For the gentler slope the early onset of breaking
 in the NLSW model, at a long distance form the shoreline, causes a large 
 dissipation which dominates over the first effects.\todo{Geir: But, Li and Raichlen obtained a smaller runup height; Manning friction ? Check.}   
 {\em Add figure with shorelines and table with maximum runup heights}
+
+\begin{figure}[!htb]
+	\begin{floatrow}
+		\ffigbox{%
+			\includegraphics[width=.5\textwidth]{_fig/runup_slope_1_20}
+		}{%
+		\caption{Run-up height calculated from \BoussClaw and NLSW 
+			with different $C_d$.}%
+		\label{fig:runup_slope_1_20}
+	}
+	\capbtabbox{%
+		\begin{tabular}{ccc} \hline
+			$C_d$ & \BoussClaw & NLSW \\ \hline
+			0 & 1.7317 & 0.9786 \\
+			0.01 & 0.5705 & 0.5202 \\
+			0.02 & 0.4496 & 0.4018 \\ \hline
+		\end{tabular}
+	}{%
+	\caption{Maximum run-up height with different friction coefficients.}%
+	\label{tab:max_runup_1_20}
+    }
+    \end{floatrow}
+\end{figure}
 
 %The computation of BIM can not proceed further after $t=19.2$ because of the singularity.
 
@@ -873,7 +955,7 @@ and the Peregrine's form is used for \textsc{GloBouss}.}
 In Figure \ref{fig:bim_boussclaw_fun}, snapshots from different
 numerical models are shown at $t=16$, $18$ and $20$.
 At the $t=20$ there are no results from the BIM model as  the wave has broken.
-\todo{RJL: Why no BIM solution at t = 20? G: could we include t=19.1 instead, with the BIM in place ?}
+%\todo{RJL: Why no BIM solution at t = 20? G: could we include t=19.1 instead, with the BIM in place ?}
 For the \BoussClawt, the parameter $B=1/15$ is used, 
 but the computational results are rather similar with $B=0$
 for this case. 
@@ -920,7 +1002,7 @@ the application of this threshold.
 %to the shallow water equations.
 %Meanwhile, the BIM results show $x=4.02$ m and  $\epsilon_B=2.01$ at the start of the wave breaking.
 
-\todo{Are there Synolakis data for t=20 ? J:Yes, I can include it if necessary}
+%\todo{Are there Synolakis data for t=20 ? J:Yes, I can include it if necessary}
 In Figure \ref{fig:boussclaw_th08}, snapshots are shown at 
 t=$20$, $25$, and $30$ of the solutions from \BoussClaw and NLSW
 with the Manning coefficient $C_d=0.02$.
@@ -935,7 +1017,7 @@ and the difference in the swash tongue is relatively small.
 While \BoussClaw simulation with $\epsilon_B=0.8$ is
 smooth at $t=20$, irregularities are observed
 around $x=8$ due to the accumulated errors generated by the splicing of 
-Boussinesq and NLSW equations.\todo{How does this eveolve? Is it seen in other paper? J: I didn't see this result in other papers.} 
+Boussinesq and NLSW equations.%\todo{How does this eveolve? Is it seen in other paper? J: I didn't see this result in other papers.} 
 
 \begin{figure}[tbh!]
 \centering
