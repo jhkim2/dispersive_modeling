@@ -778,7 +778,7 @@ sharp to contrast to observations for other models as presented in  \cite{Lovhol
 \end{figure}
 
 \begin{table}[!htb]
-	\begin{tabular}{c|c|c|c|c} \hline
+	\begin{tabular}{c|cccc} \hline
 		Model & BIM & Serre & \BoussClaw & NLSW \\ \hline
 		Max. Run-up/Amp. & 4.2432 & 4.2488 & 4.0941 & 4.6561 \\
 		\hline
@@ -970,9 +970,9 @@ that can be split into two groups, and
 are similar while the \BoussClaw
 and the Serre results are similar. 
 The wave amplitudes computed by the \textsc{GloBouss} and \textsc{Funwave} models,
-are more than 20 \% 
+are more than 33 \% 
 %\todo{Is the figure 20\% OK. The old 10 was far too small} 
-larger than those from the BIM model.
+larger than those from the BIM model at t=18.
 The wave amplitude continues to increase 
 with \textsc{GloBouss} simulations,
 and the difference from the \BoussClaw result 
@@ -1055,14 +1055,15 @@ which are given in (\ref{eq:energy_e0}) and (\ref{eq:energy_e1}).
 
 \begin{figure}[tbh!]
     \centering
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[t]{0.45\textwidth}
         \includegraphics[width=\textwidth]{_fig/e0_boussclaw_eb08.png}
         \caption{$E_0$}
         \label{fig:e0_boussclaw_eb08}
     \end{subfigure}
-    \begin{subfigure}[b]{0.45\textwidth}
+    \begin{subfigure}[t]{0.45\textwidth}
         \includegraphics[width=\textwidth]{_fig/e1_boussclaw_eb08.png}
-        \caption{$E_0+E_1$}
+        \caption{Solid line is $E_0+E_1$ of \BoussClaw without $\epsilon_B$.
+        	With $\epsilon_B=0.8$, $E_0$ is shown in dashed line after the threshold is reached.}
         \label{fig:e1_boussclaw_eb08}
     \end{subfigure}
     \caption{Energy plots of NLSW and \BoussClaw.
