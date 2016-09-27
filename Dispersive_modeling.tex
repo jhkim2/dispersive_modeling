@@ -194,9 +194,9 @@ This paper is organized as follows: In Section \ref{sec:model}, the base model
 for the wave equations is given and the numerical scheme is outlined, including a von Neuman stability analysis. 
 Sections \ref{sec:num_nonbreaking} compares results from the \BoussClaw with
 the analytic solutions and laboratory experiments. 
-Section \ref{sec:wave_break} discusses the wave steepening and using a Boundary Integral Method (BIM) for 
+Section \ref{sec:shoaling_runup} discusses the wave steepening and using a Boundary Integral Method (BIM) for 
 solving the full potential equations. 
-In Section \ref{sec:num_breaking}, 
+In Section \ref{sec:shoaling_breaking}, 
 we compare these results of pre-breaking
 evolution with Boussinesq type models.
 
@@ -238,7 +238,7 @@ which is designed to solve the nonlinear shallow water equations.
 
 \subsubsection{Boussinesq-type equations}
 
-\citet{madsen1992new} \todo{Is it Schaeffer or M and S ? J: same as M\&S(1992) Part2} derived 
+\citet{schaffer1995further} \todo{Is it Schaeffer or M and S ? J: same as S\&M(1995). Although M\&S(1992) is mathematically same, 1995 form seems to be more stable.} derived 
 Boussinesq-type equations
 with an addition of a Pad{\'e} approximation 
 of the linear dispersion relation.
@@ -424,34 +424,30 @@ through  invokation of a threshold $\epsilon_B:=\eta/h=0.8$ in \BoussClaw.
 When the threshold is reached, the wave breaking is supposed to be initiated, 
 and the dispersive terms are suppressed. 
 At the breaking, the set of equations is locally 
-switched to the shallow water equations for the corresponding leading wave, defines as stretching from the first nearshore elevation to the first negative 
-trough following the crest that surpases the threshold, \todo{G: May have to modify according to new simulations.},
-and the trailing waves are solved with the Boussinesq equations
+switched to the shallow water equations for the corresponding leading wave, 
+defined as the area between the first nearshore elevation and the first negative 
+trough following the crest that surpasses the threshold. \todo{G: May have to modify according to new simulations.}
+The trailing waves are solved with the Boussinesq equations
 if the thresholds are not reached. 
 
 
-When a wave reaches the coastline, 
-the coastline changes in time
-as the wave runs up the slope and recedes eventually. 
-For the numerical simulations, 
-it has been a challenge to compute the inundation correctly.
-At the coastline above the sea level, \BoussClaw
+However, for the dry land inundation, the \BoussClaw invariably
 switches to the NLSW solver of the \textsc{Geoclaw} software,
 which can handle 
 wet and dry states with the depth positivity property.
 Details can be found in \cite{george2008augmented}. 
 
-Friction terms are important for inundation on gentle slopes. 
-For example, the Figure \ref{fig:BoussClaw_runup}
-shows that the run-up height is much reduced by the friction terms.
+Bottom friction is important for inundation on gentle slopes. 
+Figure \ref{fig:BoussClaw_runup} 
+exemplifies that the friction reduces the run-up height.
 \BoussClaw uses the Manning-type frictions as follows,
 \begin{equation}
 \label{eq:Manning}
 f_D = -\frac{g C_d^2 u |u|}{H^{5/3}},
 \end{equation}
 where $C_d$ is a Manning drag coefficient.
-Another parameter $d^*$ needs to be chosen
-so that the water depth is set to $H=0$
+Furthermore a parameter $d^*$ is chosen
+to set $H=0$
 if the water depth is smaller than this threshold, $H<d^*$.
 \cite{antuono2012role} derived an approximate solution
 of the shoreline for the shallow water equations 
@@ -505,7 +501,7 @@ While we refer to \citet{shi2012high} for details, we briefly note that \textsc{
 Boussinesq equations of \citet{Chen06}. The numerical spatial representation in \textsc{Funwave-TVD} is MUSCL TVD scheme 
 to discretize for the flux and first order terms, 
 whereas a central finite difference
-scheme \citet{Wei95} is utilized for the higher order momentum terms. A Runge-Kutta scheme is employed for the time stepping.
+scheme \citep{Wei95} is utilized for the higher order momentum terms. A Runge-Kutta scheme is employed for the time stepping.
 
 \section{Numerical Tests}
 \label{sec:num_nonbreaking}
@@ -695,7 +691,10 @@ tuning the friction models is not the scope of this work.
 \end{figure}
 
 %\marginpar{\footnotesize Geir: A very shallow region may yield %important frictional effects? But, surely, the wave should  break %in the shallowest region?}
+
 \subsection{Shoaling and runup of solitary waves}
+\label{sec:shoaling_runup}
+
 In Figure \ref{fig:init_setup}, the initial set-up for a test is shown. 
 %, and the experiment results include various cases with the wave amplitudes and slope angles. Synolakis identified the breaking and non-breaking wave cases. 
 \begin{figure}[!htb]
@@ -754,8 +753,14 @@ are due to the switch to NLSW at the shore.
 Even though these small artifacts are enhanced by increasing resolution they do not give rise to instability or severe 
 performance degradation for resolutions used. 
 Instead, as demonstrated in Figure \ref{fig:runup_meshrefinement}, 
-we obtain a solid grid convergence for tyhe \BoussClaw model. This is in 
-sharp to contrast to observations for other models as presented in  \cite{Lovholt:2013a}.
+we obtain a solid grid convergence for the \BoussClaw model. 
+This is in sharp to contrast to observations for other models as presented in  \cite{Lovholt:2013a}.
+In Figure \ref{fig:runup_slope10}, the run-up heights
+are shown, and Table \ref{tab:runup_slope10} shows
+the maximum run-up heights.
+And it is observed that the NLSW model 
+yields larger run-up height than the Boussinesq-type equations
+for the non-breaking wave on a $10^\circ$ slope. 
 
 \begin{figure}[!htb]
 	\begin{floatrow}
@@ -829,32 +834,44 @@ is about $2.01$ at the break point.
 The potential flow model cannot be run much beyond the
 breaking points (until the attachment of the plunger only) and 
 gives no information on the following bore propagation.
-In figure \ref{fig:BoussClaw_runup} we have compared the \BoussClaw model, with and without 
-a Manning friction, with the experimental data. The agreement is good and the introduction of bed-friction 
-even seem to match the truncated swash tongue of the experiments well. However, this may be a coincidence. Even though
-the  wave has broken and some irregular flow features are introduced thereby, we have no evidence of the flow state being
-anywhere near turbulent, which is required for a quadratic bottom resistance to be appropriate. Capillary effects and 
-experimental errors may also affect the comparison.
+In figure \ref{fig:BoussClaw_runup} we have compared
+the experimental data with the \BoussClaw model 
+of $C_d = 0$ and $0.02$. 
+The agreement is good and the introduction of bed-friction 
+even seem to match the truncated swash tongue of the experiments well. However, this may be a coincidence. 
+Even though the  wave has broken and some irregular flow features are introduced thereby, we have no evidence of the flow state being
+anywhere near turbulent, which is required for a quadratic bottom resistance to be appropriate. 
+Capillary effects and 
+experimental errors may also affect the comparison
+as observed by \cite{Pedersen:2013}.
+
 \begin{figure}[tbh!]
 	\centering
-	\includegraphics[width=.45\textwidth]{_fig/BoussClaw_lab_Cd_t25}
-	\includegraphics[width=.45\textwidth]{_fig/BoussClaw_lab_Cd_t30}
+	\includegraphics[width=.8\textwidth]{_fig/BoussClaw_lab_Cd_t25}\\
+	\includegraphics[width=.8\textwidth]{_fig/BoussClaw_lab_Cd_t30}
 	\caption{Comparison of experiments and BoussClaw results 
 		at t=25 and 30.}
 	\label{fig:BoussClaw_runup}
 \end{figure}
-.....
-Unlike what was observed for $\theta=10^\circ$, the NLSW model this time
-reduces the run up height. The opposite behaviour for the two slope may be 
-explained by two competing effects of neglection of dispersion. First, for a
- non-breaking wave the omission of non-hydrostatic effecs lead to an excessive 
-steepening of the wave front which imply higher runup. On the other hand, 
-premature breaking dissipated energy and will reduce runup heights. For the 
-steeper slope there is insufficient time for the second effect to fully 
-counterbalance the first. For the gentler slope the early onset of breaking
+
+In Figure \ref{fig:runup_slope_1_20} and Table \ref{tab:max_runup_1_20},
+we show the run-up height in time and the maximum run-up height respectively.
+Unlike what was observed for $\theta=10^\circ$, the NLSW model
+reduces the run up height. 
+The opposite behaviour for the two may be 
+explained by two competing effects of dispersion. 
+First, for a non-breaking wave the omission of non-hydrostatic effects 
+lead to an excessive 
+steepening of the wave front which implies higher run-up. 
+On the other hand, 
+premature breaking dissipated energy will reduce run-up heights. 
+For the steeper slope, 
+there is insufficient time for the second effect to fully 
+counterbalance the first. 
+For the gentler slope the early onset of breaking
 in the NLSW model, at a long distance form the shoreline, causes a large 
-dissipation which dominates over the first effects.\todo{Geir: But, Li and Raichlen obtained a smaller runup height; Manning friction ? Check.}   
-{\em Add figure with shorelines and table with maximum runup heights}
+dissipation which dominates over the first effects.
+%\todo{Geir: But, Li and Raichlen obtained a smaller runup height; Manning friction ? Check.}{\em Add figure with shorelines and table with maximum runup heights}
 
 \begin{figure}[!htb]
 	\begin{floatrow}
@@ -902,6 +919,8 @@ dissipation which dominates over the first effects.\todo{Geir: But, Li and Raich
 %\end{figure}
 
 \section{Shoaling and breaking phenomena}
+\label{sec:shoaling_breaking}
+
 \subsection{Pre-breaking}
 \label{sec:num_breaking}
 \citet{wei1995fully} made computation of pre-breaking solitary wave shoaling using
@@ -944,7 +963,7 @@ the original Serre's equations are enhanced by adding the \citet{schaffer1993bou
 
 \begin{figure}[tbh!]
 \centering
-\includegraphics[width=.7\textwidth]{_fig/bim_boussclaw_fun_glob.png}
+\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_fun_glob.png}
 \caption{Snapshots of BIM, Serre, \textsc{GloBouss}, \BoussClaw
 and \textsc{Funwave} at t = $16$, $18$ and $20$.
 The \BoussClaw is used with B=$1/15$,
@@ -1003,6 +1022,7 @@ the application of this threshold.
 %Meanwhile, the BIM results show $x=4.02$ m and  $\epsilon_B=2.01$ at the start of the wave breaking.
 
 %\todo{Are there Synolakis data for t=20 ? J:Yes, I can include it if necessary}
+
 In Figure \ref{fig:boussclaw_th08}, snapshots are shown at 
 t=$20$, $25$, and $30$ of the solutions from \BoussClaw and NLSW
 with the Manning coefficient $C_d=0.02$.
@@ -1010,7 +1030,15 @@ We compared the NLSW and \BoussClaw with $\epsilon_B=0.8$
 and without the threshold. 
 At $t=20$ the simulation with $\epsilon_B=0.8$ has already been in NLSW mode for $5$ time units and the difference in the wave height 
 from the full Boussinesq simulation is significant. In fact, the treshold solution is closer to the NLSW solution.
-is clearly observed. 
+
+\begin{figure}[tbh!]
+	\centering
+	\includegraphics[width=.7\textwidth]{_fig/bim_boussclaw_etaB8}
+	\caption{Comparison of \BoussClaw and NLSW 
+		with $\epsilon_B=0.8$ at t =$20$, $25$ and $30$.
+		Fiction forces have been added with $C_d=0.02$.}
+	\label{fig:boussclaw_th08}
+\end{figure}
 
 At $t=25$ and $t=30$, the wave is running up the slope, 
 and the difference in the swash tongue is relatively small. 
@@ -1019,22 +1047,17 @@ smooth at $t=20$, irregularities are observed
 around $x=8$ due to the accumulated errors generated by the splicing of 
 Boussinesq and NLSW equations.%\todo{How does this eveolve? Is it seen in other paper? J: I didn't see this result in other papers.} 
 
-\begin{figure}[tbh!]
-\centering
-\includegraphics[width=.7\textwidth]{_fig/bim_boussclaw_etaB8}
-\caption{Comparison of \BoussClaw and NLSW 
-with $\epsilon_B=0.8$ at t =$20$, $25$ and $30$.
-Fiction forces have been added with $C_d=0.02$.}
-\label{fig:boussclaw_th08}
-\end{figure}
-
 Other thresholds, $u/\sqrt{gH}$ and the maximum frontal angle,
 are computed for the wave breaking.  
 Figure \ref{fig:wave_break_criteria} shows 
 $\epsilon_B$, $u/\sqrt{gH}$ and the maximum frontal angle 
 as a function of the crest location.
-The choice of the threshold should be determined based on the experiments,
-and thus the threshold can vary case by case as noted
+When the BIM shows the wave break, 
+these thresholds are 
+$u/\sqrt{gH} = 1.04$ and the maximum frontal angle equal to $38.85^\circ$.
+The choice of the threshold could be identified as here, based on numerical models, 
+or alternatively be determined based on the experiments.
+The threshold can vary case by case as noted
 by \cite{lynett2006nearshore} and \cite{matsuyama2007study} 
 for example. 
 
@@ -1084,9 +1107,9 @@ $E_0+E_1$ is nearly when the wave propagates in constant depth.
 On the deeper parts of the slope there is first a very moderate increase, then a
 very gentle reduction. This may be due to the absence of strict energy  conservation in the Boussinesq equations in the first place. 
 Close to the shoreline there is stronger, but still mild, energy dissipation.
-When the threshold $\epsilon_B=0.8$ is invoked there is no difference from the full Boussinesq solution until the the treshold is reached for 
- $x_c=x_B=8.03227$. Then, in fact, there is marked increase in $E_0+E_1$ followed by a stronger  reduction then for the full solution.
-The increase is presumeably a consequence of errors introduced by changing the 
+When the threshold $\epsilon_B=0.8$ is invoked there is no difference from the full Boussinesq solution until the the threshold is reached for 
+ $x_c=x_B=8.03$. Then, in fact, there is marked increase in $E_0+E_1$ followed by a stronger  reduction then for the full solution.
+The increase is presumably a consequence of errors introduced by changing the 
 governing equations from a Boussinesq to a NLSW type. 
 After  $x_c=x_B$  
 the hydrostatic energy measure, $E_0$, may be appropriate in this case.
@@ -1099,7 +1122,7 @@ the general overshoot for $E_0$ and Boussinesq equations for $x_c>x_B$.
 
 In the present paper we have presented a new  
 Boussinesq type model, \BoussClawt,
-for modeling non-linear dispersive tsunami propagation. The model is an extenson of the \textsc{GeoClaw} package and  take also into account drying-wetting during inundation and withdrawal on the beach.
+for modeling non-linear dispersive tsunami propagation. The model is an extension of the \textsc{GeoClaw} package and  take also into account drying-wetting during inundation and withdrawal on the beach.
 \BoussClaw resembles much used general purpose models such as \textsc{Funwave-TVD} and
 \textsc{Coulwave-TVD}, but is based on a slightly simpler and more transparent set of governing equations,
 and has a slightly different numerical scheme. We have tested numerical implementation towards
@@ -1108,12 +1131,12 @@ analytical solitary wave expressions as well as laboratory experiments.
 Making use of the experiments of \citet{synolakis1987runup} 
 enabled us to
 constrain a set of different long wave models, including \BoussClawt, as well as a full potential
-BIM reference model. Using the BIM, we were able to explore in detail the pre-breaking behaviour,
+BIM reference model. Using the BIM, we were able to explore in detail the pre-breaking behavior,
 and to identify the point of breaking accurately. This was useful for determining the 
 validity of the respective long wave models. First, we found that by using standard NLSW models,
 the point of breaking will be located too far offshore. Boussinesq models
 provide the opportunity of providing a more accurate description of the near shore propagation and shoaling. 
-However, in current practise the Boussinesq terms are often omitted near shore through the $A/h>0.8$ threshold criteria.
+However, in current practice the Boussinesq terms are often omitted near shore through the $A/h>0.8$ threshold criteria.
 As a consequence, the point of breaking may be misinterpreted also in Boussinesq type models.
 
 In the present example, we investigated the near shore propagation over a relatively gentle shelf of $1/19.85$ slope,
@@ -1121,7 +1144,7 @@ and in this case the actual onset of breaking occurred for $A/h \approx 2$, whic
 than what would be predicted in any standard approach (NLSW or Boussinesq). As demonstrated in this paper,
 the combined effects of non-linearities and dispersion influence the solution markedly, when accumulated to the point
 of breaking. It is noted that the artificial effect discovered would depend on the slope, 
-and the $A/h=0.8$ limited may well work better on a much gentler slope as it is primarly derived based on 
+and the $A/h=0.8$ limited may well work better on a much gentler slope as it is primarily derived based on 
 solitary wave evolution on constant depth. On the other hand, $1/19.85$ slope is already quite gentle,
 and the offset between the reference solution and Boussinesq models using this criteria may
 be even more pronounced for steeper slopes.
