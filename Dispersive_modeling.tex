@@ -80,7 +80,7 @@ If the wave dispersion becomes important,
 Boussinesq-type models are often used. 
 In this work, a general purpose Boussinesq solver, 
 \BoussClawt, is introduced
-for modeling fully non-linear dispersive tsunami propagation, 
+for modeling non-linear dispersive tsunami propagation, 
 taking into account inundation. 
 In the \BoussClaw model,
 Boussinesq equations from the literature, 
@@ -90,7 +90,7 @@ are implemented using a hybrid of the finite volume
 and finite difference methods.
 In order to validate \BoussClawt, 
 numerical results are compared 
-to the analytical solutions and laboratory experiments. 
+to  analytical solutions, solutions obtained by pre-existing models, and laboratory experiments. 
 Furthermore, the  wave steepening and breaking motion
 is carefully scrutinized, 
 and we demonstrate that the point of wave breaking
@@ -144,7 +144,7 @@ then identified that the surface steepness provides
 the least sensitive breaking threshold. 
  \citet{Lovholt:2013a} similarly employed a diffusive model including transport terms, but pointed out that breaking wave Boussinesq models were prone to instabilities. 
  \citet{tissier2012new} suggested
-a breaking decision model based on the surface roller, the maximal front angle and the Froude number.
+a breaking  model based on the surface roller, the maximal front angle and the Froude number.
 An alternative non-linear diffusive ad-hoc breaking term was suggested by \citet{matsuyama2007study},
 based on their large scale experiments of the wave propagation of undular bores on various slope angles. 
 %They studied the wave breaking criteria and suggested 
@@ -166,10 +166,10 @@ is turned off in the vicinity of the shoreline to avoid interference of
 the wetting-drying techniques with the
 larger computational stencils from the dispersion terms. Still,
 the dispersion terms are often seen to cause stability problems in
-the extremely nonlinear parts of the shoaling process \citep{Lovholt:2013a}.
+the strongly nonlinear parts of the shoaling process \citep{Lovholt:2013a}.
 In fact, a practice of  
 switching to the NLSW equations in the near-shore region, where large amplitude-to-depth-ratios occur, has evolved.
-This allows for a relatively robust treatment of the modeling of the post breaking phase. To this end, \cite{tonelli2009hybrid} and \cite{shi2012high}, for instance, employ the $A/h = 0.8$ threshold which is motivated by the maximum 
+This allows for a relatively robust treatment of the modeling of the post breaking phase. To this end, \cite{tonelli2009hybrid} and \cite{shi2012high}, for instance, employ a wave-height to depth treshold of $0.8$  which is motivated by the maximum 
 height of an undular bore, which again is related to the extreme solitary wave.
 This threshold is a pragmatic choice for gentle   bottom gradients and
 may be questionable under other circumstances.  
@@ -192,14 +192,10 @@ that the breaking criteria employed so far lacks generality.
 %\marginpar{\footnotesize Move to last part of this paragraph to conclusions (or omit this)?}
 
 This paper is organized as follows: In Section \ref{sec:model}, the base model
-for the wave equations is given and the numerical scheme is outlined, including a von Neuman stability analysis. 
-Sections \ref{sec:num_nonbreaking} compares results from the \BoussClaw with
-the analytic solutions and laboratory experiments. 
-Section \ref{sec:shoaling_runup} discusses the wave steepening and using a Boundary Integral Method (BIM) for 
-solving the full potential equations. 
-In Section \ref{sec:shoaling_breaking}, 
-we compare these results of pre-breaking
-evolution with Boussinesq type models.
+for the wave equations is given and the numerical scheme is outlined,
+while a von Neuman stability analysis is put in an appendix. 
+Sections \ref{sec:num_nonbreaking} compares results from the \BoussClaw with analytic ones, laboratory experiments and those from other models. 
+In subsection \ref{sec:num_shoaling} we scrutinize the pre-breaking shoaling of Boussinesq type equations through comparison with full potential theory, while the post-breaking evoluion is investigated in  subsection  \ref{sec:discuss_breaking}.
 
 \section{Model Description}
 \label{sec:model}
@@ -278,7 +274,7 @@ Even though (\ref{eq:madsen_cons_mass}),
 (\ref{eq:madsen_momx}) and (\ref{eq:madsen_new_op}) do not constitute a fully nonlinear set of Boussinesq equations, inheriting relative errors of order $\mu^2,\,\epsilon\mu^2$, 
 they do describe shoaling of solitary waves markedly
 better than, for instance, the Peregrine equations, as will be demonstrated in 
-section  \ref{sec:num_breaking}.
+section  \ref{sec:num_shoaling}.
 
 
 The \BoussClaw model
@@ -921,13 +917,13 @@ dissipation which dominates over the first effects.
 \section{Shoaling and breaking phenomena}
 \label{sec:shoaling_breaking}
 
-\subsection{Pre-breaking}
-\label{sec:num_breaking}
+\subsection{Pre-breaking shoaling}
+\label{sec:num_shoaling}
 \citet{wei1995fully} made computation of pre-breaking solitary wave shoaling using
  their fully nonlinear extension of Nwogu's model, the full potential 
 theory, and the weakly nonlinear version of Nwogu's model.
 They found that the fully nonlinear Boussinesq equations were superior to those of Nwogu in the later stages of the shoaling.
-In this subsection we will do a similar comparison for our models on the $1:19.85$ slope which was not included in the reference. Our fully nonlinear Boussinesq model is different from that of the references, as it is a Serre type model, 
+In this subsection we will do a similar comparison for our models on the $1:19.85$ slope which was not included in the reference. Our fully nonlinear Boussinesq-Serre model is different from that of the references, as it is a Serre type model, 
 and our hybrid \BoussClaw model is not fully nonlinear. Hence, it is imperative
 to test the shoaling properties, particularly for the latter model.   
  
@@ -1002,7 +998,7 @@ Especially, the wave amplitudes are correctly determined by these models.
 Our observations are in line with those of \citet{wei1995fully}.
  
 \subsection{Wave breaking and run-up}
-
+\label{sec:discuss_breaking}
 In the BIM model we may identify the onset of breaking according when and where we first observe a vertical slope at the wave front.
 For an incident amplitude of $A/h=0.28$ on a $1:19.85$ slope,
 a vertical wave front is observed at $x=4.09$ and $t=18.6$ with $A/h=2.01$.
