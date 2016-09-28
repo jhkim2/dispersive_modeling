@@ -248,7 +248,7 @@ The equations read
 & H_t + (Hu)_x  = 0, \label{eq:madsen_cons_mass} & \\ 
 & (1-D)\big\lbrack(Hu)_t\big\rbrack + \left( Hu^2 + \frac{g}{2}H^2 \right)_x - gHh_x -Bgh^2\left(h\eta_x\right)_{xx} =-f_D, \label{eq:madsen_momx} &
 \end{flalign}
-where $f_D$ is a Manning type friction term, defined in eq.~(\ref{eq:Manning}),
+where we have added a Manning type friction term, denoted by $f_D$ and defined in eq.~(\ref{eq:Manning}),
 and the operator $D$ is defined as
 \begin{flalign}
  D (w) &= \left(B+\frac{1}{2} \right)h^2 w_{xx} -\frac{1}{6} h^3 \left(\frac{w}{h}\right)_{xx}, & \label{eq:madsen_new_op}
@@ -269,7 +269,7 @@ as the linear dispersion relations are identical.
 However, unlike Peregrine's momentum equation 
 the hydrostatic parts of (\ref{eq:madsen_momx}) 
 are written in a conservative form. Moreover, some nonlinearity is introduced
-in the dispersion term for convenience. 
+in the dispersion term.\todo{Why do S and M introduce them ?} 
 Even though (\ref{eq:madsen_cons_mass}), 
 (\ref{eq:madsen_momx}) and (\ref{eq:madsen_new_op}) do not constitute a fully nonlinear set of Boussinesq equations, inheriting relative errors of order $\mu^2,\,\epsilon\mu^2$, 
 they do describe shoaling of solitary waves markedly
@@ -291,7 +291,7 @@ operator, while balancing with extra terms in the $\Psi$, to obtain
 \end{flalign}
 where
 \begin{flalign}
-\Psi(x,t)= & \left(B+\frac{1}{2} \right) h^2 \left( (Hu^2)_{x} + g H \eta_x \right)_{xx} -f_D\nonumber\\
+\Psi(x,t)= & \left(B+\frac{1}{2} \right) h^2 \left( (Hu^2)_{x} + g H \eta_x \right)_{xx} +f_D\nonumber\\
 & -\frac{1}{6}h^3 \left( \frac{ (Hu^2)_x +gH\eta_x }{h} \right)_{xx}
 -Bgh^2\left(h\eta_x\right)_{xx}. &
 \label{eq:madsen_new_disp_x}
@@ -420,21 +420,16 @@ Correspondingly, the $i$-th element of $\bar{\Psi(\textbf{H},\textbf{q})}$ is
 for $i=1,2,\dots,n$.
 \subsubsection{Additional numerical features}
 \label{sec_add_num}
-Following \cite{shi2012high} we may catch wave breaking in a heuristic fashion 
+Following \cite{tonelli2009hybrid} and \cite{shi2012high} we may catch wave breaking in a heuristic fashion 
 through  invocation of a threshold $\epsilon_B:=\eta/h=0.8$ in \BoussClaw.
 When the threshold is reached, the wave breaking is supposed to be initiated, 
 and the dispersive terms are suppressed. 
 At the breaking, the set of equations is locally 
-switched to the NLSW for the corresponding leading wave, 
+switched to the NLSW for the corresponding leading wave region, 
 defined as the area between the first nearshore elevation and the first negative 
 trough following the crest that surpasses the threshold. \todo{G: May have to modify according to new simulations.}
 The trailing waves are solved with the Boussinesq equations
 if the thresholds are not reached. 
-However, for the dry land inundation, the \BoussClaw invariably
-switches to the NLSW solver of the \textsc{Geoclaw} software,
-which can handle 
-wet and dry states with the depth positivity property.
-Details can be found in \cite{george2008augmented}. 
 
 Bottom friction is important for inundation on gentle slopes. 
 Figure \ref{fig:BoussClaw_runup} 
@@ -446,13 +441,18 @@ f_D = -\frac{g C_d^2 u |u|}{H^{5/3}},
 \end{equation}
 where $C_d$ is a Manning drag coefficient.
 Furthermore a parameter $d^*$ is chosen
-to set $H=0$
+such that $H$ is replaced by $d^*$\todo{Geir: correct ?}
 if the water depth is smaller than this threshold, $H<d^*$.
 In this work, the parameter $d^*$ is set to $10^{-4}$. 
 %As noted by \cite{antuono2012role}, the shoreline dynamics can change  depending on the bottom friction coefficient and the water depth tolerance. 
 The dispersion terms of the Boussinesq equations imply an extended computational
 stencil as compared to that for the NLSW equations. To prevent this stencil 
 from including non-wetted nodes and thereby produce irregularities and even instabilities, the dispersion terms are switched off when $H<Nd^*$, where the number $N$ is set to 100 for the simulations herein.
+accordingly, for the dry land inundation, the \BoussClaw invariably
+switches to the NLSW solver of the \textsc{Geoclaw} software,
+which can handle 
+wet and dry states with the depth positivity property.
+Details can be found in \cite{george2008augmented}. 
 %\todo{G: Jihwan, check this}  
 
 \subsection{Models for comparison}
