@@ -18,6 +18,29 @@
 
 \newcommand{\BoussClaw}{\textsc{BoussClaw} }
 \newcommand{\BoussClawt}{\textsc{BoussClaw}}
+
+
+\newcommand{\enhet}[1]{\,\mathrm{#1}}
+\newcommand{\m}{\,\mathrm{m}}
+\newcommand{\mm}{\,\mathrm{mm}}
+\newcommand{\kg}{\,\mathrm{kg}}
+\newcommand{\s}{\,\mathrm{s}}
+\newcommand{\mps}{\,\mathrm{m/s}}
+\newcommand{\kmphs}{\,\mathrm{km/h}}
+\newcommand{\km}{\,\mathrm{km}}
+\newcommand{\Hz}{\,\mathrm{Hz}}
+\newcommand{\Joule}{\,\mathrm{J}}
+\newcommand{\N}{\,\mathrm{N}}
+\newcommand{\Pa}{\,\mathrm{Pa}}
+\newcommand{\Cgrad}{\,^\circ\mathrm{C}}
+\newcommand{\minutt}{\,\mathrm{min}}
+\newcommand{\hour}{\,\mathrm{h}}
+\newcommand{\minut}{\ \mbox{min}}
+\newcommand{\cm}{\,\mbox{cm}}
+\newcommand{\cmps}{\,\mbox{cm/s}}
+\newcommand{\mpss}{\,\mbox{m/s}^2}
+
+
 \journal{Coastal Engineering}
 
 %%%%%%%%%%%%%%%%%%%%%%%
@@ -208,7 +231,7 @@ Different kinds of long wave assumptions are then generally characterized
 by relative errors in terms of these two parameters.
 Herein we will neither derive Boussinesq equation nor make the equations 
 dimensionless. Still, $\mu$ and $\epsilon$ will be used to indicate relative errors.
-
+Moreover, when presenting results we will often use a normalized time $t^*=\sqrt{g/h_0}t$ and position $x^*=x/h_0$, respectively, where $h_0$ is a reference depth.
 
 \subsection{\BoussClaw - a new long wave model for tsunami propagation and run-up}
 In this work, a new numerical model, 
@@ -483,8 +506,8 @@ Results from this model will be referred to as {\em Serre}, even though
 the dispersion enhancement is invoked. 
  
 Results for the Peregrine-type Boussinesq equations are obtained by the
-GloBouss model. This is a dispersive tsunami propagation model which
-is based on Peregrine-type equations and discretization on a staggered grid. Further details are found in 
+GloBouss model. This is a model for oceanic tsunami propagation which
+is based on  discretization on a staggered grid. Further details are found in 
 \citet{Lovholt:2008b}.
 
 For comparison also the version 2.1 of the  \textsc{Funwave-TVD} model
@@ -502,9 +525,9 @@ scheme \citep{Wei95} is utilized for the higher order momentum terms. A Runge-Ku
 \label{sec:num_nonbreaking}
 
 \subsection{Solitary wave propagation}
-
-In order to validate the numerical approach 
-a solitary wave propagation is tested on a constant water depth.
+\todo{Geir will fix the scaling in this subsection}
+For validation of the numerical approach 
+solitary wave propagation is computed in constant water depth.
 For the initial conditions, 
 the analytic solitary wave solution 
 of the Serre's equations is used
@@ -515,30 +538,24 @@ the set (\ref{eq:madsen_cons_mass}) and
 Solitary wave solutions to Serre's equations are given as
 \begin{flalign}
 \label{eq:anal_serre}
-\begin{split}
-& \eta(x,t) = A\, \textrm{sech}^2 \left( \kappa (x-ct)\right),  \\
-& u(x,t) = c \frac{\eta(x,t)}{h},
-\end{split} &
+ \eta(x,t) = A\, \textrm{sech}^2 \left( \kappa (x-ct)\right),\quad
+u(x,t) = c \frac{\eta(x,t)}{h_0},
 \end{flalign}
 where
 \begin{flalign}
 \begin{split}
-& \kappa = \frac{\sqrt{3h}}{2A\sqrt{A+h}}, \quad \textrm{and}
- \quad c = \sqrt{g\left( A + h \right)}.
+& \kappa = \frac{\sqrt{3h_0}}{2A\sqrt{A+h_0}}, \quad \textrm{and}
+ \quad c = \sqrt{g\left( A + h_0 \right)}.
 \end{split} &
 \end{flalign}
-In this expression, $A$ and $h$ are constants
-which represent the wave amplitude and the undisturbed water depth
-respectively.
+In this expression $A$ is the amplitude and  $h_0$ is the  undisturbed water depth.
 
-In Figure \ref{fig:soliton_ts}, 
-snapshots from the \BoussClaw simulation are shown 
-at $t=0,4,8$ and $12$ with $\Delta x = 0.1$. 
-For the initial conditions, the solution (\ref{eq:anal_serre})
-is used with $A=0.2$, $h=1$ and $g=9.81$.
+In Figure \ref{fig:soliton_ts} 
+surfaces from a \BoussClaw simulation with $\Delta x = 0.05h_0$ are shown for  
+amplitude  $A=0.2h_0$.
 The computational results are in good agreement 
 with the analytic solutions concerning height, shape and propagation speed. 
-The amplitudes decreases very gently as the wave propagates. 
+The amplitudes decreases very gently as the wave propagates.\todo{Change labels on axes to $\eta/h$ and $x/h$ andchange $t$ to $\hat t$ in figure 1.} 
 %The discrepancy may be  partially due to the numerical errors
 %and partly to the fact that 
 %the analytic solution for Serre's equations satisfies
@@ -547,8 +564,9 @@ The amplitudes decreases very gently as the wave propagates.
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=.8\textwidth]{_fig/soliton_ts.png}
-\caption{Snapshot of the analytic and computed solitary wave 
-at $t=0,4,8$ and $12$ with $A/h=0.2$ and $\Delta x=0.05$. 
+\caption{Analytic and computed solitary wave surfaces for 
+$A/h_0=0.2$ and $\Delta x/h_0=0.05$. The curves are marked by the normalized time
+$\hat t=\sqrt{g/h_0}t$. 
 The wave propagates from right to left,
 and the analytic solutions are black solid lines.}
 \label{fig:soliton_ts}
@@ -563,8 +581,7 @@ and Boussinesq equations are $e_0$ and $e_0+e_1$, respectively, where
 \label{eq:energy_e1}
 \end{flalign}
 Details are given in \citet{madsen1997surf} 
-and \ref{append:energy}. When the densities are integrated over the whole 
-horizontal domain we obtain the corresponding total energies (per width), 
+and in \ref{append:energy}. When the densities are integrated over the length of the numeric wave tank  we obtain the corresponding total energies (per width), 
 denoted as $E_0$ and $E_1$.
 
 %The wave energy is conserved 
@@ -585,21 +602,22 @@ denoted as $E_0$ and $E_1$.
         \label{fig:soliton_energy_dx}
     \end{subfigure}
     \caption{The energy of a solitary wave
-    with $\Delta x = 0.2$ (left), 
+    with $\Delta x/h_0 = 0.2$ (left), 
     and log-log plot of relative error 
-    at $t=10$ for $\Delta x = 0.05, 0.1, 0.2$ and $0.5$ (right).}
+    at $t=10\sqrt{g/h_0}$ for $\Delta x/h_0 = 0.05, 0.1, 0.2$ and $0.5$ (right).}
     \label{fig:soliton_error_energy}
 \end{figure}
+\todo{Change axis labels in figure 2}
 
 In Figure \ref{fig:soliton_energy}, the energy of the solitary
-wave is shown with $A/h=0.2$ and $\Delta x = 0.2$.
+wave is shown with $A/h_0=0.2$ and $\Delta x = 0.2$.
 There are fluctuations both in the potential and kinetic energy that is evident when we zoom in,
 and the total energy decreases 
 showing that the numerical procedure has dissipation.
 In Figure \ref{fig:soliton_energy_dx},
-the relative error of the energy at $t=10$,
+the relative error of the energy at $\hat t=10$, where $\hat t = \sqrt{g/h_0}t$,
 \begin{flalign*}
-Error = \frac{\left| E_{t=0}-E_{t=10} \right|}{\left|E_{t=0}\right|}, &
+Error = \frac{\left| E_{\hat t=0}-E_{\hat t=10} \right|}{\left|E_{\hat t=0}\right|}, &
 \end{flalign*}
 is shown for different $\Delta x$.
 For a solitary wave on a constant depth,
@@ -608,12 +626,12 @@ the energy dissipation decreases with the grid increments.
 \subsection{Waves on a composite slope}
 
 A physical model was constructed at the Coastal Hydraulic Laboratory of the U.S. Army Corps of Engineers
-in order to address beach erosion and severe flooding problems \citet{chl_bp5}. 
+in order to address beach erosion and severe flooding problems \citep{chl_bp5}. 
 The model beach consists of three piecewise linear slopes of 1:53, 1:150, and 1:13 with a vertical wall at the shoreline as shown in Figure \ref{fig:bp5_water_tank}.
-In the laboratory, the wavemaker was located at 23.23 m.
+In the laboratory, the wavemaker was located at $23.23\m$.
 The gauge data from three cases are provided 
-where the ratio $A/h$ is equal to $0.038$, $0.259$ and $0.681$
-with $h=21.8$ cm.
+where the ratio $A/h_0$ equals  $0.038$, $0.259$ and $0.681$, respectively,
+and the depth at the wavemaker is  $h_0=21.8\cm$.\todo{What is the wave shape?}
 
 \begin{figure}[!htb]
 \centering
@@ -640,15 +658,15 @@ with $h=21.8$ cm.
  \draw (0,4) -- (0,7);
  \draw (15,4) -- (15,7);
  \draw[<->] (0,6) -- (15,6);
- \node[above] at (7.5,6) {23.23 m};
+ \node[above] at (7.5,6) {$23.23\m$};
  \draw[<->] (0,5) -- (5,5);
- \node[above] at (2.5,5) {15.04 m};
- \node[above] at (6,5) {4.36 m};
+ \node[above] at (2.5,5) {$15.04\m$};
+ \node[above] at (6,5) {$4.36\m$};
  \draw[<->] (5,5) -- (7,5);
- \node[above] at (10,5) {2.93 m};
+ \node[above] at (10,5) {$2.93\m$};
  \draw[<->] (7,5) -- (13,5);
  \draw[<->] (13,5) -- (15,5);
- \node[above] at (14,5) {0.90 m};
+ \node[above] at (14,5) {$0.90\m$};
  \draw (5,4) -- (5,5.5);
  \draw (7,4) -- (7,5.5);
  \draw (13,4) -- (13,5.5);
@@ -657,9 +675,8 @@ with $h=21.8$ cm.
   \label{fig:bp5_water_tank}
 \end{figure}
 
-The second case with $A/h=0.259$ has been 
-compared with the numerical tests
-which employed $400$ grid points. 
+For the second case, $A/h_0=0.259$, numerical results, obtained with  
+$400$ grid points, have been compared to experiments. 
 %And the switching scheme between the shallow water equations and the Boussinesq equations, is not applied.
 To specify the incoming wave from the left boundary, 
 the data at Gauge 4 were used for the wave height,
@@ -673,8 +690,7 @@ The increased discrepancy occurs because the full interaction between the wave a
 at the right boundary is less accurately captured.
 Friction forces influence the wave evolution along the shallow region near the right wall,
 but we have not included these in the present numerical simulation.
-A better fit may possibly be obtained by incorporating friction, however,
-tuning the friction models is not the scope of this work. 
+A better fit may possibly be obtained by incorporating a bottom friction.
 
 \begin{figure}[!htb]
 \centering
@@ -706,12 +722,12 @@ the tank and propagates leftwards
 to the beach. 
 
 We present the results using the non-dimensional time 
-$t^*=t\sqrt{h/g}$ and non-dimensional space $x^*=x/h$. In the following, we drop the asterisks in 
+$t^*=t\sqrt{g/h_0}$ and non-dimensional space $x^*=x/h_0$, where $h_0$ is the equilibrium depth in the flat bottom region. In the following, we drop the asterisks in 
 the presentation of the results. 
 In  \citet{synolakis1987runup}, $t=0$ was defined as when the wave crest was a non-dimensional distance, $L$, from the toe of the slope,
 where
 \begin{flalign*}
-& L = \sqrt{\frac{4A}{3h}} \textrm{arccosh} \left( \frac{1}{0.05} \right). &
+& L = \sqrt{\frac{4A}{3h_0}} \textrm{arccosh} \left( \frac{1}{0.05} \right). &
 \end{flalign*}
 However, at $t=0$, the solitary wave has an elevation of
 5\% of it maximum at the toe of the beach, meaning that the slope has
@@ -720,9 +736,9 @@ our analysis, we instead place the initial solitary wave using equation (\ref{eq
 at $L + 5c$, where $c$ is the shallow water wave celerity.
 In this way, the initial solitary wave has a negligible interaction with the slope when initialized. 
 
-\subsubsection{Run-up on a steep slope}
+\subsubsection{Run-up of a non-breaking wave on a steep slope}
 \label{sec:10degrunup}
-On a $10^\circ$ slope an incident solitary wave of amplitude $A/h=0.3$ will not break until the end of the draw-down phase \citep{Grilli:1997}.
+On a $10^\circ$ slope an incident solitary wave of amplitude $A/h_0=0.3$ will not break until the end of the draw-down phase \citep{Grilli:1997}.
 Still, this may be a challenging task for Boussinesq type models \citep{Lovholt:2013a}. Run-up on a $10^\circ$ was investigated experimentally
 by \citet{Pedersen:2013} who found a theoretical overshoot of roughly 20\% in the maximum run-up height. This was alloted to the viscous boundary layer on the beach and capillary effects. Moreover, the measurements showed that the boundary layer flow during run-up was mostly laminar, albeit indications of transition was observed in the upper part of the swash tongue close to flow reversal. Hence, it is not appropriate to employ a Manning friction term and we compare the models without any bed friction, while leaving the experiments out. 
 
@@ -796,23 +812,22 @@ for the non-breaking wave on a $10^\circ$ slope.
 %Depth-averaged models are not capable of handling the wave breaking unless they are modified by incorporating the energy dissipation. In this work, a breaking solitary wave will be considered on a uniform slope. For laboratory experiments, see Synolakis \{synolakis1987runup}.
 
 \citet{synolakis1987runup} performed a series of laboratory experiments for the run-up of solitary waves
-on uniform slopes. Here, we are interested in the  breaking cases. 
-One such example in \citet{synolakis1987runup} is a solitary wave of amplitude $A/h=0.28$ 
+on plane beaches. 
+Data can be found at\todo{Make a proper reference of the URL} 
+NOAA's tsunami benchmark webpage \url{http://nctr.pmel.noaa.gov/benchmark/}.
+A  breaking case is a solitary wave of amplitude $A/h_0=0.28$ 
 approaching a slope of $1:19.85$. 
 
 %Then $t=0$ is set as soon as the peak of wave is at $x=L$.
 
 In Figure \ref{fig:lab_bim}, the laboratory measurements
-are shown with the computational results from the \BoussClaw (in Boussinesq and NLSW mode) and the BIM models
-for $A/h=0.28$ and a $1:19.85$ slope at $t=15$. 
+are shown with the computational results from the \BoussClaw (in Boussinesq and  NLSW mode) and the BIM models
+for $A/h_0=0.28$ and a $1:19.85$ slope at $t=15$. 
 The grid size $\Delta x$ is 0.05 in the following simulations
 unless stated otherwise.
-Synolakis' experiment data can be found at 
-NOAA's tsunami benchmark webpage \url{http://nctr.pmel.noaa.gov/benchmark/}
-for example.
 This is before the wave breaks and
-both \BoussClaw and the BIM model are in good agreement with the experiments.
-%\marginpar{\footnotesize Also include the BoussClaw results and NLSW in fig.~\ref{fig:lab_bim}}.
+the \BoussClaw, the Serre, and the  BIM model are all in good agreement with the experiments.
+
 
 \begin{figure}[!htb]
 \centering
@@ -832,7 +847,7 @@ breaking points (until the attachment of the plunger only) and
 gives no information on the following bore propagation.
 In figure \ref{fig:BoussClaw_runup} we have compared
 the experimental data with the \BoussClaw model 
-of $C_d = 0$ and $0.02$. 
+of $C_d = 0$ and $0.02$.\todo{But, $C_d$ is not dimensionless....} 
 The agreement is good and the introduction of bed-friction 
 even seem to match the truncated swash tongue of the experiments well. However, this may be a coincidence. 
 Even though the  wave has broken and some irregular flow features are introduced thereby, we have no evidence of the flow state being
@@ -867,7 +882,7 @@ counterbalance the first.
 For the gentler slope the early onset of breaking
 in the NLSW model, at a long distance form the shoreline, causes a large 
 dissipation which dominates over the first effects.
-%\todo{Geir: But, Li and Raichlen obtained a smaller runup height; Manning friction ? Check.}{\em Add figure with shorelines and table with maximum runup heights}
+\todo{Geir: But, Li and Raichlen obtained a smaller runup height; Manning friction ? Check.}
 
 \begin{figure}[!htb]
 	\begin{floatrow}
@@ -1028,7 +1043,7 @@ from the full Boussinesq simulation is significant. In fact, the threshold solut
 	\includegraphics[width=.7\textwidth]{_fig/bim_boussclaw_etaB8}
 	\caption{Comparison of \BoussClaw and NLSW 
 		with $\epsilon_B=0.8$ at t =$20$, $25$ and $30$.
-		Fiction forces have been added with $C_d=0.02$.}
+		Friction forces have been added with $C_d=0.02$ in all simulations.}
 	\label{fig:boussclaw_th08}
 \end{figure}
 
@@ -1052,7 +1067,7 @@ based on numerical models,
 or alternatively be determined based on the experiments.
 The threshold can vary case by case as noted
 by \cite{lynett2006nearshore} and \cite{matsuyama2007study} 
-for example. 
+for example.\todo{Geir: I do not understand this} 
 
 \begin{figure}[tbh!]
 \centering
@@ -1064,10 +1079,10 @@ BIM shows the wave break at $x=4.09$. }
 
 \subsection{Wave Energy}
 
-The integrated wave energies  
+The gross wave energies  
 for the shallow water equations and Boussinesq equations
 are $E_0$ and $E_0+E_1$  respectively, 
-which are given in (\ref{eq:energy_e0}) and (\ref{eq:energy_e1}). 
+where $E_0$ and $E_1$ are obtained by integrating  (\ref{eq:energy_e0}) and (\ref{eq:energy_e1}), respectively. 
 In Figure \ref{fig:energy_boussclaw_swe} the energy densities are depicted as 
 functions of the crest location, $x_c$. 
 In the left panel 
@@ -1075,7 +1090,7 @@ we observe that the $E_0$ is nearly constant
 for the shallow water equations until a shock is formed around $x_c=13$.
 Thereafter, energy is quickly dissipated. 
 In  the \BoussClaw simulation with no threshold (right panel) 
-$E_0+E_1$ is nearly when the wave propagates in constant depth. 
+$E_0+E_1$ is nearly constant when the wave propagates in constant depth. 
 On the deeper parts of the slope there is first a very moderate increase, then a
 very gentle reduction. This may be due to the absence of strict energy  conservation in the Boussinesq equations in the first place. 
 Close to the shoreline there is stronger, but still mild, energy dissipation.
@@ -1127,11 +1142,11 @@ BIM reference model. Using the BIM, we were able to explore in detail the pre-br
 and to identify the point of breaking accurately. This was useful for determining the 
 validity of the respective long wave models. First, we found that by using standard NLSW models,
 the point of breaking will be located too far offshore. Boussinesq models
-provide the opportunity of providing a more accurate description of the near shore propagation and shoaling. 
+provide  a more accurate description of the near shore propagation and shoaling. 
 However, in current practice the Boussinesq terms are often omitted near shore through the $A/h>0.8$ threshold criteria.
 As a consequence, the point of breaking may be misinterpreted also in Boussinesq type models.
 
-In the present example, we investigated the near shore propagation over a relatively gentle shelf of $1/19.85$ slope,
+In the present example, we investigated the near shore propagation over a relatively gentle shelf of $1:19.85$ slope,
 and in this case the actual onset of breaking occurred for $A/h \approx 2$, which is significantly later
 than what would be predicted in any standard approach (NLSW or Boussinesq). As demonstrated in this paper,
 the combined effects of non-linearities and dispersion influence the solution markedly, when accumulated to the point
