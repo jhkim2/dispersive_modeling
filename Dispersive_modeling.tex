@@ -206,8 +206,8 @@ to explore the breaking phenomena in the context of Boussinesq equations.
 It is investigated how different Boussinesq type models 
 can represent the wave evolution until the point of breaking. In the presented example,
 we are finally able to demonstrate that Boussinesq models may stably
-compute the near shore tsunami propagation beyond the standard $A/h = 0.8$ threshold depth.
-Conversely, we find that the use of the standard $A/h = 0.8$ threshold depth 
+compute the near shore tsunami propagation beyond the standard $0.8$ wave-height-to-depth threshold.
+Conversely, we find that the use of this threshold  
 invokes a too early formation of a breaking bore. This points out that  
 that the breaking criteria employed so far lacks generality.
 %While these criteria may be attractive due to robustness, 
@@ -217,7 +217,7 @@ that the breaking criteria employed so far lacks generality.
 This paper is organized as follows: In Section \ref{sec:model}, the base model
 for the wave equations is given and the numerical scheme is outlined,
 while a von Neuman stability analysis is put in an appendix. 
-Sections \ref{sec:num_nonbreaking} compares results from the \BoussClaw with analytic ones, laboratory experiments and those from other models. 
+Sections \ref{sec:num_tests} compares results from the \BoussClaw with analytic ones, laboratory experiments and those from other models. 
 In subsection \ref{sec:num_shoaling} we scrutinize the pre-breaking shoaling of Boussinesq type equations through comparison with full potential theory, while the post-breaking evoluion is investigated in  subsection  \ref{sec:discuss_breaking}.
 
 \section{Model Description}
@@ -231,7 +231,13 @@ Different kinds of long wave assumptions are then generally characterized
 by relative errors in terms of these two parameters.
 Herein we will neither derive Boussinesq equation nor make the equations 
 dimensionless. Still, $\mu$ and $\epsilon$ will be used to indicate relative errors.
-Moreover, when presenting results we will often use a normalized time $t^*=\sqrt{g/h_0}t$ and position $x^*=x/h_0$, respectively, where $h_0$ is a reference depth.
+Moreover, when presenting results we will often use a normalized time and position defined by 
+\begin{equation}
+\label{eq:norm_coord}
+t^*=\sqrt{g/h_0}t,\quad \mathrm{and}\quad x^*=x/h_0,
+\end{equation}
+ respectively, where $h_0$ is a reference depth. Correspondingly, the 
+normalized velocity becomes $u^*=\sqrt{gh_0}$ etc.
 
 \subsection{\BoussClaw - a new long wave model for tsunami propagation and run-up}
 In this work, a new numerical model, 
@@ -260,7 +266,7 @@ which is designed to solve the nonlinear shallow water equations.
 
 \subsubsection{Boussinesq-type equations}
 
-\citet{schaffer1995further} \todo{Is it Schaeffer or M and S ? J: same as S\&M(1995). Although M\&S(1992) is mathematically same, 1995 form seems to be more stable.} derived 
+\citet{schaffer1995further} derived 
 Boussinesq-type equations
 with an addition of a Pad{\'e} approximation 
 of the linear dispersion relation.
@@ -292,7 +298,7 @@ as the linear dispersion relations are identical.
 However, unlike Peregrine's momentum equation 
 the hydrostatic parts of (\ref{eq:madsen_momx}) 
 are written in a conservative form. Moreover, some nonlinearity is introduced
-in the dispersion term.\todo{Why do S and M introduce them ?} 
+in the dispersion term. \todo{Why do S and M introduce them ?} 
 Even though (\ref{eq:madsen_cons_mass}), 
 (\ref{eq:madsen_momx}) and (\ref{eq:madsen_new_op}) do not constitute a fully nonlinear set of Boussinesq equations, inheriting relative errors of order $\mu^2,\,\epsilon\mu^2$, 
 they do describe shoaling of solitary waves markedly
@@ -310,16 +316,16 @@ For example, see \citet{tissier2011serre}, \citet{shi2012high} and \citet{dutykh
 To facilitate a fractional step method, as outlined below, we move the hydrostatic terms of (\ref{eq:madsen_momx}) inside the $(1-D)$ 
 operator, while balancing with extra terms in the $\Psi$, to obtain
 \begin{flalign}
-& (1-D)\big\lbrack (Hu)_t + \left(Hu^2 + \frac{g}{2}H^2 \right)_x - gHh_x\big\rbrack = -\Psi(x,t), & \label{eq:hybrid_src}
+& (1-D)\big\lbrack (Hu)_t + \left(Hu^2 + \frac{g}{2}H^2 \right)_x - gHh_x\big\rbrack = -\Psi(x,t)-f_D, & \label{eq:hybrid_src}
 \end{flalign}
 where
 \begin{flalign}
-\Psi(x,t)= & \left(B+\frac{1}{2} \right) h^2 \left( (Hu^2)_{x} + g H \eta_x \right)_{xx} +f_D\nonumber\\
+\Psi(x,t)= & \left(B+\frac{1}{2} \right) h^2 \left( (Hu^2)_{x} + g H \eta_x \right)_{xx} \nonumber\\
 & -\frac{1}{6}h^3 \left( \frac{ (Hu^2)_x +gH\eta_x }{h} \right)_{xx}
 -Bgh^2\left(h\eta_x\right)_{xx}. &
 \label{eq:madsen_new_disp_x}
 \end{flalign}
-\todo{Is the Manning term included in $\Psi$ ? J:It is included in $\Psi$, but computationally we solve $(hu)_t = -f_D$ separately}
+
 
 \subsubsection{Numerical scheme}
 \label{sec:Num_scheme}
@@ -333,7 +339,7 @@ by a {\em fractional step method} as described in
 First, it is observed that (\ref{eq:hybrid_src}) may be formally
 rewritten as 
 \begin{flalign}
-& (Hu)_t =- \left\lbrace\left(Hu^2 + \frac{g}{2}H^2 \right)_x - gHh_x\right\rbrace -(1-D)^{-1}\Psi(x,t), & \label{eq:hybrid_inv}
+& (Hu)_t =- \left\lbrace\left(Hu^2 + \frac{g}{2}H^2 \right)_x - gHh_x\right\rbrace -(1-D)^{-1}\Psi(x,t)-(1-D)^{-1}f_D, & \label{eq:hybrid_inv}
 \end{flalign}
 At the first stage of the hybrid scheme, we integrate $Hu$ over a time step
 taking into account all hydrostatic terms, namely 
@@ -345,10 +351,14 @@ To this end we employ \textsc{Geoclaw},
 a high-order accurate finite volume solver 
 for the shallow water equations with adaptive mesh refinements.
 
-%\marginpar{\small add a descriptio of the NLSW procedure}
+Next, the Manning resistence term is accounted for. To this end we
+ignore the coupling of bottom friction and dispersion (replace $(1-D)^{-1}$ by
+$1$ in (\ref{eq:hybrid_inv}))  and employ the semi-implicit solver in 
+\textsc{Geoclaw} for $(Hu)_t=-f_D$. 
 
-In the second stage, we retain the new $H$ value, but integrate $Hu$ (essentially being the momentum density) further 
-from the first stage by solving
+
+In the final stage, we retain the $H$ value, but integrate $Hu$ (essentially being the momentum density) further 
+from the two first stages by solving
 \begin{flalign}
 & \left(1-D \right)\big\lbrack (Hu)_t\big\rbrack = -\Psi . & \label{eq:hybrid_mom_fdm}
 \end{flalign}
@@ -463,16 +473,16 @@ exemplifies that the friction reduces the run-up height.
 f_D = -\frac{g C_d^2 u |u|}{H^{5/3}},
 \end{equation}
 where $C_d$ is a Manning drag coefficient.
-Furthermore a parameter $d^*$ is chosen
-such that $H$ is replaced by $d^*$\todo{Geir: correct ?}
-if the water depth is smaller than this threshold, $H<d^*$.
+
+In the wetting-drying process during runup a parameter $d^*$ is chosen
+such that $H$ is put to $0$ if $H<d^*h_0$.
 In this work, the parameter $d^*$ is set to $10^{-4}$. 
 %As noted by \cite{antuono2012role}, the shoreline dynamics can change  depending on the bottom friction coefficient and the water depth tolerance. 
 The dispersion terms of the Boussinesq equations imply an extended computational
 stencil as compared to that for the NLSW equations. To prevent this stencil 
-from including non-wetted nodes and thereby produce irregularities and even instabilities, the dispersion terms are switched off when $H<Nd^*$, where the number $N$ is set to 100 for the simulations herein.
-accordingly, for the dry land inundation, the \BoussClaw invariably
-switches to the NLSW solver of the \textsc{Geoclaw} software,
+from including non-wetted nodes and thereby produce irregularities and even instabilities, the dispersion terms are switched off when $H<Nd^*h_0$, where the number $N$ is set to 100 for the simulations herein.
+Accordingly, for the dry land inundation, the \BoussClaw invariably
+utilizes the NLSW solver of the \textsc{Geoclaw} software,
 which can handle 
 wet and dry states with the depth positivity property.
 Details can be found in \cite{george2008augmented}. 
@@ -505,7 +515,7 @@ facility and is hence valid only to the point of breaking.
 Results from this model will be referred to as {\em Serre}, even though
 the dispersion enhancement is invoked. 
  
-Results for the Peregrine-type Boussinesq equations are obtained by the
+Results for the Peregrine-type equations are obtained by the
 GloBouss model. This is a model for oceanic tsunami propagation which
 is based on  discretization on a staggered grid. Further details are found in 
 \citet{Lovholt:2008b}.
@@ -522,9 +532,26 @@ whereas a central finite difference
 scheme \citep{Wei95} is utilized for the higher order momentum terms. A Runge-Kutta scheme is employed for the time stepping.
 
 \section{Numerical Tests}
-\label{sec:num_nonbreaking}
+\label{sec:num_tests}
+Four different test of \BoussClaw is presented.  
+In Section \ref{sec:sol_prop} solitary wave propagation is considered.
+Even if this test is simple it includes dispersion and nonlinearity. 
+Moreover, a scrutiny of the variation of energy with time and resolution  shows that the artificial dissipation induced by the TVD part of the numerical scheme
+ is very small for smooth waves.
+Solitary wave propagation in a moderately complex bathymetry is
+computed in  section \ref{sec:comp_test} and compared with experiments.
+Finally, more detailed studies of shoaling and runup properties
+of the model concern non-breaking (section \ref{sec:10degrunup}) and 
+breaking (section \ref{sec:wave_break}) runup. Together these
+tests should provide a solid assessment of  \BoussClaw. In the sections 
+  \ref{sec:sol_prop}    and \ref{sec:shoaling_runup} we present results in 
+normalized coordinates, $t^*$ and $x^*$, as defined by (\ref{eq:norm_coord}),
+whereas  section \ref{sec:comp_test} is more conveniently represented with 
+dimensions retained.
+
 
 \subsection{Solitary wave propagation}
+\label{sec:sol_prop}
 \todo{Geir will fix the scaling in this subsection}
 For validation of the numerical approach 
 solitary wave propagation is computed in constant water depth.
@@ -624,7 +651,7 @@ For a solitary wave on a constant depth,
 the energy dissipation decreases with the grid increments.
 
 \subsection{Waves on a composite slope}
-
+\label{sec:comp_test}
 A physical model was constructed at the Coastal Hydraulic Laboratory of the U.S. Army Corps of Engineers
 in order to address beach erosion and severe flooding problems \citep{chl_bp5}. 
 The model beach consists of three piecewise linear slopes of 1:53, 1:150, and 1:13 with a vertical wall at the shoreline as shown in Figure \ref{fig:bp5_water_tank}.
