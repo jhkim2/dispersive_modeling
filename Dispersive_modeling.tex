@@ -543,10 +543,11 @@ computed in  section \ref{sec:comp_test} and compared with experiments.
 Finally, more detailed studies of shoaling and runup properties
 of the model concern non-breaking (section \ref{sec:10degrunup}) and 
 breaking (section \ref{sec:wave_break}) runup. Together these
-tests should provide a solid assessment of  \BoussClaw. In the sections 
-  \ref{sec:sol_prop}    and \ref{sec:shoaling_runup} we present results in 
+tests should provide a solid assessment of  \BoussClaw. Unless otherwise 
+is specified, results in  the sections 
+  \ref{sec:sol_prop}    and \ref{sec:shoaling_runup} are presented  in 
 normalized coordinates, $t^*$ and $x^*$, as defined by (\ref{eq:norm_coord}),
-whereas  section \ref{sec:comp_test} is more conveniently represented with 
+whereas results in section \ref{sec:comp_test} are more conveniently expressed with 
 dimensions retained.
 
 
@@ -562,11 +563,11 @@ since analytic solutions are unknown
 for
 the set (\ref{eq:madsen_cons_mass}) and 
 (\ref{eq:madsen_momx}).
-Solitary wave solutions to Serre's equations are given as
+With dimensions solitary wave solutions to Serre's equations are given as
 \begin{flalign}
 \label{eq:anal_serre}
  \eta(x,t) = A\, \textrm{sech}^2 \left( \kappa (x-ct)\right),\quad
-u(x,t) = c \frac{\eta(x,t)}{h_0},
+\textrm{and}\quad u(x,t) = c \frac{\eta(x,t)}{h_0},
 \end{flalign}
 where
 \begin{flalign}
@@ -575,14 +576,16 @@ where
  \quad c = \sqrt{g\left( A + h_0 \right)}.
 \end{split} &
 \end{flalign}
-In this expression $A$ is the amplitude and  $h_0$ is the  undisturbed water depth.
+In this expression $A$ is the amplitude and  $h_0$ is the  undisturbed water depth. For the Serre model with enhanced dispersion we employ a modified version of
+(\ref{eq:anal_serre}) while the BIM model is initiated with Tanak's solution.
+Details are given in \citet{Lovholt:2013a}.
 
 In Figure \ref{fig:soliton_ts} 
-surfaces from a \BoussClaw simulation with $\Delta x = 0.05h_0$ are shown for  
+surfaces from a \BoussClaw simulation with $\Delta x^*=\Delta x/h_0 = 0.05$ are shown for  
 amplitude  $A=0.2h_0$.
 The computational results are in good agreement 
 with the analytic solutions concerning height, shape and propagation speed. 
-The amplitudes decreases very gently as the wave propagates.\todo{Change labels on axes to $\eta/h$ and $x/h$ andchange $t$ to $\hat t$ in figure 1.} 
+The amplitudes decreases very gently as the wave propagates.\todo{Change labels on axes to $\eta/h$ and $x/h$ andchange $t$ to $t^*$ in figure 1.} 
 %The discrepancy may be  partially due to the numerical errors
 %and partly to the fact that 
 %the analytic solution for Serre's equations satisfies
@@ -592,29 +595,12 @@ The amplitudes decreases very gently as the wave propagates.\todo{Change labels 
 \centering
 \includegraphics[width=.8\textwidth]{_fig/soliton_ts.png}
 \caption{Analytic and computed solitary wave surfaces for 
-$A/h_0=0.2$ and $\Delta x/h_0=0.05$. The curves are marked by the normalized time
-$\hat t=\sqrt{g/h_0}t$. 
+$A/h_0=0.2$ and $\Delta x^*=0.05$. The curves are marked by the normalized time
+$t^*$. 
 The wave propagates from right to left,
 and the analytic solutions are black solid lines.}
 \label{fig:soliton_ts}
 \end{figure}
-
-The vertically integrated wave energy densities for the NLSW 
-and Boussinesq equations are $e_0$ and $e_0+e_1$, respectively, where
-\begin{flalign}
-& e_0 = \frac{1}{2}\left( g\eta^2 + H\bar{u}^2 \right), \label{eq:energy_e0} \\
-& e_1 = \frac{1}{6}H^3\bar{u}_x^2
-+ \frac{1}{2}H^2h_x\bar{u}\bar{u}_x + \frac{1}{2}Hh_x^2\bar{u}^2.
-\label{eq:energy_e1}
-\end{flalign}
-Details are given in \citet{madsen1997surf} 
-and in \ref{append:energy}. When the densities are integrated over the length of the numeric wave tank  we obtain the corresponding total energies (per width), 
-denoted as $E_0$ and $E_1$.
-
-%The wave energy is conserved 
-%as long as the wave is smooth and do not break,
-%and the energy decreases as the wave breaks.
-%The energy can be divided into the potential energy and kinetic energy, and the potential energy of $E_0+E_1$ is $\frac{1}{2} g\eta^2$.
 
 \begin{figure}[!htb]
     \centering
@@ -636,17 +622,20 @@ denoted as $E_0$ and $E_1$.
 \end{figure}
 \todo{Change axis labels in figure 2}
 
-In Figure \ref{fig:soliton_energy}, the energy of the solitary
-wave is shown with $A/h_0=0.2$ and $\Delta x = 0.2$.
+The  integrated wave energies (per width) for the NLSW 
+and Boussinesq equations are $E_0$ and $E_0+E_1$, respectively, as
+described in \ref{append:energy}.
+In Figure \ref{fig:soliton_energy} the time evolution of these energies are
+ shown for $A/h_0=0.2$ and $\Delta x^* = 0.2$.
 There are fluctuations both in the potential and kinetic energy that is evident when we zoom in,
 and the total energy decreases 
 showing that the numerical procedure has dissipation.
 In Figure \ref{fig:soliton_energy_dx},
-the relative error of the energy at $\hat t=10$, where $\hat t = \sqrt{g/h_0}t$,
+the relative error of the energy at $t^*=10$, 
 \begin{flalign*}
 Error = \frac{\left| E_{\hat t=0}-E_{\hat t=10} \right|}{\left|E_{\hat t=0}\right|}, &
 \end{flalign*}
-is shown for different $\Delta x$.
+is shown for different $\Delta x^*$.
 For a solitary wave on a constant depth,
 the energy dissipation decreases with the grid increments.
 
@@ -1367,11 +1356,18 @@ Thus the energy of a wave can be approximated as
 & e = \left( e_0 +e_1 + O (\mu^4e_0)\right)
 \end{flalign*}
 where $e_1=O(\mu^2 e_0)$ and
-\begin{flalign*}
-& e_0 = \frac{1}{2}\left( g\eta^2 + H\bar{u}^2 \right), \\
+\begin{flalign}
+& e_0 = \frac{1}{2}\left( g\eta^2 + H\bar{u}^2 \right), \label{eq:energy_e0}\\
 & e_1 = \frac{1}{6}H^3\bar{u}_x^2
 + \frac{1}{2}H^2h_x\bar{u}\bar{u}_x + \frac{1}{2}Hh_x^2\bar{u}^2.
-\end{flalign*}
+\label{eq:energy_e1}
+\end{flalign}
+Correspondingly, total energies per width are defined as 
+\begin{flalign}
+\label{eq:int_total}
+ E_0=\int\limits_{x_a}^{x_b}e_0 dx,\quad\quad  E_1=\int\limits_{x_a}^{x_b}e_1 dx,
+\end{flalign}
+where $x_a$ and $x_b$ denote the limitations of the wetted regions.
 
 \section*{References}
 
