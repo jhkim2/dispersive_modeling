@@ -545,10 +545,11 @@ computed in  section \ref{sec:comp_test} and compared with experiments.
 Finally, more detailed studies of shoaling and runup properties
 of the model concern non-breaking (section \ref{sec:10degrunup}) and 
 breaking (section \ref{sec:wave_break}) runup. Together these
-tests should provide a solid assessment of  \BoussClaw. In the sections 
-  \ref{sec:sol_prop}    and \ref{sec:shoaling_runup} we present results in 
+tests should provide a solid assessment of  \BoussClaw. Unless otherwise 
+is specified, results in  the sections 
+  \ref{sec:sol_prop}    and \ref{sec:shoaling_runup} are presented  in 
 normalized coordinates, $t^*$ and $x^*$, as defined by (\ref{eq:norm_coord}),
-whereas  section \ref{sec:comp_test} is more conveniently represented with 
+whereas results in section \ref{sec:comp_test} are more conveniently expressed with 
 dimensions retained.
 
 
@@ -564,11 +565,11 @@ since analytic solutions are unknown
 for
 the set (\ref{eq:madsen_cons_mass}) and 
 (\ref{eq:madsen_momx}).
-Solitary wave solutions to Serre's equations are given as
+With dimensions solitary wave solutions to Serre's equations are given as
 \begin{flalign}
 \label{eq:anal_serre}
  \eta(x,t) = A\, \textrm{sech}^2 \left( \kappa (x-ct)\right),\quad
-u(x,t) = c \frac{\eta(x,t)}{h_0},
+\textrm{and}\quad u(x,t) = c \frac{\eta(x,t)}{h_0},
 \end{flalign}
 where
 \begin{flalign}
@@ -577,14 +578,17 @@ where
  \quad c = \sqrt{g\left( A + h_0 \right)}.
 \end{split} &
 \end{flalign}
-In this expression $A$ is the amplitude and  $h_0$ is the  undisturbed water depth.
+In this expression $A$ is the amplitude and  $h_0$ is the  undisturbed water depth. For the Serre model with enhanced dispersion we employ a modified version of
+(\ref{eq:anal_serre}) while the BIM model is initiated with Tanak's solution.
+Details are given in \citet{Lovholt:2013a}.
 
 In Figure \ref{fig:soliton_ts} 
-surfaces from a \BoussClaw simulation with $\Delta x = 0.05h_0$ are shown for  
+surfaces from a \BoussClaw simulation with $\Delta x^*=\Delta x/h_0 = 0.05$ are shown for  
 amplitude  $A=0.2h_0$.
 The computational results are in good agreement 
 with the analytic solutions concerning height, shape and propagation speed. 
-The amplitudes decreases very gently as the wave propagates.\todo{Change labels on axes to $\eta/h$ and $x/h$ andchange $t$ to $\hat t$ in figure 1. J:edited} 
+The amplitudes decreases very gently as the wave propagates.\todo{Change labels on axes to $\eta/h$ and $x/h$ andchange $t$ to $t^*$ in figure 1.} 
+
 %The discrepancy may be  partially due to the numerical errors
 %and partly to the fact that 
 %the analytic solution for Serre's equations satisfies
@@ -594,29 +598,12 @@ The amplitudes decreases very gently as the wave propagates.\todo{Change labels 
 \centering
 \includegraphics[width=.8\textwidth]{_fig/soliton_ts.png}
 \caption{Analytic and computed solitary wave surfaces for 
-$A/h_0=0.2$ and $\Delta x/h_0=0.05$. The curves are marked by the normalized time
-$\hat t=\sqrt{g/h_0}t$. 
+$A/h_0=0.2$ and $\Delta x^*=0.05$. The curves are marked by the normalized time
+$t^*$. 
 The wave propagates from right to left,
 and the analytic solutions are solid lines.}
 \label{fig:soliton_ts}
 \end{figure}
-
-The vertically integrated wave energy densities for the NLSW 
-and Boussinesq equations are $e_0$ and $e_0+e_1$, respectively, where
-\begin{flalign}
-& e_0 = \frac{1}{2}\left( g\eta^2 + H\bar{u}^2 \right), \label{eq:energy_e0} \\
-& e_1 = \frac{1}{6}H^3\bar{u}_x^2
-+ \frac{1}{2}H^2h_x\bar{u}\bar{u}_x + \frac{1}{2}Hh_x^2\bar{u}^2.
-\label{eq:energy_e1}
-\end{flalign}
-Details are given in \citet{madsen1997surf} 
-and in \ref{append:energy}. When the densities are integrated over the length of the numeric wave tank  we obtain the corresponding total energies (per width), 
-denoted as $E_0$ and $E_1$.
-
-%The wave energy is conserved 
-%as long as the wave is smooth and do not break,
-%and the energy decreases as the wave breaks.
-%The energy can be divided into the potential energy and kinetic energy, and the potential energy of $E_0+E_1$ is $\frac{1}{2} g\eta^2$.
 
 \begin{figure}[!htb]
     \centering
@@ -638,17 +625,20 @@ denoted as $E_0$ and $E_1$.
 \end{figure}
 \todo{Change axis labels in figure 2 J:edited}
 
-In Figure \ref{fig:soliton_energy}, the energy of the solitary
-wave is shown with $A/h_0=0.2$ and $\Delta x = 0.2$.
+The  integrated wave energies (per width) for the NLSW 
+and Boussinesq equations are $E_0$ and $E_0+E_1$, respectively, as
+described in \ref{append:energy}.
+In Figure \ref{fig:soliton_energy} the time evolution of these energies are
+ shown for $A/h_0=0.2$ and $\Delta x^* = 0.2$.
 There are fluctuations both in the potential and kinetic energy that is evident when we zoom in,
 and the total energy decreases 
 showing that the numerical procedure has dissipation.
 In Figure \ref{fig:soliton_energy_dx},
-the relative error of the energy at $\hat t=10$, where $\hat t = \sqrt{g/h_0}t$,
+the relative error of the energy at $t^*=10$, 
 \begin{flalign*}
-Error = \frac{\left| E_{\hat t=0}-E_{\hat t=10} \right|}{\left|E_{\hat t=0}\right|}, &
+Error = \frac{\left| E_{t^*=0}-E_{t^*=10} \right|}{\left|E_{t^*=0}\right|}, &
 \end{flalign*}
-is shown for different $\Delta x$.
+is shown for different $\Delta x^*$.
 For a solitary wave on a constant depth,
 the energy dissipation decreases with the grid increments.
 
@@ -657,11 +647,10 @@ the energy dissipation decreases with the grid increments.
 A physical model was constructed at the Coastal Hydraulic Laboratory of the U.S. Army Corps of Engineers
 in order to address beach erosion and severe flooding problems \citep{chl_bp5}. 
 The model beach consists of three piecewise linear slopes of 1:53, 1:150, and 1:13 with a vertical wall at the shoreline as shown in Figure \ref{fig:bp5_water_tank}.
-In the laboratory, the wavemaker was located at $23.23\m$, 
-and generated solitary waves.
+In the laboratory, the wavemaker was located at $23.23\m$ from verical wall and produced incident waves that were close to solitary waves.
 The gauge data from three cases are provided 
 where the ratio $A/h_0$ equals  $0.038$, $0.259$ and $0.681$, respectively,
-and the depth at the wavemaker is  $h_0=21.8\cm$. \todo{What is the wave shape? J: solitary waves. edited}
+and the depth at the wavemaker is  $h_0=21.8\cm$.
 
 \begin{figure}[!htb]
 \centering
@@ -752,9 +741,8 @@ A solitary wave of amplitude $A$ is generated at the right end of
 the tank and propagates leftwards
 to the beach. 
 
-We present the results using the non-dimensional time 
-$t^*=t\sqrt{g/h_0}$ and non-dimensional space $x^*=x/h_0$, where $h_0$ is the equilibrium depth in the flat bottom region. In the following, we drop the asterisks in 
-the presentation of the results. 
+In the remainder of section \ref{sec:shoaling_runup} and  throughout section \ref{sec:shoaling_breaking} we present the results using the non-dimensional coordinates 
+$t^*$  $x^*$, as defined by (\ref{eq:norm_coord}) with $h_0$ as the equilibrium depth in the flat bottom region. In the sections mentioned we ommit the asterisks for simplicity. 
 In  \citet{synolakis1987runup}, $t=0$ was defined as when the wave crest was a non-dimensional distance, $L$, from the toe of the slope,
 where
 \begin{flalign*}
@@ -765,7 +753,7 @@ However, at $t=0$, the solitary wave has an elevation of
 started to interact with the solitary wave. To avoid any such interaction obscuring
 our analysis, we instead place the initial solitary wave using equation (\ref{eq:anal_serre}) 
 at $L + 5c$, where $c$ is the shallow water wave celerity.
-In this way, the initial solitary wave has a negligible interaction with the slope when initialized. 
+In this way, an incident solitary wave of amplitude $A/h_0\approx 0.3$, say, has a negligible interaction with the slope when initialized. 
 
 \subsubsection{Run-up of a non-breaking wave on a steep slope}
 \label{sec:10degrunup}
@@ -844,16 +832,16 @@ for the non-breaking wave on a $10^\circ$ slope.
 
 \citet{synolakis1987runup} 
 performed a series of laboratory experiments 
-for the run-up of solitary waves on plane beaches,
-data of which can be found at \cite{synolakis2007standards}.
+for the run-up of solitary waves on plane beaches.
+Data can be found at \cite{synolakis2007standards}.
 \todo{Make a proper reference of the URL J: edited} 
-A  breaking case is a solitary wave of amplitude $A/h_0=0.28$ 
+A breaking case is a solitary wave of amplitude $A/h_0=0.28$ 
 approaching a slope of $1:19.85$. 
 
 %Then $t=0$ is set as soon as the peak of wave is at $x=L$.
 
 In Figure \ref{fig:lab_bim}, the laboratory measurements
-are shown with the computational results from the \BoussClaw (in Boussinesq and  NLSW mode) and the BIM models
+are shown with the computational results from the \BoussClaw (in Boussinesq and  NLSW mode),  the Serre and the BIM models
 for $A/h_0=0.28$ and a $1:19.85$ slope at $t=15$. 
 The grid size $\Delta x$ is 0.05 in the following simulations
 unless stated otherwise.
@@ -873,7 +861,7 @@ on a slope of $1:19.85$.}
 %and the undisturbed depth is $h=0.206$ m. 
 
 The ratio of amplitude to depth, $A/h$, 
-is about $2.01$ at the break point.
+is about $2$ at the break point.
 The potential flow model cannot be run much beyond the
 breaking points (until the attachment of the plunger only) and 
 gives no information on the following bore propagation.
@@ -969,7 +957,7 @@ dissipation which dominates over the first effects.
 \section{Shoaling and breaking phenomena}
 \label{sec:shoaling_breaking}
 
-\subsection{Pre-breaking shoaling}
+\subsection{Shoaling until breaking}
 \label{sec:num_shoaling}
 \citet{wei1995fully} made computation of pre-breaking solitary wave shoaling using
  their fully nonlinear extension of Nwogu's model, the full potential 
@@ -1341,32 +1329,32 @@ w = -h_x \bar{u}  - \bar{u}_x (z+h) + O(\mu^2).
 
 The potential energy density per horizontal area is 
 \begin{flalign*}
-V = \int_{-h}^{\eta} g z dz = \frac{1}{2}g \eta^2 
-- \frac{1}{2} g h^2, 
+V = \int_{-h}^{\eta} \rho g z dz = \frac{1}{2}\rho g \eta^2 
+- \frac{1}{2} \rho g h^2, 
 \end{flalign*}
-where the last term, $\frac{1}{2} g h^2$, is the equilibrium energy, while the
+where the last term, $\frac{1}{2} \rho g h^2$, is the equilibrium energy, while the
 first term is of order $\epsilon^2$ relative to the first.
 The kinematic energy density has two contributions,
 \begin{flalign*}
 T=T_u+T_w; 
-\quad T_u = \frac{1}{2}\int_{-h}^{\eta} u^2 dz, 
-\quad T_w = \frac{1}{2}\int_{-h}^{\eta} w^2 dz. 
+\quad T_u = \frac{\rho}{2}\int_{-h}^{\eta} u^2 dz, 
+\quad T_w = \frac{\rho}{2}\int_{-h}^{\eta} w^2 dz. 
 \end{flalign*}
 where $T_w=O(\mu^2T_u)$.
 For the horizontal part, $T_u$ is 
 \begin{flalign*}
-T_u = \frac{1}{2}\int_{-h}^{\eta} u^2 dz
-= \frac{1}{2}\epsilon^2 \int_{-h}^{\eta} 
-\bar{u}^2+2\bar{u}u_1 + u_1^2 dz
-= \frac{1}{2} H \bar{u}^2(1 + O(\mu^4)),
+T_u = \frac{\rho}{2}\int_{-h}^{\eta}  u^2 dz
+= \frac{\rho}{2}\int_{-h}^{\eta} 
+\left\lbrack \bar{u}^2+2\bar{u}u_1 + u_1^2\right\rbrack dz
+= \frac{\rho}{2} H \bar{u}^2(1 + O(\mu^4)),
 \end{flalign*}
 since $\bar{u}$ is independent of $z$ and $u_1=O(\mu^2\bar{u})$.
 The vertical part becomes 
 \begin{flalign*}
-\quad T_w & = \frac{1}{2}\int_{-h}^{\eta} 
-h_x^2\bar{u}^2 +2h_x\bar{u}\bar{u}_x(z+h)
-+ \bar{u}_x^2 (z+h)^2 dz  \\
-& = \frac{1}{2} H
+\quad T_w & = \frac{\rho}{2}\int_{-h}^{\eta} 
+\left\lbrack h_x^2\bar{u}^2 +2h_x\bar{u}\bar{u}_x(z+h)
++ \bar{u}_x^2 (z+h)^2 \right\rbrack dz  \\
+& = \frac{\rho}{2} H
 \left(
 h_x^2 \bar{u}^2 + H h_x\bar{u} \bar{u}_x + \frac{1}{3} H^2 \bar{u}_x^2
 \right),
@@ -1377,11 +1365,18 @@ Thus the energy of a wave can be approximated as
 & e = \left( e_0 +e_1 + O (\mu^4e_0)\right)
 \end{flalign*}
 where $e_1=O(\mu^2 e_0)$ and
-\begin{flalign*}
-& e_0 = \frac{1}{2}\left( g\eta^2 + H\bar{u}^2 \right), \\
-& e_1 = \frac{1}{6}H^3\bar{u}_x^2
-+ \frac{1}{2}H^2h_x\bar{u}\bar{u}_x + \frac{1}{2}Hh_x^2\bar{u}^2.
-\end{flalign*}
+\begin{flalign}
+& e_0 = \frac{\rho}{2}\left( g\eta^2 + H\bar{u}^2 \right), \label{eq:energy_e0}\\
+& e_1 = \rho\left(\frac{1}{6}H^3\bar{u}_x^2
++ \frac{1}{2}H^2h_x\bar{u}\bar{u}_x + \frac{1}{2}Hh_x^2\bar{u}^2\right).
+\label{eq:energy_e1}
+\end{flalign}
+Correspondingly, total energies per width are defined as 
+\begin{flalign}
+\label{eq:int_total}
+ E_0=\int\limits_{x_a}^{x_b}e_0 dx,\quad\quad  E_1=\int\limits_{x_a}^{x_b}e_1 dx,
+\end{flalign}
+where $x_a$ and $x_b$ denote the limitations of the wetted regions.
 
 \section*{References}
 
