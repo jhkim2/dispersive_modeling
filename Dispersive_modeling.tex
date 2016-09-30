@@ -270,7 +270,7 @@ which is designed to solve the nonlinear shallow water equations.
 Boussinesq-type equations
 with an addition of a Pad{\'e} approximation 
 of the linear dispersion relation.
-We focus on the case where $B_1=B$ and $B_2=0$ 
+We focus on the case with $B_2=0$ 
 from the formulation of \citet{schaffer1995further}.
 The equations read 
 \begin{flalign}
@@ -472,15 +472,17 @@ exemplifies that the friction reduces the run-up height.
 \label{eq:Manning}
 f_D = -\frac{g C_d^2 u |u|}{H^{5/3}},
 \end{equation}
-where $C_d$ is a Manning drag coefficient.
+where $C_d$ \! s/m$^{1/3}$ is a Manning drag coefficient, 
+and the typical range is between 0.01 and 0.03 \citep{te1959open}.
 
-In the wetting-drying process during runup a parameter $d^*$ is chosen
-such that $H$ is put to $0$ if $H<d^*h_0$.
-In this work, the parameter $d^*$ is set to $10^{-4}$. 
+In the wetting-drying process during runup a parameter 
+for the dry tolerance $d_{tol}$ is chosen
+such that $H$ is put to $0$ if $H<d_{tol}$.
+In this work, the parameter $d_{tol}$ is set to $10^{-4}$. 
 %As noted by \cite{antuono2012role}, the shoreline dynamics can change  depending on the bottom friction coefficient and the water depth tolerance. 
 The dispersion terms of the Boussinesq equations imply an extended computational
 stencil as compared to that for the NLSW equations. To prevent this stencil 
-from including non-wetted nodes and thereby produce irregularities and even instabilities, the dispersion terms are switched off when $H<Nd^*h_0$, where the number $N$ is set to 100 for the simulations herein.
+from including non-wetted nodes and thereby produce irregularities and even instabilities, the dispersion terms are switched off when $H<Nd_{tol}h_0$, where the number $N$ is set to 100 for the simulations herein.
 Accordingly, for the dry land inundation, the \BoussClaw invariably
 utilizes the NLSW solver of the \textsc{Geoclaw} software,
 which can handle 
@@ -703,8 +705,9 @@ and the depth at the wavemaker is  $h_0=21.8\cm$. \todo{What is the wave shape? 
   \label{fig:bp5_water_tank}
 \end{figure}
 
-For the second case, $A/h_0=0.259$, numerical results, obtained with  
-$400$ grid points, have been compared to experiments. 
+For the second case, $A/h_0=0.259$, numerical results 
+have been compared to experiments
+with $400$ grid points on a computational domain of $[-0.98,8.19]$
 %And the switching scheme between the shallow water equations and the Boussinesq equations, is not applied.
 To specify the incoming wave from the left boundary, 
 the data at Gauge 4 were used for the wave height,
@@ -725,7 +728,7 @@ A better fit may possibly be obtained by incorporating a bottom friction.
 \includegraphics[width=.8\textwidth]{_fig/gauge0005fig300.png}\\
 \includegraphics[width=.8\textwidth]{_fig/gauge0007fig300.png}\\
 \includegraphics[width=.8\textwidth]{_fig/gauge0008fig300.png}
-\caption{Water surface elevation at gauges 5,7 and 8 for $A/h=0.269$ case.}
+\caption{Water surface elevation (m) in time (s) at gauges 5,7 and 8 for $A/h=0.259$ case.}
 \label{fig:bp5b_gauges}
 \end{figure}
 
@@ -775,7 +778,7 @@ by \citet{Pedersen:2013} who found a theoretical overshoot of roughly 20\% in th
 \includegraphics[height=4.6cm]{_fig/bim_serre_boussclaw_slope10}
 \includegraphics[height=4.6cm]{_fig/bim_serre_boussclaw_slope10_zoom}
 \caption{Left figure is a snapshot of BIM, Serre and \BoussClaw at
-	t = 10,15 and 20. Right figure is a zoom of the results at t=15}
+	t = 10,15 and 20 with $\Delta x=0.05$. Right figure is a zoom of the results at t=15}
 \label{fig:bim_serre_boussclaw_slope10}
 \end{figure}
 
@@ -816,7 +819,7 @@ for the non-breaking wave on a $10^\circ$ slope.
         \ffigbox{%
         	\includegraphics[width=.45\textwidth]{_fig/runup_slope10}
         }{\caption{Run-up height in time 
-        	from different Serre, \BoussClaw and NLSW.}%
+        	from Serre, \BoussClaw and NLSW with $\Delta x=0.05$.}%
         \label{fig:runup_slope10}
     }
 \end{floatrow}
@@ -891,7 +894,7 @@ as observed by \cite{Pedersen:2013}.
 	\includegraphics[width=.8\textwidth]{_fig/BoussClaw_lab_Cd_t25}\\
 	\includegraphics[width=.8\textwidth]{_fig/BoussClaw_lab_Cd_t30}
 	\caption{Comparison of experiments and BoussClaw results 
-		at t=25 and 30.}
+		at t=25 and 30 with $\Delta x = 0.05$.}
 	\label{fig:BoussClaw_runup}
 \end{figure}
 
@@ -915,6 +918,7 @@ dissipation which dominates over the first effects.
 \todo{Geir: But, Li and Raichlen obtained a smaller runup height; Manning friction ? Check.}
 
 \begin{figure}[!htb]
+	\centering
 	\begin{floatrow}
 		\ffigbox{%
 			\includegraphics[width=.5\textwidth]{_fig/runup_slope_1_20}
@@ -923,15 +927,18 @@ dissipation which dominates over the first effects.
 			with different $C_d$.}%
 		\label{fig:runup_slope_1_20}
 	}
-	\capbtabbox{%
-		\begin{tabular}{ccc} \hline
-			$C_d$ & \BoussClaw & NLSW \\ \hline
-			0 & 1.7317 & 0.9786 \\
-			0.01 & 0.5705 & 0.5202 \\
-			0.02 & 0.4496 & 0.4018 \\ \hline
+	\capbtabbox{% 
+		\small
+		\begin{tabular}{cccc} \hline
+			 & \BoussClaw & NLSW & Exp. \\ \hline
+			$C_d=0$ & 1.634 & 0.936 & 0.551\\
+			0.01 & 0.921 & 0.702 & \\
+			0.02 & 0.691 & 0.596 &\\ 
+			0.03 & 0.576 & 0.528 &\\ \hline
 		\end{tabular}
 	}{%
-	\caption{Maximum run-up height with different friction coefficients.}%
+	\caption{Maximum run-up height with different friction coefficients.
+		Maximum run-up measured by \cite{synolakis1987runup} experiment is 0.551.}%
 	\label{tab:max_runup_1_20}
     }
     \end{floatrow}
@@ -1070,10 +1077,10 @@ from the full Boussinesq simulation is significant. In fact, the threshold solut
 
 \begin{figure}[tbh!]
 	\centering
-	\includegraphics[width=.7\textwidth]{_fig/bim_boussclaw_etaB8}
+	\includegraphics[width=.75\textwidth]{_fig/bim_boussclaw_etaB8}
 	\caption{Comparison of \BoussClaw and NLSW 
-		with $\epsilon_B=0.8$ at t =$20$, $25$ and $30$.
-		Friction forces have been added with $C_d=0.02$ in all simulations.}
+		with $\epsilon_B=0.8$ and $\Delta x = 0.05$ at t =$20$, $25$ and $30$.
+		Friction forces have been added with $C_d=0.03$ in all simulations.}
 	\label{fig:boussclaw_th08}
 \end{figure}
 
