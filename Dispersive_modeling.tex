@@ -292,7 +292,7 @@ as the linear dispersion relations are identical.
 However, unlike Peregrine's momentum equation 
 the hydrostatic parts of (\ref{eq:madsen_momx}) 
 are written in a conservative form. Moreover, some nonlinearity is introduced
-in the dispersion term.\todo{Why do S and M introduce them ?} 
+in the dispersion term. \todo{Why do S and M introduce them ?} 
 Even though (\ref{eq:madsen_cons_mass}), 
 (\ref{eq:madsen_momx}) and (\ref{eq:madsen_new_op}) do not constitute a fully nonlinear set of Boussinesq equations, inheriting relative errors of order $\mu^2,\,\epsilon\mu^2$, 
 they do describe shoaling of solitary waves markedly
@@ -464,7 +464,7 @@ f_D = -\frac{g C_d^2 u |u|}{H^{5/3}},
 \end{equation}
 where $C_d$ is a Manning drag coefficient.
 Furthermore a parameter $d^*$ is chosen
-such that $H$ is replaced by $d^*$\todo{Geir: correct ?}
+such that $H$ is replaced by $d^*$ \todo{Geir: correct ?}
 if the water depth is smaller than this threshold, $H<d^*$.
 In this work, the parameter $d^*$ is set to $10^{-4}$. 
 %As noted by \cite{antuono2012role}, the shoreline dynamics can change  depending on the bottom friction coefficient and the water depth tolerance. 
@@ -555,7 +555,7 @@ surfaces from a \BoussClaw simulation with $\Delta x = 0.05h_0$ are shown for
 amplitude  $A=0.2h_0$.
 The computational results are in good agreement 
 with the analytic solutions concerning height, shape and propagation speed. 
-The amplitudes decreases very gently as the wave propagates.\todo{Change labels on axes to $\eta/h$ and $x/h$ andchange $t$ to $\hat t$ in figure 1.} 
+The amplitudes decreases very gently as the wave propagates.\todo{Change labels on axes to $\eta/h$ and $x/h$ andchange $t$ to $\hat t$ in figure 1. J:edited} 
 %The discrepancy may be  partially due to the numerical errors
 %and partly to the fact that 
 %the analytic solution for Serre's equations satisfies
@@ -568,7 +568,7 @@ The amplitudes decreases very gently as the wave propagates.\todo{Change labels 
 $A/h_0=0.2$ and $\Delta x/h_0=0.05$. The curves are marked by the normalized time
 $\hat t=\sqrt{g/h_0}t$. 
 The wave propagates from right to left,
-and the analytic solutions are black solid lines.}
+and the analytic solutions are solid lines.}
 \label{fig:soliton_ts}
 \end{figure}
 
@@ -607,7 +607,7 @@ denoted as $E_0$ and $E_1$.
     at $t=10\sqrt{g/h_0}$ for $\Delta x/h_0 = 0.05, 0.1, 0.2$ and $0.5$ (right).}
     \label{fig:soliton_error_energy}
 \end{figure}
-\todo{Change axis labels in figure 2}
+\todo{Change axis labels in figure 2 J:edited}
 
 In Figure \ref{fig:soliton_energy}, the energy of the solitary
 wave is shown with $A/h_0=0.2$ and $\Delta x = 0.2$.
@@ -628,10 +628,11 @@ the energy dissipation decreases with the grid increments.
 A physical model was constructed at the Coastal Hydraulic Laboratory of the U.S. Army Corps of Engineers
 in order to address beach erosion and severe flooding problems \citep{chl_bp5}. 
 The model beach consists of three piecewise linear slopes of 1:53, 1:150, and 1:13 with a vertical wall at the shoreline as shown in Figure \ref{fig:bp5_water_tank}.
-In the laboratory, the wavemaker was located at $23.23\m$.
+In the laboratory, the wavemaker was located at $23.23\m$, 
+and generated solitary waves.
 The gauge data from three cases are provided 
 where the ratio $A/h_0$ equals  $0.038$, $0.259$ and $0.681$, respectively,
-and the depth at the wavemaker is  $h_0=21.8\cm$.\todo{What is the wave shape?}
+and the depth at the wavemaker is  $h_0=21.8\cm$. \todo{What is the wave shape? J: solitary waves. edited}
 
 \begin{figure}[!htb]
 \centering
@@ -710,7 +711,7 @@ In Figure \ref{fig:init_setup}, the initial set-up for a test is shown.
 %, and the experiment results include various cases with the wave amplitudes and slope angles. Synolakis identified the breaking and non-breaking wave cases. 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=.7\textwidth]{_fig/initial_setup.png}
+\includegraphics[width=.8\textwidth]{_fig/initial_setup.png}
 \caption{Set-up of a numerical test for shoaling and runup of solitary waves.}
 \label{fig:init_setup}
 \end{figure}
@@ -811,10 +812,11 @@ for the non-breaking wave on a $10^\circ$ slope.
 
 %Depth-averaged models are not capable of handling the wave breaking unless they are modified by incorporating the energy dissipation. In this work, a breaking solitary wave will be considered on a uniform slope. For laboratory experiments, see Synolakis \{synolakis1987runup}.
 
-\citet{synolakis1987runup} performed a series of laboratory experiments for the run-up of solitary waves
-on plane beaches. 
-Data can be found at\todo{Make a proper reference of the URL} 
-NOAA's tsunami benchmark webpage \url{http://nctr.pmel.noaa.gov/benchmark/}.
+\citet{synolakis1987runup} 
+performed a series of laboratory experiments 
+for the run-up of solitary waves on plane beaches,
+data of which can be found at \cite{synolakis2007standards}.
+\todo{Make a proper reference of the URL J: edited} 
 A  breaking case is a solitary wave of amplitude $A/h_0=0.28$ 
 approaching a slope of $1:19.85$. 
 
@@ -847,7 +849,8 @@ breaking points (until the attachment of the plunger only) and
 gives no information on the following bore propagation.
 In figure \ref{fig:BoussClaw_runup} we have compared
 the experimental data with the \BoussClaw model 
-of $C_d = 0$ and $0.02$.\todo{But, $C_d$ is not dimensionless....} 
+of $C_d = 0$ and $0.02$.
+\todo{But, $C_d$ is not dimensionless....} 
 The agreement is good and the introduction of bed-friction 
 even seem to match the truncated swash tongue of the experiments well. However, this may be a coincidence. 
 Even though the  wave has broken and some irregular flow features are introduced thereby, we have no evidence of the flow state being
