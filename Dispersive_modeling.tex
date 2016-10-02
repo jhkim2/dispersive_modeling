@@ -1121,7 +1121,11 @@ The energy then drops momentarily due to the change of energy formula, then rema
 It is obvious that the NLSW model in this case is severely inaccurate, while 
 it is more difficult to assess the model with and without the switch to the NLSW.
 The onset of the dissipation in the threshold model comes slightly before the a vertical front is observed in the BIM solution $x_c=4.09$. This may point to a too early and strong dissipation. On the other hand, the Boussinesq solution without the threshold most likely
-yields too little dissipation. The last step of the procedure in section \ref{sec:Num_scheme}, which
+yields too little dissipation. In this context we remark that the experimental data in
+the upper panel of figure \ref{fig:boussclaw_th08} apparently fall between the \BoussClaw results with and 
+without the $\epsilon_B$ threshold, even though there is scatter in the experimental 
+surface. 
+The last step of the procedure in section \ref{sec:Num_scheme}, which
 deals with the dispersion, increases the wave front width to something of the order of
 the local and thus reduce the dissipation 
 of the next TVD step. This effect of the dispersion terms may be inferred from, for instance, the Green function of Helmholtz type equations as outlined in \cite{Glimsdal:2004}, section 3.1.1. Still, the \BoussClaw model, without the threshold, is stable during 
