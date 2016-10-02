@@ -324,3 +324,54 @@ or alternatively be determined based on the experiments.
 The threshold can vary case by case as noted
 by \cite{lynett2006nearshore} and \cite{matsuyama2007study} 
 for example.\todo{Geir: I do not understand this} 
+
+
+In the present paper we have presented a new  
+Boussinesq type model, \BoussClawt,
+for modeling non-linear dispersive tsunami propagation. The model is an extension of the \textsc{GeoClaw} package and  take also into account drying-wetting during inundation and withdrawal on the beach.
+\BoussClaw resembles much used general purpose models such as \textsc{Funwave-TVD} and
+\textsc{Coulwave-TVD}, but is based on a slightly simpler and more transparent set of governing equations,
+and has a slightly different numerical scheme. We have tested numerical implementation towards
+analytical solitary wave expressions as well as laboratory experiments.
+
+Making use of the experiments of \citet{synolakis1987runup} 
+enabled us to
+constrain a set of different long wave models, including \BoussClawt, as well as a full potential
+BIM reference model. Using the BIM, we were able to explore in detail the pre-breaking behavior,
+and to identify the point of breaking accurately. This was useful for determining the 
+validity of the respective long wave models. First, we found that by using standard NLSW models,
+the point of breaking will be located too far offshore. Boussinesq models
+provide  a more accurate description of the near shore propagation and shoaling. 
+However, in current practice the Boussinesq terms are often omitted near shore through the $A/h>0.8$ threshold criteria.
+As a consequence, the point of breaking may be misinterpreted also in Boussinesq type models.
+
+In the present example, we investigated the near shore propagation over a relatively gentle shelf of $1:19.85$ slope,
+and in this case the actual onset of breaking occurred for $A/h \approx 2$, which is significantly later
+than what would be predicted in any standard approach (NLSW or Boussinesq). As demonstrated in this paper,
+the combined effects of non-linearities and dispersion influence the solution markedly, when accumulated to the point
+of breaking. It is noted that the artificial effect discovered would depend on the slope, 
+and the $A/h=0.8$ limited may well work better on a much gentler slope as it is primarily derived based on 
+solitary wave evolution on constant depth. On the other hand, $1/19.85$ slope is already quite gentle,
+and the offset between the reference solution and Boussinesq models using this criteria may
+be even more pronounced for steeper slopes.
+
+%{\em What should the main conclusions be}
+%\begin{itemize}
+%\item \BoussClaw works.
+%\item Shallow water models and composite Boussinesq/NLSW models
+%      may give large errors in breaking point and wave shape
+%\item Breaking does not really occur before the local amplitude is much higher than 0.8 time the depth -- a limit that is inspired by the existence of solitary wave solution in full potential theory.
+%The 0.8 limit  may be better on even gentler slopes.
+%\item Effects of nonlinearities in the dispersion does influence the solution markedly, when accumulated up to the point of breaking.
+%\end{itemize}
+
+\section*{Temporary section: What to do}
+These may be in addition to margin-notes.
+\begin{enumerate}
+\item More figures for section \ref{sec:10degrunup}; snapshots, shorelines 
+maximum runup, convergence.
+\item Grid increments must be described, somehow, for all results.
+\item What to say about breaking performance ? End of introduction, discussion in in 4.1, 4.2 and conclusion must be looked at.
+\item Old figures 9b, 10bc. Reinserted ? No.............
+\end{enumerate}
+

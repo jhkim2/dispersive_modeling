@@ -1150,35 +1150,44 @@ $\epsilon_B=0.8$, may be a good model for gently spilling breakers.
 	\label{fig:energy_boussclaw_swe}
 \end{figure}
 
-\section{Conclusion}
+\section{Concluding remarks}
 \label{sec:conclusion}
+The \BoussClaw extension to the \textsc{GeoClaw} package includes Boussinesq type equations
+and resembles much used general purpose models such as \textsc{Funwave-TVD} and
+\textsc{Coulwave-TVD}, but is based on a different and somewhat  simpler 
+set of governing equations, as well as a slightly different numerical scheme. 
+Comparisons with other models as well as experiments are good. Moreover,
+the model do not display the vulnerability to instabilities for 
+strong nonlinearities in shallow water
+as is observed for some fully nonlinear Boussinesq models \citep{Lovholt:2013}. 
 
-In the present paper we have presented a new  
-Boussinesq type model, \BoussClawt,
-for modeling non-linear dispersive tsunami propagation. The model is an extension of the \textsc{GeoClaw} package and  take also into account drying-wetting during inundation and withdrawal on the beach.
-\BoussClaw resembles much used general purpose models such as \textsc{Funwave-TVD} and
-\textsc{Coulwave-TVD}, but is based on a slightly simpler and more transparent set of governing equations,
-and has a slightly different numerical scheme. We have tested numerical implementation towards
-analytical solitary wave expressions as well as laboratory experiments.
-
-Making use of the experiments of \citet{synolakis1987runup} 
-enabled us to
-constrain a set of different long wave models, including \BoussClawt, as well as a full potential
-BIM reference model. Using the BIM, we were able to explore in detail the pre-breaking behavior,
-and to identify the point of breaking accurately. This was useful for determining the 
-validity of the respective long wave models. First, we found that by using standard NLSW models,
-the point of breaking will be located too far offshore. Boussinesq models
-provide  a more accurate description of the near shore propagation and shoaling. 
-However, in current practice the Boussinesq terms are often omitted near shore through the $A/h>0.8$ threshold criteria.
-As a consequence, the point of breaking may be misinterpreted also in Boussinesq type models.
-
-In the present example, we investigated the near shore propagation over a relatively gentle shelf of $1:19.85$ slope,
+The experiments of \citet{synolakis1987runup} enabled us to
+constrain a set of different long wave models, including \BoussClawt, as well as a full potential reference model. Using the potential  model, we were able to assess in detail the pore-breaking behavior of the models,
+and to identify the point of breaking accurately. 
+First, we found that by using standard NLSW models,
+the point of breaking will be located too far offshore and that the resulting dissipation 
+artificially check the amplification. Standard Boussinesq equations, like the 
+so called Peregrine variant, yield marked over-amplification even before the potential theory predicts breaking and eventually completely erroneous wave shape as well as height.
+The fully nonlinear, non-dissipative model of the Serre type, on the other hand, follows full potential theory very well up to the point of potential-model breaking and avoid severe over-amplification and shape distortion also in the following evolution, until it breaks down at the shoreline. For the pre-breaking part, this is in agreement with earlier investigations of equations of the Nwogu/Wei type \citep{Wei95} and shows that
+the combined effects of nonlinearities and dispersion influence the solution markedly, when accumulated to the point
+of breaking. 
+However, herein we find also a very good pre-breaking performance of \BoussClaw Boussinesq 
+equations where only some nonlinearity is retained in the dispersion. This suggest that
+practice of retaining full nonlinearity in Boussinesq shoaling/runup models may be 
+relaxed, especially when switch to NLSW equations are invoked when the wave-height to
+depth ratio surpasses a threshold of $0.8$. This may help reducing stability problems 
+that are observed for fully nonlinear Boussinesq equations \citep{Lovholt:2013}.
+    
+A current practice has evolved in which the Boussinesq terms are often omitted near shore through the $A/h>0.8$ threshold criterion, inspired by the maximum height of a non-breaking 
+undular bore. 
+In an example presented herein, we investigated the near shore propagation over a relatively gentle shelf of $1:19.85$ slope,
 and in this case the actual onset of breaking occurred for $A/h \approx 2$, which is significantly later
-than what would be predicted in any standard approach (NLSW or Boussinesq). As demonstrated in this paper,
-the combined effects of non-linearities and dispersion influence the solution markedly, when accumulated to the point
-of breaking. It is noted that the artificial effect discovered would depend on the slope, 
-and the $A/h=0.8$ limited may well work better on a much gentler slope as it is primarily derived based on 
-solitary wave evolution on constant depth. On the other hand, $1/19.85$ slope is already quite gentle,
+than what would be predicted by the threshold.  
+Hence, a  threshold criterion may lead to an erroneous breaking point as well as an 
+inaccurate description of the later stages of the shoaling.
+It is noted that the artificial effect discovered would depend on the slope, 
+and a $0.8$ threshold may well work better on a much gentler slope as it is primarily derived based on 
+solitary wave properties in constant depth. On the other hand, $1:19.85$ slope is already quite gentle,
 and the offset between the reference solution and Boussinesq models using this criteria may
 be even more pronounced for steeper slopes.
 
