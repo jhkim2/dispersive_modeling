@@ -1097,31 +1097,38 @@ The vertical line indicates where the BIM model yields breaking ($x=4.09$). }
 \end{figure}
 
 \subsection{Wave Energy}
-
+\label{sec:wave_energy}
 The gross wave energies  
 for the shallow water equations and Boussinesq equations
-are $E_0$ and $E_0+E_1$  respectively, 
-where $E_0$ and $E_1$ are obtained by integrating  (\ref{eq:energy_e0}) and (\ref{eq:energy_e1}), respectively. 
+are $E_0$ and $E_0+E_1$  respectively, as explained in \ref{append:energy}. 
 In Figure \ref{fig:energy_boussclaw_swe} the energy densities are depicted as 
 functions of the crest location, $x_c$. 
 In the left panel 
 we observe that the $E_0$ is nearly constant 
 for the shallow water equations until a shock is formed around $x_c=13$.
-Thereafter, energy is quickly dissipated. 
+Thereafter, energy is quickly dissipated. For the dispersive simulations $E_0$
+increases significantly during shoaling, indicating that $E_1$ needs to be accounted for.
 In  the \BoussClaw simulation with no threshold (right panel) 
 $E_0+E_1$ is nearly constant when the wave propagates in constant depth. 
-On the deeper parts of the slope there is first a very moderate increase, then a
-very gentle reduction. This may be due to the absence of strict energy  conservation in the Boussinesq equations in the first place. 
-Close to the shoreline there is stronger, but still mild, energy dissipation.
+On the deeper parts of the slope there is first a small increase, then a
+very moderate reduction. Presumably, he increase is  due to the absence of strict energy  conservation in the Boussinesq equations as such. 
+Close to the shoreline this tiny increase is then dominated by a stronger, but still mild, energy dissipation.
 When the threshold $\epsilon_B=0.8$ is invoked there is no difference from the full Boussinesq solution until the the threshold is reached for 
- $x_c=x_B=8.03$. Then, in fact, there is marked increase in $E_0+E_1$ followed by a stronger  reduction then for the full solution.
-The increase is presumably a consequence of errors introduced by changing the 
-governing equations from a Boussinesq to a NLSW type. 
+ $x_c=x_B=8.03$. 
 After  $x_c=x_B$  
-the hydrostatic energy measure, $E_0$, may be appropriate in this case.
-The artificial energy maximum  is then reduced and is only slightly higher than
-the general overshoot for $E_0$ and Boussinesq equations for $x_c>x_B$.  
-\todo{G: Most appropriatly $e_0$ should be integrated from the NLSW part, while $e_0+e_1$ should be used elsewhere. How to conclude ?  }
+the hydrostatic energy measure, $E_0$, is the most appropriate for this case.
+The energy then drops momentarily due to the change of energy formula, then remains constant until the wave breaks ($x_c$ around 6), after which a strong dissipation ensues. 
+It is obvious that the NLSW model in this case is severely inaccurate, while 
+it is more difficult to assess the model with and without the switch to the NLSW.
+The onset of the dissipation in the threshold model comes slightly before the a vertical front is observed in the BIM solution $x_c=4.09$. This may point to a too early and strong dissipation. On the other hand, the Boussinesq solution without the threshold most likely
+yields too little dissipation. The last step of the procedure in section \ref{sec:Num_scheme}, which
+deals with the dispersion, increases the wave front width to something of the order of
+the local and thus reduce the dissipation 
+of the next TVD step. This effect of the dispersion terms may be inferred from, for instance, the Green function of Helmholtz type equations as outlined in \cite{Glimsdal:2004}, section 3.1.1. Still, the \BoussClaw model, without the threshold, is stable during 
+both the last part of shoaling and during runup, even for refined grids. This contrasts
+the non-dissipative Serre model which may be run beyond $x_c=4$, without the strong artificial amplification of the Peregrine type models, but breaks down when the wave reaches the shoreline (results not shown). Hence, \BoussClaw, without the switch to a NLSW equation at
+$\epsilon_B=0.8$, may be a good model for gently spilling breakers.   
+
 
 \begin{figure}[tbh!]
 	\centering
