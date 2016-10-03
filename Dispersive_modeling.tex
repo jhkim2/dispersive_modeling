@@ -958,39 +958,18 @@ dissipation which dominates over the first effects.
  their fully nonlinear extension of Nwogu's model, the full potential 
 theory, and the weakly nonlinear version of Nwogu's model.
 They found that the fully nonlinear Boussinesq equations were superior to those of Nwogu in the later stages of the shoaling.
-In this subsection we will do a similar comparison for our models on the $1:19.85$ slope which was not included in the reference. Our fully nonlinear Boussinesq-Serre model is different from that of the references, as it is a Serre type model, 
+In this subsection we will do a similar comparison for our models on the $1:19.85$ slope which was not included in the reference. Our fully nonlinear Boussinesq model is different from that of the references, as it is a Serre type model with the depth averaged velocity as primary unknown, 
 and our hybrid \BoussClaw model is not fully nonlinear. Hence, it is imperative
 to test the shoaling properties, particularly for the latter model.   
  
 We use the set-up described in section \ref{sec:wave_break} for the Boussinesq modeling of solitary waves on a slope. 
-%Figure \ref{fig:bim_boussclaw} shows the snapshots of 
-%the water surface at t=$16$ and $18.6$
-%from BIM and \BoussClaw with B=$0$ and $1/15$.
-%When the wave is smooth at t=16, the \BoussClaw
-%results are similar.
-%At the breaking point, $t=18.6$, larger differences are observed. 
-%If $B=0$, the wave speed is slightly faster 
-%than the BIM result, but the wave amplitude is similar. 
-%When $B=1/15$, the wave speed matches the BIM results better,
-%but the amplitude is slightly smaller. 
-%In general, the computational results are rather similar
-%with $B=0$ and $1/15$. 
-%\begin{figure}[!htb]
-%\centering
-%\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_160.png}\\
-%\includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_186.png}
-%\includegraphics[width=.7\textwidth]{_fig/bim_boussclaw_192.png}
-%\caption{Snapshots of BIM and \BoussClaw with B=$0$ and $1/15$ at t=$16$, and $18.6$.}
-%\label{fig:bim_boussclaw}
-%\end{figure}
-%\marginpar{\footnotesize Lines in figure 10 indistinguishable Change line style or color} 
 The \BoussClaw simulations are compared
 with those of other Boussinesq solvers, namely
  \textsc{Funwave} \citep{shi2012high}, \textsc{GloBouss} \citep{lovholt2010coupling} and the Serre type formulation \citep{Lovholt:2013a}.
 As noted above, 
-the original Serre's equations are enhanced by adding the \citet{schaffer1993boussinesq} terms. 
-%And the boundary integral method (BIM) for the full potential theory is also considered. 
-%The threshold of the wave breaking is not used in this section. 
+the original Serre's equations are enhanced by adding the same kind of dispersion correction terms as are used in 
+(\ref{eq:madsen_momx}). 
+
 
 \begin{figure}[tbh!]
 \centering
@@ -1003,7 +982,8 @@ and the Peregrine's form is used for \textsc{GloBouss}.}
 \end{figure}
 
 In Figure \ref{fig:bim_boussclaw_fun}, snapshots from different
-numerical models are shown at $t=16$, $18$ and $20$.
+numerical models are shown at $t=16$, $18$ and $20$. The data in this figure are obtained without
+use of a threshold for switching to the NLSW equations.
 At the $t=20$ there are no results from the BIM model as  the wave has broken.
 %\todo{RJL: Why no BIM solution at t = 20? G: could we include t=19.1 instead, with the BIM in place ?}
 For the \BoussClawt, the parameter $B=1/15$ is used, 
@@ -1014,12 +994,15 @@ from all the Boussinesq-type equations are similar.
 The NLSW model, on the other hand, yields a premature breaking 
 causing a too low amplitude. Moreover, the wave celerity is also over-estimated
 by the hydrostatic model. 
-At t=$18$, some discrepancies are observed 
-that can be split into two groups, and
+At t=$18$, some discrepancies are observed. The models  
+can be split into two groups; 
 \textsc{GloBouss} and \textsc{Funwave} 
-are similar while the \BoussClaw
+are similar, while the \BoussClaw
 and the Serre results are similar. 
-The wave amplitudes computed by the \textsc{GloBouss} and \textsc{Funwave} models,
+The results from the Serre and \BoussClaw models are clearly
+more similar to those of the BIM model. 
+Especially, the wave amplitudes are correctly determined by these models.
+The wave amplitudes computed by the \textsc{GloBouss} and \textsc{Funwave} models, on the other hand,
 are more than 33 \% 
 %\todo{Is the figure 20\% OK. The old 10 was far too small} 
 larger than those from the BIM model at t=18.
@@ -1027,14 +1010,11 @@ The wave amplitude continues to increase
 with \textsc{GloBouss} simulations,
 and the difference from the \BoussClaw result 
 becomes larger at t = $20$. 
-The results from the Serre and \BoussClaw models clearly
-more similar to those of the BIM model. 
-Especially, the wave amplitudes are correctly determined by these models.
 Our observations are in line with those of \citet{wei1995fully}.
  
 \subsection{Wave breaking and run-up}
 \label{sec:discuss_breaking}
-In the BIM model we may identify the onset of breaking according when and where we first observe a vertical slope at the wave front.
+In the BIM model we may identify the onset of breaking as the instant we first observe a vertical slope at the wave front.
 For an incident amplitude of $A/h=0.28$ on a $1:19.85$ slope,
 a vertical wave front is observed at $x=4.09$ and $t=18.6$ with $A/h=2.01$.
 When the crest in the \BoussClaw simulation reaches $x=4.09$, 
@@ -1043,8 +1023,6 @@ If the threshold $\epsilon_B=0.8$ (see sec.~\ref{sec_add_num})
 is used for the \BoussClaw,
 the threshold is  reached at $t=14.9$
 when the peak of the wave is at $x=8.03$.
-So far, we have not used any threshold 
-for the wave break.
 In the following, we explore the wave evolution with and without
 the application of this threshold $\epsilon_B$.
 %At this time, the wave breaking is assumed to start, 
