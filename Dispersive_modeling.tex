@@ -134,7 +134,7 @@ Breaking wave, Boussinesq equation, finite volume method
 Tsunamis are often considered as long waves compared to the water depth, and 
 long-wave models are consequently widely used in the study of their propagation and inundation.
 Through the use of numerical shock capturing techniques for modeling
-the nearshore bore formation of the tsunami, {\em nonlinear shallow water} (NLSW) models
+the near-shore bore formation of the tsunami, {\em nonlinear shallow water} (NLSW) models
 did become the standard model for modeling tsunami propagation and run-up, see e.g. 
 \citep{titov1995modeling,Imamura1996b,Harig2008,BergerGeorgeLeVequeMandli11}.
 
@@ -192,7 +192,7 @@ the dispersion terms are often seen to cause stability problems in
 the strongly nonlinear parts of the shoaling process \citep{Lovholt:2013a}.
 In fact, a practice of  
 switching to the NLSW equations in the near-shore region, where large amplitude-to-depth-ratios occur, has evolved.
-This allows for a relatively robust treatment of the modeling of the post breaking phase. To this end, \cite{tonelli2009hybrid} and \cite{shi2012high}, for instance, employ a wave-height to depth treshold of $0.8$  which is motivated by the maximum 
+This allows for a relatively robust treatment of the modeling of the post breaking phase. To this end, \cite{tonelli2009hybrid} and \cite{shi2012high}, for instance, employ a wave-height to depth threshold of $0.8$  which is motivated by the maximum 
 height of an undular bore, which again is related to the extreme solitary wave.
 This threshold is a pragmatic choice for gentle   bottom gradients and
 may be questionable under other circumstances.  
@@ -218,7 +218,7 @@ This paper is organized as follows: In Section \ref{sec:model}, the base model
 for the wave equations is given and the numerical scheme is outlined,
 while a von Neuman stability analysis is put in an appendix. 
 Sections \ref{sec:num_tests} compares results from the \BoussClaw with analytic ones, laboratory experiments and those from other models. 
-In subsection \ref{sec:num_shoaling} we scrutinize the pre-breaking shoaling of Boussinesq type equations through comparison with full potential theory, while the post-breaking evoluion is investigated in  subsection  \ref{sec:discuss_breaking}.
+In subsection \ref{sec:num_shoaling} we scrutinize the pre-breaking shoaling of Boussinesq type equations through comparison with full potential theory, while the post-breaking evolution is investigated in  subsection  \ref{sec:discuss_breaking}.
 
 \section{Model Description}
 \label{sec:model}
@@ -352,7 +352,7 @@ To this end we employ \textsc{Geoclaw},
 a high-order accurate finite volume solver 
 for the shallow water equations with adaptive mesh refinements.
 
-Next, the Manning resistence term is accounted for. To this end we
+Next, the Manning resistance term is accounted for. To this end we
 ignore the coupling of bottom friction and dispersion (replace $(1-D)^{-1}$ by
 $1$ in (\ref{eq:hybrid_inv}))  and employ the semi-implicit solver in 
 \textsc{Geoclaw} for $(Hu)_t=-f_D$. 
@@ -404,7 +404,7 @@ solving
 = -\bar{\Psi}(\textbf{H},\textbf{M}^k), \quad \textrm{for~} k=1,\dots,4. &
 \label{eq:rk4_1}
 \end{flalign}
-Here $\bar{\Psi}$ and $\bar{D}$ represent centered spatial discretizations for the term $\Psi$ and the operator $D$, respectively. These
+Here $\bar{\Psi}$ and $\bar{D}$ represent centered spatial discretization for the term $\Psi$ and the operator $D$, respectively. These
 are given explicitly below.
 Finally the value of $\textbf{M}$ at the new time level is
 obtained by
@@ -461,7 +461,7 @@ and the dispersive terms are suppressed.
 At the breaking, the set of equations is 
 switched to the NLSW for the corresponding wave
 % region, 
-%defined as the area between the first nearshore elevation and %the first negative 
+%defined as the area between the first near-shore elevation and %the first negative 
 %trough following the crest that surpasses the threshold. %\todo{G: May have to modify according to new simulations.}
 %The trailing waves are solved with the Boussinesq equations
 %if the thresholds are not reached. 
@@ -592,7 +592,7 @@ amplitude  $A=0.2h_0$.
 The computational results are in good agreement 
 with the analytic solutions concerning height, shape and propagation speed. 
 The amplitudes decreases very gently as the wave propagates.
-%\todo{Change labels on axes to $\eta/h$ and $x/h$ andchange $t$ to $t^*$ in figure 1.} 
+%\todo{Change labels on axes to $\eta/h$ and $x/h$ and change $t$ to $t^*$ in figure 1.} 
 
 %The discrepancy may be  partially due to the numerical errors
 %and partly to the fact that 
@@ -652,7 +652,7 @@ the energy dissipation decreases with the grid increments.
 A physical model was constructed at the Coastal Hydraulic Laboratory of the U.S. Army Corps of Engineers
 in order to address beach erosion and severe flooding problems \citep{chl_bp5}. 
 The model beach consists of three piecewise linear slopes of 1:53, 1:150, and 1:13 with a vertical wall at the shoreline as shown in Figure \ref{fig:bp5_water_tank}.
-In the laboratory, the wavemaker was located at $23.23\m$ from verical wall and produced incident waves that were close to solitary waves.
+In the laboratory, the wavemaker was located at $23.23\m$ from vertical wall and produced incident waves that were close to solitary waves.
 The gauge data from three cases are provided 
 where the ratio $A/h_0$ equals  $0.038$, $0.259$ and $0.681$, respectively,
 and the depth at the wavemaker is  $h_0=21.8\cm$.
@@ -747,7 +747,7 @@ the tank and propagates leftwards
 to the beach. 
 
 In the remainder of section \ref{sec:shoaling_runup} and  throughout section \ref{sec:shoaling_breaking} we present the results using the non-dimensional coordinates 
-$t^*$  $x^*$, as defined by (\ref{eq:norm_coord}) with $h_0$ as the equilibrium depth in the flat bottom region. In the sections mentioned we ommit the asterisks for simplicity. 
+$t^*$  $x^*$, as defined by (\ref{eq:norm_coord}) with $h_0$ as the equilibrium depth in the flat bottom region. In the sections mentioned we omit the asterisks for simplicity. 
 In  \citet{synolakis1987runup}, $t=0$ was defined as when the wave crest was a non-dimensional distance, $L$, from the toe of the slope,
 where
 \begin{flalign*}
@@ -839,7 +839,7 @@ for the non-breaking wave on a $10^\circ$ slope.
 performed a series of laboratory experiments 
 for the run-up of solitary waves on plane beaches.
 Data can be found at \cite{synolakis2007standards}.
-\todo{Make a proper reference of the URL J: edited} 
+%\todo{Make a proper reference of the URL J: edited} 
 A breaking case is a solitary wave of amplitude $A/h_0=0.28$ 
 approaching a slope of $1:19.85$. 
 
@@ -872,8 +872,8 @@ breaking points (until the attachment of the plunger only) and
 gives no information on the following bore propagation.
 In figure \ref{fig:BoussClaw_runup} we have compared
 the experimental data with the \BoussClaw model 
-of $C_d = 0$ and $0.02$.
-\todo{But, $C_d$ is not dimensionless....} 
+of $C_d = 0$ and $0.03$.
+%\todo{But, $C_d$ is not dimensionless....} 
 The agreement is good and the introduction of bed-friction 
 even seem to match the truncated swash tongue of the experiments well. However, this may be a coincidence. 
 Even though the  wave has broken and some irregular flow features are introduced thereby, we have no evidence of the flow state being
@@ -913,16 +913,19 @@ dissipation which dominates over the first effects.
 \begin{figure}[!htb]
 	\centering
 			\includegraphics[width=.8\textwidth]{_fig/runup_slope_1_20}
-		\caption{Run-up height calculated from \BoussClaw and NLSW with different $C_d$.}
+		\caption{Run-up height calculated from \BoussClaw 
+			(without $\epsilon_B$) and NLSW with different $C_d$.}
 		\label{fig:runup_slope_1_20}
 \end{figure}
 \begin{table}
-		\begin{tabular}{cccc} \hline
-			 & \BoussClaw & NLSW & Experiment \\ \hline
-			$C_d=0$ & 1.634 & 0.936 & 0.551\\
-			0.01 & 0.921 & 0.702 & \\
-			0.02 & 0.691 & 0.596 &\\ 
-			0.03 & 0.576 & 0.528 &\\ \hline
+		\begin{tabular}{ccccc} \hline
+			           & $C_d=0$ & 0.01 & 0.02 & 0.03 \\ \hline
+			\BoussClaw (without $\epsilon_B$)& 1.634 & 0.921 & 0.691 & 0.576  \\ 
+			\BoussClaw ($\epsilon_B=0.8$)& 1.193 & 0.848 & 0.696 & 0.608 \\
+			NLSW & 0.936 & 0.702 & 0.596 & 0.528 \\
+			\hline
+			Experiment & 0.551 & & & \\
+			\hline
 		\end{tabular}
 	\caption{Maximum run-up height with different friction coefficients.
 		Maximum run-up measured by \cite{synolakis1987runup} experiment is 0.551.}%
@@ -1058,7 +1061,7 @@ the application of this threshold $\epsilon_B$.
 
 In Figure \ref{fig:boussclaw_th08}, snapshots are shown at 
 t=$20$, $25$, and $30$ of the solutions from \BoussClaw and NLSW
-with the Manning coefficient $C_d=0.02$.
+with the Manning coefficient $C_d=0.03$.
 At $t=20$ the simulation with $\epsilon_B=0.8$ has already been in NLSW mode for $5$ time units and the difference in the wave height 
 from the full Boussinesq simulation is significant. In fact, the threshold solution is closer to the NLSW solution.
 
