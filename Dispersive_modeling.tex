@@ -469,7 +469,7 @@ exemplifies that the friction reduces the run-up height.
 \label{eq:Manning}
 f_D = -\frac{g C_d^2 u |u|}{H^{5/3}},
 \end{equation}
-where $C_d$, with SI units  $\s^2/\m^{2/3}$, is a Manning drag coefficient, 
+where $C_d^2$, with SI units  $\s^2/\m^{2/3}$, is a Manning drag coefficient, 
 and the typical range is between 0.01 and 0.04 \citep{te1959open}.
 In Section \ref{sec:num_tests}, non-dimensional Manning friction
 coefficient is used as $C_d^* = C_d g h_0^{-1/3}$.
@@ -554,7 +554,8 @@ dimensions retained.
 
 \subsection{Solitary wave propagation}
 \label{sec:sol_prop}
-\todo{Geir will fix the scaling in this subsection}
+%\todo{Geir will fix the scaling in this subsection}
+
 For validation of the numerical approach 
 solitary wave propagation is computed in constant water depth.
 For the initial conditions, 
@@ -1058,9 +1059,11 @@ Other measures of nonlinearity than $\epsilon_B$ may be used for model decisions
 \citep{lynett2006nearshore,matsuyama2007study}. Figure \ref{fig:wave_break_criteria} shows 
 $\epsilon_B$, $u/\sqrt{gH}$ and the maximum frontal angle 
 as a function of the crest location.
-When the the BIM model yields breaking (vertical front somewhere), 
-we obtain $u/\sqrt{gH} = 1.034$ and a maximum surface slope angle of $39.1^\circ$. \todo{OK?}
-For the present case this might indicate that $u/\sqrt{gH}$ surpassing unity or 
+When the the BIM model yields vertical front at $x=4.09$, 
+we obtain $u/\sqrt{gH} = 1.034$ and a maximum surface slope angle of $39.1^\circ$. 
+%\todo{OK?}
+For the present case this might indicate 
+that $u/\sqrt{gH}$ surpassing unity or 
 the slope angle surpassing  
 $30^\circ$ may be sounder criteria for identifying breaking than $\epsilon_B>0.8$.
  
@@ -1087,28 +1090,15 @@ increases significantly during shoaling, indicating that $E_1$ needs to be accou
 In  the \BoussClaw simulation with no threshold (right panel) 
 $E_0+E_1$ is nearly constant when the wave propagates in constant depth. 
 On the deeper parts of the slope there is first a small increase, then a
-very moderate reduction. Presumably, he increase is  due to the absence of strict energy  conservation in the Boussinesq equations as such. 
+very moderate reduction. Presumably, the increase is  due to the absence of strict energy  conservation in the Boussinesq equations. 
 Close to the shoreline this tiny increase is then dominated by a stronger, but still mild, energy dissipation.
-When the threshold $\epsilon_B=0.8$ is invoked there is no difference from the full Boussinesq solution until the the threshold is reached for 
- $x_c=x_B=8.03$. 
+When the threshold $\epsilon_B=0.8$ is invoked there is no difference from the full Boussinesq solution until the threshold is reached for  $x_c=x_B=8.03$. 
 After  $x_c=x_B$  
 the hydrostatic energy measure, $E_0$, is the most appropriate for this case.
 The energy then drops momentarily due to the change of energy formula, then remains constant until the wave breaks ($x_c$ around 6), after which a strong dissipation ensues. 
 It is obvious that the NLSW model in this case is severely inaccurate, while 
-it is more difficult to assess the model with and without the switch to the NLSW.
-The onset of the dissipation in the threshold model comes slightly before the a vertical front is observed in the BIM solution $x_c=4.09$. This may point to a too early and strong dissipation. On the other hand, the Boussinesq solution without the threshold most likely
-yields too little dissipation. In this context we remark that the experimental data in
-the upper panel of figure \ref{fig:boussclaw_th08} apparently fall between the \BoussClaw results with and 
-without the $\epsilon_B$ threshold, even though there is scatter in the experimental 
-surface. 
-The last step of the procedure in section \ref{sec:Num_scheme}, which
-deals with the dispersion, increases the wave front width to something of the order of
-the local and thus reduce the dissipation 
-of the next TVD step. This effect of the dispersion terms may be inferred from, for instance, the Green function of Helmholtz type equations as outlined in \cite{Glimsdal:2004}, section 3.1.1. Still, the \BoussClaw model, without the threshold, is stable during 
-both the last part of shoaling and during runup, even for refined grids. This contrasts
-the non-dissipative Serre model which may be run beyond $x_c=4$, without the strong artificial amplification of the Peregrine type models, but breaks down when the wave reaches the shoreline (results not shown). Hence, \BoussClaw, without the switch to a NLSW equation at
-$\epsilon_B=0.8$, may be a good model for gently spilling breakers.   
-
+it is more difficult to assess the \BoussClaw 
+with and without the switch to the NLSW.
 
 \begin{figure}[tbh!]
 	\centering
@@ -1129,6 +1119,19 @@ $\epsilon_B=0.8$, may be a good model for gently spilling breakers.
 		the Boussinesq equations. }
 	\label{fig:energy_boussclaw_swe}
 \end{figure}
+
+The onset of the dissipation in the threshold model comes slightly before the a vertical front is observed in the BIM solution $x_c=4.09$. This may point to a too early and strong dissipation. On the other hand, the Boussinesq solution without the threshold most likely
+yields too little dissipation. In this context we remark that the experimental data in
+the upper panel of figure \ref{fig:boussclaw_th08} apparently fall between the \BoussClaw results with and 
+without the $\epsilon_B$ threshold, even though there is scatter in the experimental 
+surface. 
+The last step of the procedure in section \ref{sec:Num_scheme}, which
+deals with the dispersion, increases the wave front width to something of the order of
+the local and thus reduce the dissipation 
+of the next TVD step. This effect of the dispersion terms may be inferred from, for instance, the Green function of Helmholtz type equations as outlined in \cite{Glimsdal:2004}, section 3.1.1. Still, the \BoussClaw model, without the threshold, is stable during 
+both the last part of shoaling and during runup, even for refined grids. This contrasts
+the non-dissipative Serre model which may be run beyond $x_c=4$, without the strong artificial amplification of the Peregrine type models, but breaks down when the wave reaches the shoreline (results not shown). Hence, \BoussClaw, without the switch to the NLSW equation at
+$\epsilon_B=0.8$, may be a good model for gently spilling breakers.   
 
 \section{Concluding remarks}
 \label{sec:conclusion}
@@ -1152,11 +1155,13 @@ The fully nonlinear, non-dissipative model of the Serre type, on the other hand,
 the combined effects of nonlinearities and dispersion influence the solution markedly, when accumulated to the point
 of breaking. 
 However, herein we find also a very good pre-breaking performance of \BoussClaw Boussinesq 
-equations where only some nonlinearity is retained in the dispersion. This suggest that
-practice of retaining full nonlinearity in Boussinesq shoaling/runup models may be 
-relaxed, especially when switch to NLSW equations are invoked when the wave-height to
+equations where only some nonlinearity is retained in the dispersion. 
+This suggest that 
+the practice of retaining full nonlinearity in Boussinesq shoaling/runup models 
+may be relaxed, especially when the switch to NLSW equations are invoked 
+when the wave-height to
 depth ratio surpasses a threshold of $0.8$. This may help reducing stability problems 
-that are observed for fully nonlinear Boussinesq equations \citep{Lovholt:2013}.
+that are observed for fully nonlinear Boussinesq equations \citep{Lovholt:2013a}. \todo{Need to rewrite this sentence?}
     
 A current practice has evolved in which the Boussinesq terms are often omitted near shore through the $A/h>0.8$ threshold criterion, inspired by the maximum height of a non-breaking 
 undular bore. 
