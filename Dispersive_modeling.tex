@@ -613,18 +613,18 @@ and the analytic solutions are solid lines.}
     \centering
     \begin{subfigure}[b]{0.45\textwidth}
         \includegraphics[width=\textwidth]{_fig/soliton_energy.png}
-        \caption{Energy}
+        \caption{}
         \label{fig:soliton_energy}
     \end{subfigure}
     \begin{subfigure}[b]{0.45\textwidth}
         \includegraphics[width=\textwidth]{_fig/soliton_energy_dx.png}
-        \caption{Relative error of energy}
+        \caption{}
         \label{fig:soliton_energy_dx}
     \end{subfigure}
-    \caption{The energy of a solitary wave
-    with $\Delta x^* = 0.1$ (left), 
-    and log-log plot of relative error 
-    at $t^*=10$ for $\Delta x^* = 0.05, 0.1, 0.2$ and $0.5$ (right).}
+    \caption{(a):The energy of a solitary wave
+    with $\Delta x^* = 0.1$. (b): 
+    log-log plot of relative error of energy
+    at $t^*=10$ for $\Delta x^* = 0.05, 0.1, 0.2$ and $0.5$.}
     \label{fig:soliton_error_energy}
 \end{figure}
 
@@ -720,7 +720,7 @@ A better fit may possibly be obtained by incorporating a bottom friction.
 \includegraphics[width=.8\textwidth]{_fig/gauge0005fig300.png}\\
 \includegraphics[width=.8\textwidth]{_fig/gauge0007fig300.png}\\
 \includegraphics[width=.8\textwidth]{_fig/gauge0008fig300.png}
-\caption{Water surface elevation (m) in time (s) at gauges 5,7 and 8 for $A/h_0=0.259$ case.}
+\caption{Comparsion of \BoussClaw and experiment from \cite{chl_bp5}. Water surface elevation (m) in time (s) at gauges 5,7 and 8 for $A/h_0=0.259$ case.}
 \label{fig:bp5b_gauges}
 \end{figure}
 
@@ -768,7 +768,7 @@ by \citet{Pedersen:2013} who found a theoretical overshoot of roughly 20\% in th
 \centering
 \includegraphics[height=4.6cm]{_fig/bim_serre_boussclaw_slope10}
 \includegraphics[height=4.6cm]{_fig/bim_serre_boussclaw_slope10_zoom}
-\caption{Left figure is a snapshot of BIM, Serre and \BoussClaw at
+\caption{Runup of non-breaking solitary wave ($A/h_0=0.3$ and $\theta=10^\circ$). Left figure is a snapshot of BIM, Serre and \BoussClaw at
 	t = 10,15 and 20 with $\Delta x=0.05$. Right figure is a zoom of the results at t=15}
 \label{fig:bim_serre_boussclaw_slope10}
 \end{figure}
@@ -801,7 +801,7 @@ for the non-breaking wave on a $10^\circ$ slope.
 		\ffigbox{%
 			\includegraphics[width=.45\textwidth]{_fig/runup_meshrefinement}
 		}{%
-		\caption{Maximum run-up divided by amplitude (R/A) 
+		\caption{Non-breaking solitary wave ($A/h_0=0.3$ and $\theta=10^\circ$). Maximum run-up divided by amplitude (R/A) 
 			from \BoussClaw with different grid sizes.
 			The dashed line is from BIM. The grid size $\Delta x$ is
 			0.04/N and 0.025/N for $N=1,2,4$ }%
@@ -809,7 +809,8 @@ for the non-breaking wave on a $10^\circ$ slope.
         }
         \ffigbox{%
         	\includegraphics[width=.45\textwidth]{_fig/runup_slope10}
-        }{\caption{Run-up height in time 
+        }{\caption{Non-breaking solitary wave ($A/h_0=0.3$ and $\theta=10^\circ$).
+                  Time series for the runup height  
         	from Serre, \BoussClaw and NLSW with $\Delta x=0.05$.}%
         \label{fig:runup_slope10}
     }
@@ -822,7 +823,8 @@ for the non-breaking wave on a $10^\circ$ slope.
 		Max. Run-up/Amp. & 4.2432 & 4.2488 & 4.0941 & 4.6561 \\
 		\hline
 	\end{tabular}
-	\caption{Maximum run-up height divided by the incoming wave amplitude (R/A).}
+	\caption{Maximum run-up height divided by the incoming wave amplitude ($R/A$) for
+$A/h_0=0.3$ and $\theta=10^\circ$).}
     \label{tab:runup_slope10}
 \end{table}
 
@@ -855,8 +857,8 @@ the \BoussClaw, the Serre, and the  BIM model are all in good agreement with the
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=\textwidth]{_fig/lab_bim_bouss_t15.png}
-\caption{Comparison of the laboratory experiments, BIM, Serre, \BoussClaw and NLSW at t=15 with $A/h=0.28$ 
-on a slope of $1:19.85$.}
+\caption{Comparison of the laboratory experiments \citep{synolakis1987runup}, BIM, Serre, \BoussClaw and NLSW at $t=15$ for $A/h=0.28$ 
+and a $1:19.85$ slope.}
 \label{fig:lab_bim}
 \end{figure}
 %\todo{Add Serre results in figure and give web adress for data as reference}
@@ -884,8 +886,9 @@ as observed by \cite{Pedersen:2013}.
 	\centering
 	\includegraphics[width=.8\textwidth]{_fig/BoussClaw_lab_Cd_t25}\\
 	\includegraphics[width=.8\textwidth]{_fig/BoussClaw_lab_Cd_t30}
-	\caption{Comparison of experiments and BoussClaw results 
-		at t=25 and 30 with $\Delta x = 0.05$.}
+	\caption{Comparison of experiments  and BoussClaw results
+                 for the breaking case ($A/h=0.28$ and a $1:19.85$ slope). 
+		The resolution in the model is $\Delta x = 0.05$.}
 	\label{fig:BoussClaw_runup}
 \end{figure}
 
@@ -911,7 +914,7 @@ dissipation which dominates over the first effects.
 \begin{figure}[!htb]
 	\centering
 			\includegraphics[width=.8\textwidth]{_fig/runup_slope_1_20}
-		\caption{Run-up height calculated from \BoussClaw 
+		\caption{Run-up height for breaking case ($A/h=0.28$ and a $1:19.85$ slope) computed by \BoussClaw 
 			(without $\epsilon_B$) and NLSW with different $C_d^*$.}
 		\label{fig:runup_slope_1_20}
 \end{figure}
@@ -926,7 +929,7 @@ dissipation which dominates over the first effects.
 			Experiment  & & & & & 0.551 \\
 			\hline
 		\end{tabular}
-	\caption{Maximum run-up height with different friction coefficients.}%
+	\caption{Maximum run-up height for a solitary wave of amplitude $A/h=0.28$ incident on  a $1:19.85$ slope.}%
 	\label{tab:max_runup_1_20}
 \end{table}
 
@@ -977,10 +980,11 @@ the original Serre's equations are enhanced by adding the same kind of dispersio
 \begin{figure}[tbh!]
 \centering
 \includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_fun_glob.png}
-\caption{Snapshots of BIM, Serre, \textsc{GloBouss}, \BoussClaw
-and \textsc{Funwave} at t = $16$, $18$ and $20$.
-The \BoussClaw is used with B=$1/15$,
-and the Peregrine's form is used for \textsc{GloBouss}.}
+\caption{Evolution of wave profiles for $A/h=0.28$ and a $1:19.85$ slope. 
+Surfaces from the BIM, Serre, \textsc{GloBouss}, \BoussClaw
+and \textsc{Funwave} models at $t = 16,\, 18,\ 20$.
+The \BoussClaw model is used with B=$1/15$,
+and the Peregrine's equations are used for \textsc{GloBouss}.}
 \label{fig:bim_boussclaw_fun}
 \end{figure}
 
@@ -1044,7 +1048,8 @@ from the full Boussinesq simulation is significant. In fact, the threshold solut
 \begin{figure}[tbh!]
 	\centering
 	\includegraphics[width=.75\textwidth]{_fig/bim_boussclaw_etaB8}
-	\caption{Comparison of \BoussClaw and NLSW 
+	\caption{Breaking case ($A/h=0.28$ and a $1:19.85$ slope).
+                 Comparison of \BoussClaw and NLSW 
 		with $\epsilon_B=0.8$ and $\Delta x = 0.05$ at $t$ =$20$, $25$ and $30$.
 		Friction forces have been added with $C_d^*=0.03$ in all simulations.}
 	\label{fig:boussclaw_th08}
