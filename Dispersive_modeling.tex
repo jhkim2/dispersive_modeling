@@ -1138,7 +1138,16 @@ the local and thus reduce the dissipation
 of the next TVD step. This effect of the dispersion terms may be inferred from, for instance, the Green function of Helmholtz type equations as outlined in \cite{Glimsdal:2004}, section 3.1.1. Still, the \BoussClaw model, without the threshold, is stable during 
 both the last part of shoaling and during runup, even for refined grids. This contrasts
 the non-dissipative Serre model which may be run beyond $x_c=4$, without the strong artificial amplification of the Peregrine type models, but breaks down when the wave reaches the shoreline (results not shown). Hence, \BoussClaw, without the switch to the NLSW equation at
-$\epsilon_B=0.8$, may be a good model for gently spilling breakers.   
+$\epsilon_B=0.8$, may be a good model for gently spilling breakers.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\linewidth]{_fig/energy_decay}
+\caption{Energy decay rate from numerical simulation
+	and formula.}
+\label{fig:energy_decay}
+\end{figure}
+
 
 \section{Concluding remarks}
 \label{sec:conclusion}
