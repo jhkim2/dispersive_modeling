@@ -1137,11 +1137,31 @@ both the last part of shoaling and during runup, even for refined grids. This co
 the non-dissipative Serre model which may be run beyond $x_c=4$, without the strong artificial amplification of the Peregrine type models, but breaks down when the wave reaches the shoreline (results not shown). Hence, \BoussClaw, without the switch to the NLSW equation at
 $\epsilon_B=0.8$, may be a good model for gently spilling breakers.
 
-\begin{figure}
+When the solution of the NLSW has a shock, 
+\cite{tissier2011serre} approximated 
+the energy dissipation across the shock, $D_{th}$, as 
+\begin{flalign}
+	D_{th} = \frac{\rho g }{4}
+	\left( \frac{g (2h + A)}{2h(h+A)} \right)^{1/2}
+	A^3,
+\label{eq:energy_dissipation}
+\end{flalign}
+where $A$ is the amplitude of shock and $h$ is 
+the undisturbed water depth. 
+Figure \ref{fig:energy_decay} shows 
+the energy dissipation from the numerical simulations
+and the formula (\ref{eq:energy_dissipation}).
+As the wave approaches the slope, it is steepened and a shock is formed, 
+and the difference between the simulation and the formula
+becomes small. 
+
+\begin{figure}[htb!]
 \centering
 \includegraphics[width=0.8\linewidth]{_fig/energy_decay}
-\caption{Energy decay rate from numerical simulation
-	and formula.}
+\caption{Energy dissipation computed from numerical simulation
+	and formula (\ref{eq:energy_dissipation}).
+	\BoussClaw with $\epsilon_B=0.8$ switches to the NLSW
+	at t=14.9. }
 \label{fig:energy_decay}
 \end{figure}
 
