@@ -106,7 +106,7 @@ In this work, a general purpose Boussinesq solver,
 for modeling non-linear dispersive tsunami propagation, 
 taking into account inundation. 
 The \BoussClaw model is an extension of the ClawPack package.
-It employs a hybrid of the finite volume
+It employs a hybrid of finite volume
 and finite difference methods to solve
 Boussinesq equations from the literature, which are 
 based on the depth-averaged velocity 
@@ -164,7 +164,7 @@ which is volume of water passively riding at
 the bore front. \citet{tissier2012new} suggested
 a breaking  model based on the surface roller, the maximal front angle and the Froude number.
  Another way of incorporating breaking  was suggested by \cite{Kennedy2000} who included diffusive terms
-in the momentum equation. These diffusive terms were  activated and deactivated as a steepness measure crosses thresholds. The original steepness measure was the temporal rate of surface elevation corresponding to a very steep solitary wave.
+in the momentum equation. These diffusive terms were  activated and deactivated as a steepness measure crossed thresholds. The original steepness measure was the temporal rate of surface elevation corresponding to a very steep solitary wave.
 Later, \citet{lynett2006nearshore} investigated a variety of steepness measures and
 then identified that the surface steepness provides 
 the least sensitive breaking threshold. 
@@ -622,7 +622,8 @@ and the analytic solutions are solid lines.}
         \caption{}
         \label{fig:soliton_energy_dx}
     \end{subfigure}
-    \caption{(a):The energy of a solitary wave
+    \caption{Evolution of a solitary wave for $A/h_0=0.2$ and $\Delta x^*=0.1$.
+    (a):The energy of a solitary wave
     with $\Delta x^* = 0.1$. (b): 
     log-log plot of relative error of energy
     at $t^*=10$ for $\Delta x^* = 0.05, 0.1, 0.2$ and $0.5$.}
@@ -694,7 +695,7 @@ where $h_0=21.8\cm$ is  the depth at the wavemaker.
  \draw (7,4) -- (7,5.5);
  \draw (13,4) -- (13,5.5);
   \end{tikzpicture}
-  \caption{A sketch of the water tank}
+  \caption{A sketch of the water tank used by \cite{chl_bp5}.}
   \label{fig:bp5_water_tank}
 \end{figure}
 
@@ -705,7 +706,7 @@ with $400$ grid points on a computational domain of $[-0.98,8.19]$
 To specify the incident wave in \BoussClawt, 
 data from Gauge 4 were used for the wave height,
 while the second relation in (\ref{eq:anal_serre})
-wre used to obtain  the corresponding velocity.
+was used to obtain  the corresponding velocity.
 
 In Figure \ref{fig:bp5b_gauges}, water surface elevations at gauges 5, 7 and 8 are shown. 
 The simulated waves are in good agreement with the laboratory measurements. 
@@ -735,7 +736,7 @@ In Figure \ref{fig:init_setup}, the initial set-up for a test is shown.
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=.8\textwidth]{_fig/initial_setup.png}
-\caption{Set-up of a numerical test for shoaling and runup of solitary waves.}
+\caption{Definition sketch for shoaling and runup of solitary waves.}
 \label{fig:init_setup}
 \end{figure}
 The set-up of the wave tank in the simulations follows the laboratory experiments by \citet{synolakis1987runup}. 
@@ -853,8 +854,7 @@ the \BoussClaw, the Serre, and the  BIM model are all in good agreement with the
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=\textwidth]{_fig/lab_bim_bouss_t15.png}
-\caption{Comparison of the laboratory experiments \citep{synolakis1987runup}, BIM, Serre, \BoussClaw and NLSW at $t=15$ for $A/h=0.28$ 
-and a $1:19.85$ slope.}
+\caption{Comparison of surfaces from the laboratory experiments \citep{synolakis1987runup} ($A/h=0.28$, slope $1:19.85$), the BIM, the Serre, the \BoussClaw and the NLSW models at $t=15$.}
 \label{fig:lab_bim}
 \end{figure}
 %\todo{Add Serre results in figure and give web adress for data as reference}
@@ -986,7 +986,7 @@ and the Peregrine's equations are used for \textsc{GloBouss}.}
 
 In Figure \ref{fig:bim_boussclaw_fun} surfaces from the different
 wave models are shown at selected times. 
-The \BoussClawt model is run withouth the switch to the NLSW equations at $\epsilon_B=0.8$ and wit the dispersion parameter $B=1/15$. However, the results for  $B=0$
+The \BoussClawt model is run withouth the switch to the NLSW equations at $\epsilon_B=0.8$ and with the dispersion parameter $B=1/15$. However, the results for  $B=0$
 are rather similar for this case. 
 At t=$16$, the computational results
 from all the Boussinesq-type equations are similar.
@@ -1100,7 +1100,7 @@ In figure \ref{fig:energy_decay}
 we observe that the dissipation rates of the models has a build-up, before the 
 shock is fully developed, 
 and then agree well with  formula (\ref{eq:energy_dissipation}).
-Moreover, du to larger shock heights the \BoussClawt($\epsilon_B=0.8$) dissipation rate is much larger than that of the NLSW model, when it wave finally has broken.
+Moreover, du to larger shock heights the \BoussClawt($\epsilon_B=0.8$) dissipation rate is much larger than that of the NLSW model, when the wave finally has broken.
 This reduces the difference beween the models to some extent. 
 
  
@@ -1112,24 +1112,23 @@ with and without the switch to the NLSW.
 	\centering
 	\begin{subfigure}[t]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{_fig/e0_boussclaw_eb08.png}
-		\caption{$E_0$}
+		\caption{}
 		\label{fig:e0_boussclaw_eb08}
 	\end{subfigure}
 	\begin{subfigure}[t]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{_fig/e1_boussclaw_eb08.png}
-		\caption{Solid line is $E_0+E_1$ of \BoussClaw without $\epsilon_B$.
-			With $\epsilon_B=0.8$, $E_0$ is shown in dashed line after the threshold is reached.}
+		\caption{}
 		\label{fig:e1_boussclaw_eb08}
 	\end{subfigure}
-	\caption{Wave energy ($A/h_0=0.28$, slope $1:19.85$) as function of crest position.
-		The vertical line is at $x=8.03227$  where $\epsilon_B=0.8$. }
+	\caption{Wave energy ($A/h_0=0.28$, slope $1:19.85$) as function of crest position. The vertical line is at $x=8.03227$  where $\epsilon_B=0.8$. (a): $E_0$. (b): Solid line is $E_0+E_1$ of \BoussClaw without $\epsilon_B$. With $\epsilon_B=0.8$, $E_0$ is shown in dashed line after the threshold is reached.
+ }
 	\label{fig:energy_boussclaw_swe}
 \end{figure}
 
 \begin{figure}[htb!]
 \centering
 \includegraphics[width=0.8\linewidth]{_fig/energy_decay}
-\caption{Energy dissipation rates for $A/h_0=0.28$ and a $1:19.85$ slope. The label ``formula'' represents (\ref{eq:energy_dissipation}) inserted the wave heifgts from the numerical simulations.
+\caption{Energy dissipation rates for $A/h_0=0.28$ and a $1:19.85$ slope. The label ``formula'' represents (\ref{eq:energy_dissipation}) inserted the wave heights from the numerical simulations.
 	\BoussClaw with $\epsilon_B=0.8$ switches to the NLSW
 	at $t=14.9.$ }
 \label{fig:energy_decay}
@@ -1163,7 +1162,7 @@ as is observed for some fully nonlinear Boussinesq models \citep{Lovholt:2013a}.
 
 The experiments of \citet{synolakis1987runup} and a full potential reference model
  enabled us to
-assess a set of different long wave models, including \BoussClawt. Using the potential  model, we were able to assess in detail the pore-breaking behavior of the models,
+assess a set of different long wave models, including \BoussClawt. Using the potential  model, we were able to assess in detail the pre-breaking behavior of the models,
 and to identify the point of breaking accurately. 
 First, we found that by using standard NLSW models,
 the point of breaking will be located too far offshore and that the resulting dissipation 
