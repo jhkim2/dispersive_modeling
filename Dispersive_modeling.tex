@@ -96,7 +96,7 @@ Oslo, Norway}
 \begin{abstract}
 
 The nonlinear shallow water model is widely used
-in the study of tsunami propagations,
+in the study of tsunami propagation,
 but an increasing number of studies 
 are dedicated to the dispersion dynamics of tsunamis.
 If the wave dispersion becomes important,
@@ -115,7 +115,7 @@ are implemented using a hybrid of the finite volume
 and finite difference methods.
 In order to validate \BoussClawt, 
 numerical results are compared 
-to  analytical solutions, solutions obtained by pre-existing models, and laboratory experiments. 
+to  analytic solutions, solutions obtained by pre-existing models, and laboratory experiments. 
 Furthermore, the  wave steepening and breaking motion
 is carefully scrutinized, 
 and we demonstrate that the point of wave breaking
@@ -181,9 +181,9 @@ based on their large scale experiments of the wave propagation of undular bores 
 %as a wave breaking criterion.
 
 Naturally, there is a desire to exploit the efficient and well established shock capturing framework of the NLSW models also in a dispersive context.
-\cite{Antuono:2009} remoulded the whole Boussinesq equations into a framwork on hyperbolic form.
+\cite{Antuono:2009} remolded the whole Boussinesq equations into a framework on hyperbolic form.
 However, most recently developed of  Boussinesq models are based on some combination of approximate Riemann solvers, with TVD limiters ,for the hydrostatic transport terms and finite differences
-for disperson terms \citep{Erduran2005,Kim2009,Shiach:2009,Roeber:2010,Dutykh:2011,shi2012high}. Among other models, this have led to the popular
+for dispersion terms \citep{Erduran2005,Kim2009,Shiach:2009,Roeber:2010,Dutykh:2011,shi2012high}. Among other models, this have led to the popular
 \textsc{Funwave-TVD} and \textsc{Coulwave-TVD} applications. 
 In most Boussinesq models that include runup on beaches the dispersion term
 is turned off in the vicinity of the shoreline to avoid interference of
@@ -292,7 +292,7 @@ Moreover, $g$ is the acceleration of gravity,
 and $B$ is a dispersion parameter. 
 \citet{madsen1992new} 
 have chosen  $B=1/15$ for which the dispersion relation from the Boussinesq equations
-follows linear potential theory to a higher order in wavenumber times depth.   
+follows linear potential theory to a higher order in wave number times depth.   
 When $B=0$, this set of the Boussinesq-type equations
 approximately reduces to that of \citet{peregrine1967long}
 as the linear dispersion relations are identical. 
@@ -482,13 +482,13 @@ In this work, the parameter $d_{tol}$ is set to $10^{-4}$.
 %As noted by \cite{antuono2012role}, the shoreline dynamics can change  depending on the bottom friction coefficient and the water depth tolerance. 
 The dispersion terms of the Boussinesq equations imply an extended computational
 stencil as compared to that for the NLSW equations. To prevent this stencil 
-from including non-wetted nodes and thereby produce irregularities and even instabilities, the dispersion terms are switched off when $h<Nd_{tol}h_0$ (close to the equilibrium shoreline), where the number $N$ is set to 100 for the simulations herein.
+from including dry nodes and thereby produce irregularities and even instabilities, the dispersion terms are switched off when $h<Nd_{tol}h_0$ (close to the equilibrium shoreline), where the number $N$ is set to 100 for the simulations herein.
 Accordingly, for the dry land inundation, the \BoussClaw invariably
 utilizes the NLSW solver of the \textsc{Geoclaw} software,
 which can handle 
 wet and dry states with the depth positivity property.
 Details can be found in \cite{george2008augmented}.
-The nearshore truncation of the dispersive terms produce small wriggles (see figure \ref{fig:bim_serre_boussclaw_slope10}, right panel) that remain small as $\Delta x$ is 
+The near-shore truncation of the dispersive terms produce small wriggles (see figure \ref{fig:bim_serre_boussclaw_slope10}, right panel) that remain small as $\Delta x$ is 
 reduced and do not influence the overall solution. 
 
 
@@ -582,7 +582,7 @@ where
 \end{split} &
 \end{flalign}
 In this expression $A$ is the amplitude and  $h_0$ is the  undisturbed water depth. For the Serre model with enhanced dispersion we employ a modified version of
-(\ref{eq:anal_serre}) while the BIM model is initiated with Tanak's solution.
+(\ref{eq:anal_serre}) while the BIM model is initiated with Tanaka's solution.
 Details are given in \citet{Lovholt:2013a}.
 
 In Figure \ref{fig:soliton_ts} 
@@ -651,11 +651,11 @@ the energy dissipation decreases with the grid increments.
 \label{sec:comp_test}
 A physical model was constructed at the Coastal Hydraulic Laboratory of the U.S. Army Corps of Engineers
 in order to address beach erosion and severe flooding problems \citep{chl_bp5}. 
-The model beach consisted of three piecewise linear slopes of 1:53, 1:150, and 1:13 with a vertical wall at the shoreline as shown in Figure \ref{fig:bp5_water_tank}.
-In the laboratory, the wavemaker was located at $23.23\m$ from vertical wall and produced incident waves that were close to solitary waves.
+The model beach consisted of three piece-wise linear slopes of 1:53, 1:150, and 1:13 with a vertical wall at the shoreline as shown in Figure \ref{fig:bp5_water_tank}.
+In the laboratory, the wave maker was located at $23.23\m$ from vertical wall and produced incident waves that were close to solitary waves.
 The gauge data from three cases are provided 
 where the ratio $A/h_0$ equals  $0.038$, $0.259$ and $0.681$, respectively,
-where $h_0=21.8\cm$ is  the depth at the wavemaker.
+where $h_0=21.8\cm$ is  the depth at the wave maker.
 
 \begin{figure}[!htb]
 \centering
@@ -722,7 +722,7 @@ A better fit may possibly be obtained by incorporating a bottom friction.
 \includegraphics[width=.8\textwidth]{_fig/gauge0005fig300.png}\\
 \includegraphics[width=.8\textwidth]{_fig/gauge0007fig300.png}\\
 \includegraphics[width=.8\textwidth]{_fig/gauge0008fig300.png}
-\caption{Comparsion of \BoussClaw and experiment from \cite{chl_bp5}. Water surface elevation (m) in time (s) at gauges 5,7 and 8 for $A/h_0=0.259$ case.}
+\caption{Comparison of \BoussClaw and experiment from \cite{chl_bp5}. Water surface elevation (m) in time (s) at gauges 5,7 and 8 for $A/h_0=0.259$ case.}
 \label{fig:bp5b_gauges}
 \end{figure}
 
@@ -764,7 +764,7 @@ In this way, an incident solitary wave of amplitude $A/h_0\approx 0.3$, say, has
 \label{sec:10degrunup}
 On a $10^\circ$ slope an incident solitary wave of amplitude $A/h_0=0.3$ will not break until the end of the draw-down phase \citep{Grilli:1997}.
 Still, this may be a challenging task for Boussinesq type models \citep{Lovholt:2013a}. Run-up on a $10^\circ$ was investigated experimentally
-by \citet{Pedersen:2013} who found a theoretical overshoot of roughly 20\% in the maximum run-up height. This was alloted to the viscous boundary layer on the beach and capillary effects. Moreover, the measurements showed that the boundary layer flow during run-up was mostly laminar, albeit indications of transition was observed in the upper part of the swash tongue close to flow reversal. Hence, it is not appropriate to employ a Manning friction term and we compare the models without any bed friction, while leaving the experiments out. 
+by \citet{Pedersen:2013} who found a theoretical overshoot of roughly 20\% in the maximum run-up height. This was allotted to the viscous boundary layer on the beach and capillary effects. Moreover, the measurements showed that the boundary layer flow during run-up was mostly laminar, albeit indications of transition was observed in the upper part of the swash tongue close to flow reversal. Hence, it is not appropriate to employ a Manning friction term and we compare the models without any bed friction, while leaving the experiments out. 
 
 \begin{figure}[!htb]
 \centering
@@ -986,7 +986,7 @@ and the Peregrine's equations are used for \textsc{GloBouss}.}
 
 In Figure \ref{fig:bim_boussclaw_fun} surfaces from the different
 wave models are shown at selected times. 
-The \BoussClawt model is run withouth the switch to the NLSW equations at $\epsilon_B=0.8$ and with the dispersion parameter $B=1/15$. However, the results for  $B=0$
+The \BoussClawt model is run without the switch to the NLSW equations at $\epsilon_B=0.8$ and with the dispersion parameter $B=1/15$. However, the results for  $B=0$
 are rather similar for this case. 
 At t=$16$, the computational results
 from all the Boussinesq-type equations are similar.
@@ -1100,8 +1100,8 @@ In figure \ref{fig:energy_decay}
 we observe that the dissipation rates of the models has a build-up, before the 
 shock is fully developed, 
 and then agree well with  formula (\ref{eq:energy_dissipation}).
-Moreover, du to larger shock heights the \BoussClawt($\epsilon_B=0.8$) dissipation rate is much larger than that of the NLSW model, when the wave finally has broken.
-This reduces the difference beween the models to some extent. 
+Moreover, due to larger shock heights the \BoussClawt($\epsilon_B=0.8$) dissipation rate is much larger than that of the NLSW model, when the wave finally has broken.
+This reduces the difference between the models to some extent. 
 
  
 It is obvious that the NLSW model in this case is severely inaccurate, while 
