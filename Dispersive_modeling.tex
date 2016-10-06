@@ -1097,19 +1097,11 @@ where $d$ is the shock height, which corresponds to maximum $\eta$ ($A$) in our 
 and $h$ is 
 the undisturbed water depth. The rate $D_{th}$ is made dimensionless by the factor $E_c\sqrt{\frac{g}{h_0}}$, where $E_c$ is given above.
 In figure \ref{fig:energy_decay} 
-we observe that the dissipation rates of the models are build up over a time interval
+we observe that the dissipation rates of the models has a build-up, before the 
+shock is fully developed, 
 and then agree well with  formula (\ref{eq:energy_dissipation}).
 Moreover, du to larger shock heights the \BoussClawt($\epsilon_B=0.8$) dissipation rate is much larger than that of the NLSW model, when it wave finally has broken.
 This reduces the difference beween the models to some extent. 
-\begin{figure}[htb!]
-\centering
-\includegraphics[width=0.8\linewidth]{_fig/energy_decay}
-\caption{Energy dissipation computed from numerical simulation
-	and formula (\ref{eq:energy_dissipation}).
-	\BoussClaw with $\epsilon_B=0.8$ switches to the NLSW
-	at t=14.9. }
-\label{fig:energy_decay}
-\end{figure}
 
  
 It is obvious that the NLSW model in this case is severely inaccurate, while 
@@ -1129,11 +1121,18 @@ with and without the switch to the NLSW.
 			With $\epsilon_B=0.8$, $E_0$ is shown in dashed line after the threshold is reached.}
 		\label{fig:e1_boussclaw_eb08}
 	\end{subfigure}
-	\caption{Energy plots of NLSW and \BoussClaw.
-		The vertical line is at $x=8.03227$ m where $\epsilon_B=0.8$,
-		and the governing equations are switched to the NLSW from
-		the Boussinesq equations. }
+	\caption{Wave energy ($A/h_0=0.28$, slope $1:19.85$) as function of crest position.
+		The vertical line is at $x=8.03227$  where $\epsilon_B=0.8$. }
 	\label{fig:energy_boussclaw_swe}
+\end{figure}
+
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=0.8\linewidth]{_fig/energy_decay}
+\caption{Energy dissipation rates for $A/h_0=0.28$ and a $1:19.85$ slope. The label ``formula'' represents (\ref{eq:energy_dissipation}) inserted the wave heifgts from the numerical simulations.
+	\BoussClaw with $\epsilon_B=0.8$ switches to the NLSW
+	at $t=14.9.$ }
+\label{fig:energy_decay}
 \end{figure}
 
 The onset of the dissipation in the threshold model comes slightly before the a vertical front is observed in the BIM solution $x_c=4.09$. This may point to a too early and strong dissipation. On the other hand, the Boussinesq solution without the threshold most likely
@@ -1142,8 +1141,8 @@ the upper panel of figure \ref{fig:boussclaw_th08} apparently fall between the \
 without the $\epsilon_B$ threshold, even though there is scatter in the experimental 
 surface. 
 The last step of the procedure in section \ref{sec:Num_scheme}, which
-deals with the dispersion, increases the wave front width to something of the order of
-the local and thus reduce the dissipation 
+deals with the dispersion, increases the wave front width to  the order of
+the local depth and thus reduces the dissipation 
 of the next TVD step. This effect of the dispersion terms may be inferred from, for instance, the Green function of Helmholtz type equations as outlined in \cite{Glimsdal:2004}, section 3.1.1. Still, the \BoussClaw model, without the threshold, is stable during 
 both the last part of shoaling and during runup, even for refined grids. This contrasts
 the non-dissipative Serre model which may be run beyond $x_c=4$, without the strong artificial amplification of the Peregrine type models, but breaks down when the wave reaches the shoreline (results not shown). Hence, \BoussClaw, without the switch to the NLSW equation at
@@ -1160,10 +1159,11 @@ set of governing equations, as well as a slightly different numerical scheme.
 Comparisons with other models as well as experiments are good. Moreover,
 the model do not display the vulnerability to instabilities for 
 strong nonlinearities in shallow water
-as is observed for some fully nonlinear Boussinesq models \citep{Lovholt:2013}. 
+as is observed for some fully nonlinear Boussinesq models \citep{Lovholt:2013a}. 
 
-The experiments of \citet{synolakis1987runup} enabled us to
-constrain a set of different long wave models, including \BoussClawt, as well as a full potential reference model. Using the potential  model, we were able to assess in detail the pore-breaking behavior of the models,
+The experiments of \citet{synolakis1987runup} and a full potential reference model
+ enabled us to
+assess a set of different long wave models, including \BoussClawt. Using the potential  model, we were able to assess in detail the pore-breaking behavior of the models,
 and to identify the point of breaking accurately. 
 First, we found that by using standard NLSW models,
 the point of breaking will be located too far offshore and that the resulting dissipation 
@@ -1194,26 +1194,6 @@ and a $0.8$ threshold may well work better on a much gentler slope as it is prim
 solitary wave properties in constant depth. On the other hand, $1:19.85$ slope is already quite gentle,
 and the offset between the reference solution and Boussinesq models using this criteria may
 be even more pronounced for steeper slopes.
-
-%{\em What should the main conclusions be}
-%\begin{itemize}
-%\item \BoussClaw works.
-%\item Shallow water models and composite Boussinesq/NLSW models
-%      may give large errors in breaking point and wave shape
-%\item Breaking does not really occur before the local amplitude is much higher than 0.8 time the depth -- a limit that is inspired by the existence of solitary wave solution in full potential theory.
-%The 0.8 limit  may be better on even gentler slopes.
-%\item Effects of nonlinearities in the dispersion does influence the solution markedly, when accumulated up to the point of breaking.
-%\end{itemize}
-
-\section*{Temporary section: What to do}
-These may be in addition to margin-notes.
-\begin{enumerate}
-\item More figures for section \ref{sec:10degrunup}; snapshots, shorelines 
-maximum runup, convergence.
-\item Grid increments must be described, somehow, for all results.
-\item What to say about breaking performance ? End of introduction, discussion in in 4.1, 4.2 and conclusion must be looked at.
-\item Old figures 9b, 10bc. Reinserted ? No.............
-\end{enumerate}
 
 \appendix
 
@@ -1257,9 +1237,9 @@ which is the counterpart to  (\ref{eq:hybrid_mom_fdm}).
 
 If we use the centered spatial difference approximation of $O(\Delta x^2)$
 accuracy on a regular grid we may employ a standard von Neumann analysis where we calculate the growth of an harmonic mode over a single time step.
-Expressing the coefficients of the velocity array before the time step as  $u_j= e^{i\xi j \Delta x}$ we then replace the coefficient of $\textbf{M}^q$, defined in section \ref{sec:Num_scheme}, 
-by $M_j^q=U_j^q= g^qe^{i\xi j \Delta x}$, 
-where $q$ is 1, 2, 3, 4 or +. Correspondingly, the coefficients of the $\mathbf{S}^k$ array, which contains auxiliary,  nodal values for $u_t$,  is
+Expressing the coefficients of the velocity array before the time step as  $u_j= e^{i\xi j \Delta x}$ we then replace the coefficient of $\textbf{M}^k$, defined in section \ref{sec:Num_scheme}, 
+by $M_j^k=U_j^k= g^ke^{i\xi j \Delta x}$, 
+where $k$ is 1, 2, 3, 4 or +. Correspondingly, the coefficients of the $\mathbf{S}^k$ array, which contains auxiliary,  nodal values for $u_t$,  is
 expressed $(S_j^k)= s^k e^{i\xi j \Delta x}$. 
 
 The stability  of the first step, (\ref{eq:append_advec}),  is assured by the standard CFL criterion
