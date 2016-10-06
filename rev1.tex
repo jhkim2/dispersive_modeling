@@ -1,0 +1,150 @@
+\documentclass[11pt]{article}
+\usepackage{epsfig,epsf,rotating,graphics,colordvi,color,a4}
+\textwidth=16cm
+\textheight=22cm
+\begin{document}
+\newcommand{\refpoint}[1]{\ \vspace{0.3cm}\\ {\em #1}\  \vspace{0.3cm}\\ }
+\newcommand{\refit}[1]{\em #1}
+\newcommand{\todo}[1]{\ \\ {\bf To do: #1}\\}
+\section*{Reviewer \#1:} 
+We appreciate the suggestions by the referee and realize that much of his criticism is 
+well founded. On the other hand, even though it to quite some extent reflects weaknesses in our 
+submission, we cannot quite accept his negative assessments of novelty and focus of our paper 
+and his generic dismission of much of its content.  
+Concerning the alleged lack of focus, for instance, it must be accepted to address more than 
+subject in a paper. While the first submission did not present the double focus with sufficient clarity, it was
+still explicitly stated in the introduction. We hope that the revised version will do better.  As a part of the revision we have reorganized
+the paper with this in mind. Main changes: 
+\begin{enumerate}
+\item The introduction is reorganized. More references are added, some very detailed parts are omitted.
+\item Additional features of the models are now all collected in section 2.1
+\item A part of the old section 4 is moved to 3.3 to introduce two new tests (with runup) of BoussClaw.
+\item The ill-named section 4 is no longer a section, one part is moved to section 3, another to the new section 4.1 (old 5.1). 
+\item The old section 5, which the new section 4, is changed with new figures and amended text.
+      In particular the energy part is revised with dissipation rates and more discussion.
+\item The number of figures on pre-breaking shoaling is reduced. 
+\end{enumerate}
+Below we respond to the points raised by the referee. For the longer, general comments we have taken the liberty of
+introducing en enumeration to particular objections and questions.
+
+\section*{Main issues}
+\refpoint{
+{\bf Innovation content.} This is very unclear and it is a fundamental task of the Authors
+to highlight the actual innovation of their contribution. Such innovation does not
+seem to reside in the modeling of tsunami waves by means of a Boussinesq model:
+the literature reports already a large amount of papers on this. Further, more novel
+approaches are becoming available (see also point 3 of “Specific Issues”). Neither
+the numerical technique in itself is an innovation: many NLSW and Boussinesq
+models use the “fractional step method” or “operatorial splitting method”$\,^1$. Not
+even the benchmarking approach is new$^2$: many examples are available of contrasting
+a Boussinesq model with a fully nonlinear potential flow solver (see, a.o., Wei et al.,
+1995)$\,^3$. Thus, is the aim of this paper that of proposing a model more accurate than
+those already available?$\,^4$  Or that of studying the breaking criterion?$\,^5$ None of these
+is focussed upon in the work, neither detailed in the title, which is very general and
+somehow uninformative. A significant effort should be made to clarify the actual
+innovation of the present contribution$\,^6$;}
+\begin{enumerate}
+\item To be fair, most ``new'' numerical methods are only a modification of existing models or a combination
+        of well known numerical techniques. This is particularly true for the field of Boussinesq models. 
+      We present our special combination of tools and procedures with the final aim of making available a free 
+      alternative to FunWave/CoulWave, within the ClawPack software. As far as we have seen this mix is innovative
+      in the sense that we have not found something identical in the literature. But, then the literature on Boussinesq
+      equations is vast and while equations and mathematical details are presented lavishly, the papers are
+      still incomplete and tests and simulations are difficult to assess properly. Our experience so far indicates 
+     that the  presented approach, for the applications we consider, is much more promising than the alternatives 
+     from the literature that we have tested ourselves, namely the FunWave/CoulWave. 
+\item The application potential theory was over-emphasized in the first submission.
+      This is now corrected. Naturally, comparison with potential theory as such
+      is not new. In fact,  we have compared with full potential theory ourselves, when feasible, 
+      much as a routine (examples: \cite{Lovholt:2013a,Pedersen:2013}).
+      When it is done properly,  we think that  it strengthens investigations like
+      the present one and contribute to important insight. In fact,  most paper on long wave models do
+      invoke a ``full model'', but an number of these papers would really have benefited from doing so.
+\item This specific reference is well spotted by the referee and 
+      we are to blame for not making use of it. It is well known and parts of the content, 
+      in particular figure 4, are closely related to some of our work and must be explicitly and properly referenced.
+       However, the reference applies different
+      equations from us (in particular we have non-fully nonlinear Boussinesq equations that perform well), the slope
+      of \cite{synolakis1987runup}, which we employ, is strangely enough not included and nothing is presented
+      after the potential model yield breaking. Hence, we must do this investigation ourselves, but it is played down in the revised version and it is now supported by the reference.  
+\item The final aim is to provide a general purpose model, within ClawPack, that is reliable and stable, rather than formally 
+more accurate than other models. After all, it is not fully nonlinear.  {\bf Stress in introduction}
+\item Yes, that as well. Section 4 is much changed in the revised manuscript. We will also stress that the two
+      topics are closely related. We could not have addressed the second without access to a suitable model.
+      We have not seen the discussion of, for instance, the $\epsilon_B=0.8$ threshold, done is this manner.
+      Hence, it is novel and it also important in our view.      
+\item {\bf Change title}
+\end{enumerate}
+\refpoint{ {\bf Model Benchmarking.} All benchmarking is here made with reference to the free sur-
+face elevation evolution. However, for any purpose of practical interest, like that of
+studying dispersive tsunamis, it is essential to assess the value of the model in repre-
+senting also the internal kinematics, e.g. the reproduction of the vertical distribution
+of the flow. Further, the Abstract seems to suggest some interest in the accurate
+modeling of inundation. However, no specific test is here proposed to assess the
+model description of inundation, references to inundation and wetting-drying only
+appearing in the Introduction and Conclusions.}
+
+\section*{Specific issues}
+{\em The following specific issues require attention (line numbers are those provided by the
+authors’ editing):}
+Well, here we have a problem. These line numbers are provided by the processing of the journal.
+This processed version appears  no longer to be available at the WEB site, possibly due
+to a system upgrade in July. We have to guess then. 
+\begin{enumerate}
+\item{\em Title. As already mentioned, the title is too general and uninformative. Once the
+Authors have decided the actual focus of their contribution, the title should be
+changed to reflect it;}
+We have changed it. \todo{Change it}
+\item{\em Abstract, lines 22-24. What here stated is actually incorrect, proof is that an
+increasing number of studies is being dedicated to solve also dispersive dynamics of
+tsunamis;}
+Here we are at an loss concerning which statement that offends the referee. The closest we 
+get is the two first lines, but they state the same as the referee....
+\item {\em Introduction. The Introduction contrasts NLSW and Boussinesq models as tools
+used for describing the evolution of tsunami waves. However, it is becoming clear
+that dispersive tsunamis can be modeled by a variety of novel models, which deserve,
+at least, some account in this introductory overview.\\
+Among them:}
+\begin{itemize}
+\item[{\em (a)}] {\em the conceptually innovative Dispersive NLSW of Antuono et al. (2009), which
+combine the capability of reproducing frequency dispersion with the properties
+of hyperbolic systems;}
+\item[{\em (b)}] {\em the number of multi-layer and non-hydrostatic models, a summary of which
+can be found in the recent review on Boussinesq models of Brocchini (2013);}
+\end{itemize}
+We do not make a full review in our introduction. The referenced review papers of Brocchini, which was left out 
+by mistake, Kirby (new) and Madsen do this far better anyway.
+There are a number of papers that may ``deserve'' mentioning, which is still not mentioned as the primary references
+always are those which we draw on directly.  The paper Antuono et al. (2009) is quite interesting and
+a bit different from most others, even though it does not present much upon which we build our work. Hence, it is included briefly in the introduction, but not discussed in detail.    
+\item{\em page 4, lines 21-23. This sentence is unclear and needs rewording;}
+The whole page only contains 24 text lines. Assuming that its double counting due to
+the space line. We end in the first paragraph which, indeed, was not well formulated. 
+The start of section 2 is anyway completely rewritten.  
+\item{\em page 4, lines 35-39. This sentence is unclear and needs rewording;}
+Probably, here as well the wording is now changed.
+\item{\em Section 3. It would be very beneficial to add quantitative estimates (measures of
+errors) to illustrations for all comparative analyses;}
+Yes. We already had a plot of the energy errors in solitary wave propagation.
+We have now included graphs and tables with maximum runup heights (dependence on grid and mathematical formulation) for the tests in section 3.3. We believe this should suffice.  
+\item{\em Figure 10 and related text. The solution by BoussClaw displays a significantly larger
+energy content at the front face of the wave with respect to all other solutions. Can
+the Authors explain the origin of such a discrepancy?}
+The BoussClaw wave front is ahead of all the others. The Serre model has a little of the same
+behaviour, while the other models show the opposite in relation to the BIM solution, which is
+the ``correct'' one. It has to do with omitted nonlinearities in the dispersion term, then. Any deeper or firmer
+explanation is difficult to establish. In addition to displaying the discrepancies in the figures, we now explicitly state them in the text {\bf TOdo: do it}. 
+\item{\em Figure 13 and related text. The energy decay rate for NLSW displayed by the $E_0$
+signal in figure (13) could be compared with the energy actually dissipated by the
+solver across a bore through the Rankine-Hugoniot conditions}
+Good suggestion. Such a comparsion is now included.
+The whole section on energies (old 5.2, new 4.3) has also been rewritten.
+\end{enumerate}
+\section*{Editing}
+$\bullet${\em  page 2, line 44. ...“could reach”... instead of ...“could reaches”...;}\\
+This part of the sentence was not informative anyway and is deleted.
+\bibliographystyle{plain}  % typesettingsformatet
+\bibliography{mybibfile.bib}
+\end{document}
+
+
