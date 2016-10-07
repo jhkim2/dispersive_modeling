@@ -105,14 +105,12 @@ In this work, a general purpose Boussinesq solver,
 \BoussClawt, is introduced
 for modeling non-linear dispersive tsunami propagation, 
 taking into account inundation. 
-The \BoussClaw model is an extension of the ClawPack package.
+The \BoussClaw model is an extension of the GeoClaw tsunami model.
 It employs a hybrid of finite volume
 and finite difference methods to solve
 Boussinesq equations from the literature, which are 
 based on the depth-averaged velocity 
-and include enhanced dispersion properties, 
-are implemented using a hybrid of the finite volume
-and finite difference methods.
+and include enhanced dispersion properties.
 In order to validate \BoussClawt, 
 numerical results are compared 
 to  analytic solutions, solutions obtained by pre-existing models, and laboratory experiments. 
@@ -183,9 +181,9 @@ based on their large scale experiments of the wave propagation of undular bores 
 Naturally, there is a desire to exploit the efficient and well established shock capturing framework of the NLSW models also in a dispersive context.
 \cite{Antuono:2009} remolded the whole Boussinesq equations into a framework on hyperbolic form.
 However, most recently developed of  Boussinesq models are based on some combination of approximate Riemann solvers, with TVD limiters ,for the hydrostatic transport terms and finite differences
-for dispersion terms \citep{Erduran2005,Kim2009,Shiach:2009,Roeber:2010,Dutykh:2011,shi2012high}. Among other models, this have led to the popular
+for dispersion terms \citep{Erduran2005,Kim2009,Shiach:2009,Roeber:2010,Dutykh:2011,shi2012high}. Among other models, this has led to the popular
 \textsc{Funwave-TVD} and \textsc{Coulwave-TVD} applications. 
-In most Boussinesq models that include runup on beaches the dispersion term
+In most Boussinesq models that include runup on beaches, the dispersion term
 is turned off in the vicinity of the shoreline to avoid interference of
 the wetting-drying techniques with the
 larger computational stencils from the dispersion terms. Still,
@@ -217,7 +215,7 @@ that the breaking criteria employed so far lacks generality.
 
 This paper is organized as follows: In Section \ref{sec:model}, the base model
 for the wave equations is given and the numerical scheme is outlined,
-while a von Neuman stability analysis is put in an appendix. 
+while a von Neuman stability analysis is put in \ref{append:stab}. 
 Sections \ref{sec:num_tests} compares results from the \BoussClaw with analytic ones, laboratory experiments and those from other models. 
 In subsection \ref{sec:num_shoaling} we scrutinize the pre-breaking shoaling of Boussinesq type equations through comparison with full potential theory, while the post-breaking evolution is investigated in  subsection  \ref{sec:discuss_breaking}.
 
@@ -227,7 +225,7 @@ In subsection \ref{sec:num_shoaling} we scrutinize the pre-breaking shoaling of 
 Boussinesq-type equations are   derived 
 on the assumption that the ratio of depth to wavelength, $\mu$,
 is small. In addition one may assume that 
-the ratio of wave amplitude to depth, $\epsilon$ is small.
+the ratio of wave amplitude to depth, $\epsilon$, is small.
 Different kinds of long wave assumptions are then generally characterized
 by relative errors in terms of these two parameters.
 Herein we will neither derive Boussinesq equation nor make the equations 
@@ -459,7 +457,7 @@ Following \cite{tonelli2009hybrid} and \cite{shi2012high} we may catch wave brea
 through  invocation of a threshold $\epsilon_B:=\eta/h=0.8$ in \BoussClaw.
 When the threshold is reached, the wave breaking is supposed to be initiated, 
 and the dispersive terms are suppressed throughout the computational domain. 
-This is adequate for the applications presented herein, which are involve a single solitary wave. For other applications the switch to the NLSW equations 
+This is adequate for the applications presented herein, which involve a single solitary wave. For other applications the switch to the NLSW equations 
 should be made for only a subregion of the computational domain.
 
 Bottom friction is important for inundation on gentle slopes. 
@@ -824,7 +822,7 @@ for the non-breaking wave on a $10^\circ$ slope.
 		\hline
 	\end{tabular}
 	\caption{Maximum run-up height divided by the incoming wave amplitude ($R/A$) for
-$A/h_0=0.3$ and $\theta=10^\circ$).}
+$A/h_0=0.3$ and $\theta=10^\circ$.}
     \label{tab:runup_slope10}
 \end{table}
 
@@ -834,10 +832,10 @@ $A/h_0=0.3$ and $\theta=10^\circ$).}
 \label{sec:wave_break}
 
 %Depth-averaged models are not capable of handling the wave breaking unless they are modified by incorporating the energy dissipation. In this work, a breaking solitary wave will be considered on a uniform slope. For laboratory experiments, see Synolakis \{synolakis1987runup}.
-From the experiments of \citet{synolakis1987runup}, on runup of solitary
+From the experiments of \citet{synolakis1987runup} on runup of solitary
 waves on beaches, we select the breaking case $A/h_0=0.28$ 
 incident on  a  $1:19.85$ slope for comparison with the \BoussClaw model. 
-Experimental date is obtained at \cite{synolakis2007standards}.
+Experimental date is obtained at \cite{synolakis2008validation}.
 
 
 %Then $t=0$ is set as soon as the peak of wave is at $x=L$.
@@ -1067,13 +1065,13 @@ The vertical line indicates where the BIM model yields breaking ($x=4.09$). }
 The gross wave energies  
 for the shallow water equations and Boussinesq equations
 are $E_0$ and $E_0+E_1$  respectively, as explained in \ref{append:energy}.
-They are made dimensionless by the factor $E_c=\rho g h_0^3$. 
+They are made dimensionless by the factor $E_c=\rho g h_0^2$. 
 In Figure \ref{fig:energy_boussclaw_swe} the energy densities are depicted as 
 functions of the crest location, $x_c$. 
 In the left panel 
 we observe that the $E_0$ is nearly constant 
 for the shallow water equations until a shock is formed around $x_c=13$.
-Thereafter, energy is quickly dissipated. For the dispersive simulations $E_0$
+Thereafter, energy is quickly dissipated. For the \BoussClaw simulations $E_0$
 increases significantly during shoaling, indicating that $E_1$ needs to be accounted for.
 In  the \BoussClaw simulation with no threshold (right panel) 
 $E_0+E_1$ is nearly constant when the wave propagates in constant depth. 
@@ -1156,7 +1154,7 @@ and resembles much used general purpose models such as \textsc{Funwave-TVD} and
 \textsc{Coulwave-TVD}, but is based on a different and somewhat  simpler 
 set of governing equations, as well as a slightly different numerical scheme. 
 Comparisons with other models as well as experiments are good. Moreover,
-the model do not display the vulnerability to instabilities for 
+the model does not display the vulnerability to instabilities for 
 strong nonlinearities in shallow water
 as is observed for some fully nonlinear Boussinesq models \citep{Lovholt:2013a}. 
 
@@ -1275,7 +1273,7 @@ s^1+2s^2+2s^3+s^4
 \label{append:rk4_assemble}
 \end{flalign}
 
-By combination of (\ref{eq:rk4_Neumann}) and (\ref{append:rk4_1}) $s^k$ and $g^k$, $k=1..4$ can be calculated successively  and combined in (\ref{append:rk4_assemble}) to provide
+By combination of (\ref{eq:rk4_Neumann}) and (\ref{append:rk4_1}) $s^k$ and $g^k$, $k=1,\dots,4$ can be calculated successively  and combined in (\ref{append:rk4_assemble}) to provide
 the value of $g^+$, 
 \begin{align*}
 g^+(\gamma) & = \left(1-
