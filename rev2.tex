@@ -1,0 +1,98 @@
+\documentclass[11pt]{article}
+\usepackage{epsfig,epsf,rotating,graphics,colordvi,color,a4}
+\textwidth=16cm
+\textheight=22cm
+\begin{document}
+\newcommand{\refpoint}[1]{\ \vspace{0.3cm}\\ {\em #1}\  \vspace{0.3cm}\\ }
+\newcommand{\refit}[1]{\em #1}
+\newcommand{\refitem}[1]{\item {\em #1} }
+\newcommand{\todo}[1]{\ \\ {\bf To do: #1}\\}
+\section*{Reviewer \#1:} 
+\refpoint{The paper has been appreciably improved upon revision. However some further amend-
+ments are needed to achieve a contribution worthy of publication.}
+We happily recognize that the changes and extensions which have followed from the referees suggestions 
+in the first revision have improved the paper crucially. We are truly grateful for this. 
+\refpoint{The main issues to be resolved are with presentation. In particular, dimensionless
+variables are said to be given as starred variables (see the beginning of page 5). However,
+in most of sections 3 and 4 this rule is forgotten (see also “Specific Issues”). This should
+be fixed.}
+Yes, indeed, we are struggling with dimensions. It is rather common to start with dimensional variables, keep
+them for a while, and then introduce dimensionless variables from a given point. It is also common to 
+introduce a star or a hat for the dimensionless variable, and then ``omit the star from this point on''. Retainment the star/hat in a large number of expressions and figures is very cumbersome and decrease
+the overall legibility, in our view.
+Our main problem in this respect is that the experiment in section 3.2 is given with dimensions in
+the original, and we want to comply with this. On the other hand 3.3 and 4 are best represented
+without dimensions. The ``solitary wave'' section 3.1 is also best presented without dimensions, 
+but it needs to be placed before 3.2. Hence, we shift a little back and forth.
+To mitigate the problem we specify what is used where more thoroughly.
+\begin{itemize}
+\item The dimension/dimensionless issue is addressed in the introduction.
+\item We elaborate on scaling in the start of section 2
+\item It is specified in the beginning of each subsection wether dimensions are used or not
+\item Likewise, we specify in each figure.
+\item Also the use of $A/h$ is a little untidy. We introduce a normalized mesure, $\alpha$, for
+the amplitude of the incident wave.
+\item we have gone through every expression and figures in order to clean up with respect to
+dimensions.
+\end{itemize}
+    
+\section*{Specific issues}
+\begin{enumerate}
+\refitem{ Abstract. Where appropriate, e.g. in the Abstract, reference to the model not being
+fully nonlinear should be added;}\\
+We agree. It now stated ``On the other hand, in the selected formulation only some non-linearity is retained in
+the dispersion term. ......
+Even though the equations of BoussClaw are not fully nonlinear they perform far better
+than standard Boussinesq equations with only linear dispersion terms.''
+ \refitem{ page 5, lines 2-3. Mention should be added that dimensionless (or normalized vari-
+ables) are starred;}
+Yes. This is done. In addition the whole issue is somewhat elaborated in the revision.
+\refitem{ page 5, line 5. $u^* = \sqrt{gh_0}$ is a velocity scale, rather than a normalized velocity.
+Please, amend;}
+t's done.
+\refitem{ page 6, lines 2-5. The definition of $w$ (vertical velocity, I guess) is missing. Please,
+amend;}
+No, $w$ is not the verical velocity, but a dummy variable employed to define the operator.
+This is now explicitly stated in the text.
+\refitem{ page 10, lines 1-13. I believe that the threshold depth is $d = 10^{−4}$m. If so, please,
+amend;
+Also be aware of theoretical and numerical issues related with the use of frictional-
+type terms at the shoreline (e.g. Antuono et al., 2012);}
+The $d$ was imprecise/wrong. The correct expression is slightly different from the one suggested by
+the referee, namely $d=10^{−4}h_0$.\\
+Concerning, Antuono et al: Both this reference and a very brief discussion of the effect of bottom friction on 
+the withdrawal were omitted by mistake. It is now in place at the end of section 3.3.2.
+\todo{New figure 11, discuss the looks}
+
+\refitem{ page 12, last paragraph. Are energies here dimensional or dimensionless? In the
+former case units should be given in plots, in the latter case variables should be
+starred;}
+Yes, the energies are dimensionless. For the relative errors in the right panel this does not matter, but
+for the left panel it does. The caption and the text of section 3.1 is changed. 
+\refitem{ figures 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 and related text. Dimensionless variables
+(elevation, space, time, etc.) should be starred;}
+The stars may be cumbersome in the figures. We have tried to incoporate them when feasible in the figurs, but
+do also discuss this in the captions. In the text wea have changed to starred quantities.
+\todo{Change what figurs  are possible. Change all the text} 
+\refitem{ page 23, lines 7-8. The meaning of this sentence is unclear to me. Please, clarify;}
+Sorry. The text was not well formed. Hopefully, it is clearer now. 
+\refitem{ page 25, lines 9-10. If I read well figure 15, $E_0$ of BoussClaw remains almost constant,
+its increase being 3 − 4\% of the value attained using NLSW. Hence, I would not
+speak of a “significant increase”;}
+Agreed. We have changed to ``slightly, but noticeably,''
+\refitem{ page 32, second half of the page. It is here said that the energy of a wave can be
+approximated as $e = (e0+e1+O(\mu^4))$. However, inspection of definitions (B.2) and
+(B.3) suggests that $e$ is reduced by the “equilibrium energy” $\rho gh^2/2$, which does
+not appear in (B.2) and (B.3). Please, clarify;}
+The text is amended. However, there was an error when we have runup or draw-down.
+\todo{Discuss the the computation and the swash zone. Recompute the energies.}
+\refitem{ page 33, last line of Appendix B.2. What does “$x_a$ and $x_b$ denote the limitations of
+the wetted region” mean? Please, give clear definitions of $x_a$ and $x_b$.}
+The objection is in fact deeper than it may appear. The integral for the total energy is modified and the 
+limits more clearly explained.
+\end{enumerate}
+\bibliographystyle{plain}  % typesettingsformatet
+\bibliography{mybibfile.bib}
+\end{document}
+
+
