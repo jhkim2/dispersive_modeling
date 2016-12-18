@@ -111,9 +111,13 @@ and finite difference methods to solve
 Boussinesq equations from the literature, which are 
 based on the depth-averaged velocity 
 and include enhanced dispersion properties.
+On the other hand, in the selected formulation only some non-linearity is retained in
+the dispersion term. 
 In order to validate \BoussClawt, 
 numerical results are compared 
-to  analytic solutions, solutions obtained by pre-existing models, and laboratory experiments. 
+to  analytic solutions, solutions obtained by pre-existing models, and laboratory experiments.
+Even though the equations of   \BoussClawt\ are not fully nonlinear they perform far better
+than standard Boussinesq equations with only linear dispersion terms.
 Furthermore, the  wave steepening and breaking motion
 is carefully scrutinized, 
 and we demonstrate that the point of wave breaking
@@ -230,14 +234,19 @@ Different kinds of long wave assumptions are then generally characterized
 by relative errors in terms of these two parameters.
 Herein we will neither derive Boussinesq equation nor make the equations 
 dimensionless. Still, $\mu$ and $\epsilon$ will sometimes be used to indicate relative errors.
+The horizontal and vertical and temporal coordinates are denoted by $x$, $y$ and $t$, respectively, 
+while the depth averaged horizontal velocity and the surface elevation are denoted by $u$ and $\eta$, respectively.
 Moreover, when presenting results we will often use a normalized time and position defined by 
 \begin{equation}
 \label{eq:norm_coord}
-t^*=\sqrt{g/h_0}t,\quad \mathrm{and}\quad x^*=x/h_0,
+t^*=\sqrt{\frac{g}{h_0}}t,\quad x^*=\frac{x}{h_0},\quad \eta^*=\frac{\eta}{h_0},\quad u^*=\frac{u}{\sqrt{gh_0}},\quad\mathrm{etc.}
 \end{equation}
- respectively, where $h_0$ is a reference depth. Correspondingly, the 
-normalized velocity becomes $u^*=\sqrt{gh_0}$ etc.
+where $h_0$ is a reference depth. Dimensional variables will be used in the sections \ref{sec:model},
+\ref{sec:comp_test}, appendix \ref{append:energy}, figures
 
+ \ref{sec:sol_prop}, \ref{sec:shoaling_runup}, \ref{sec:shoaling_breaking}, \ref{append:stab}
+\ref{fig:soliton_ts} 
+#HER
 \subsection{\BoussClaw - a new long wave model for tsunami propagation and run-up}
 In this work, a new numerical model, 
 called \BoussClawt, is introduced. 
