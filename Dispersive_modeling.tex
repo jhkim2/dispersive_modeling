@@ -234,16 +234,17 @@ Different kinds of long wave assumptions are then generally characterized
 by relative errors in terms of these two parameters.
 Herein we will neither derive Boussinesq equation nor make the equations 
 dimensionless. Still, $\mu$ and $\epsilon$ will sometimes be used to indicate relative errors.
+Moreover, when presenting results we will often use dimensionless quantities which are marked by a star.
 The horizontal and vertical and temporal coordinates are denoted by $x$, $y$ and $t$, respectively, 
 while the depth averaged horizontal velocity and the surface elevation are denoted by $u$ and $\eta$, respectively.
-Moreover, when presenting results we will often use dimensionless quantities which are marked by a star.
-Dimensionless time and position are then defined by, respectively,
+Dimensionless variables are then defined as
 \begin{equation}
 \label{eq:norm_coord}
 t^*=\sqrt{\frac{g}{h_0}}t,\quad x^*=\frac{x}{h_0},\quad \eta^*=\frac{\eta}{h_0},\quad u^*=\frac{u}{\sqrt{gh_0}},\quad\mathrm{etc.}
 \end{equation}
 where $h_0$ is a reference depth which is chosen as the maximum equilibrium depth. Dimensional variables will be used in the sections \ref{sec:model},
-\ref{sec:comp_test}, \ref{append:stab} \ref{append:energy}, and finally the figures \ref{fig:bp5_water_tank}, \ref{fig:bp5b_gauges} and \ref{fig:init_setup}. Elsewhere, dimensionless variables are mainly employed.
+\ref{sec:comp_test}, \ref{append:stab}, \ref{append:energy}, and finally the figures \ref{fig:bp5_water_tank}, \ref{fig:bp5b_gauges} and \ref{fig:init_setup}. Elsewhere, dimensionless variables are employed. Sometimes the dimensionless 
+quantities are spelled out, such as $x/h_0$, but mostly starred quantities are used.  
 
 %\ref{sec:sol_prop}, \ref{sec:shoaling_runup}, \ref{sec:shoaling_breaking}, \ref{append:stab}
 %figures \ref{fig:soliton_ts} \ref{fig:soliton_error_energy}
@@ -579,10 +580,10 @@ the set (\ref{eq:madsen_cons_mass}) and
 In dimensionless coordinates the solitary wave solution of Serre's equations is given as
 \begin{flalign}
 \label{eq:anal_serre}
- \eta^*(x^*,t^*) = \alpha\, \textrm{sech}^2 \left( \kappa (x^*-ct^*)\right),\quad
-\textrm{and}\quad u^* = c \frac{\eta^*}{1+\eta^*},
+ \eta^*(x^*,t^*) = \alpha\, \textrm{sech}^2 \left( \kappa (x^*+ct^*-x^*_i)\right),\quad
+\textrm{and}\quad u^* = -c \frac{\eta^*}{1+\eta^*},
 \end{flalign}
-where
+where $x^*_i$ is the initial location of the crest peak, and 
 \begin{flalign}
 \begin{split}
 & \kappa = \sqrt{\frac{3\alpha}{4(\alpha+1)}}, \quad \textrm{and}
@@ -630,9 +631,9 @@ and the analytic solutions are solid lines.}
         \caption{}
         \label{fig:soliton_energy_dx}
     \end{subfigure}
-    \caption{Evolution of a solitary wave for $\alpha=0.2$ and $\Delta x^*=0.1$.
-    (a): Different parts of the dimensionless energy $E^*=E/(\rho g h_0^2)$.
-    with $\Delta x^* = 0.1$. (b): 
+    \caption{Evolution of energies for a solitary wave with $\alpha=0.2$.
+    (a): Different parts of the dimensionless energy $E^*=E/E_c$.
+    for $\Delta x^* = 0.1$. (b): 
     log-log plot of relative error of energy
     at $t^*=10$ for $\Delta x^* = 0.05, 0.1, 0.2$ and $0.5$.}
     \label{fig:soliton_error_energy}
@@ -640,7 +641,7 @@ and the analytic solutions are solid lines.}
 
 The  integrated wave energies (per width) for the NLSW 
 and Boussinesq equations are $E_0$ and $E_0+E_1$, respectively, as
-described in \ref{append:energy}. These quantities are made dimensionless by $E_c=\rho g h_0^3$, which is minus twice equilibrium potential energy per width.
+described in \ref{append:energy}. These quantities are made dimensionless by $E_c=\rho g h_0^3$, which is minus two times the equilibrium potential energy per width.
 In Figure \ref{fig:soliton_energy} the time evolution of these energies are
  shown for $\alpha=0.2$ and $\Delta x^* = 0.2$.
 There are fluctuations both in the potential and kinetic energy that is evident when we zoom in,
@@ -744,34 +745,34 @@ In Figure \ref{fig:init_setup}, the initial set-up for a test is shown.
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=.8\textwidth]{_fig/initial_setup.png}
-\caption{Definition sketch for shoaling and runup of solitary waves. The scales on the axes are equilibrium depth, $h_0$.}
+\caption{Definition sketch for shoaling and runup of solitary waves. The scale on the axes is the equilibrium depth, $h_0$.}
 \label{fig:init_setup}
 \end{figure}
 The set-up of the wave tank in the simulations follows the laboratory experiments by \citet{synolakis1987runup}.
 The bathymetry of the wave tank is composed of a horizontal bottom, where the equilibrium depth is $h_0=$\marginpar{What is $h_0$ ?} and 
 a uniform slope as shown in Figure \ref{fig:init_setup}. 
-A solitary wave of height $A_0$, yielding $\alpha=A_0/h_0$, is generated at the right end of
+A solitary wave of height $A_0$, hence $\alpha=A_0/h_0$, is generated at the right end of
 the tank and propagates leftwards
 to the beach. 
 
 In the present section  and  throughout section \ref{sec:shoaling_breaking} we present the results using the non-dimensional coordinates 
-$t^*$  $x^*$, as defined by (\ref{eq:norm_coord}) with $h_0$ as the equilibrium depth in the flat bottom region 
-In  \citet{synolakis1987runup}, $t^*=0$ was defined as when the wave crest was a non-dimensional distance, $L$, from the toe of the slope,
+($t^*$,$x^*$), as defined by (\ref{eq:norm_coord}) with $h_0$ as the equilibrium depth in the flat bottom region 
+In  \citet{synolakis1987runup}, $t^*=0$ was defined as when the wave crest was a non-dimensional distance, $L^*$, from the toe of the slope,
 where
 \begin{flalign*}
-& L = \sqrt{\frac{4}{3\alpha}} \textrm{arccosh} \left( \frac{1}{0.05} \right). &
+& L^* = \sqrt{\frac{4}{3\alpha}} \textrm{arccosh} \left( \frac{1}{0.05} \right). &
 \end{flalign*}
 However, at $t^*=0$, the solitary wave has an elevation of
 5\% of it maximum at the toe of the beach, meaning that the slope has
 started to interact with the solitary wave. To avoid any such interaction obscuring
 our analysis, we instead place the initial solitary wave using equation (\ref{eq:anal_serre}) 
-at $L + 5$.
+with  $x^*_i=L^* + 5c$.
 In this way, an incident solitary wave of amplitude $\alpha\approx 0.3$, say, has a negligible interaction with the slope when initialized. 
 
 \subsubsection{Run-up of a non-breaking wave on a steep slope}
 \label{sec:10degrunup}
 On a $10^\circ$ slope an incident solitary wave of amplitude $\alpha=0.3$ will not break until the end of the draw-down phase \citep{Grilli:1997}.
-Still, this may be a challenging task for Boussinesq type models \citep{Lovholt:2013a}. Run-up on a $10^\circ$ was investigated experimentally
+Still, this may be a challenging task for Boussinesq type models \citep{Lovholt:2013a}. Run-up on a $10^\circ$ slope was investigated experimentally
 by \citet{Pedersen:2013} who found a theoretical overshoot of roughly 20\% in the maximum run-up height. This was allotted to the viscous boundary layer on the beach and capillary effects. Moreover, the measurements showed that the boundary layer flow during run-up was mostly laminar, albeit indications of transition was observed in the upper part of the swash tongue close to flow reversal. Hence, it is not appropriate to employ a Manning friction term and we compare the models without any bed friction, while leaving the experiments out. 
 
 \begin{figure}[!htb]
@@ -793,7 +794,7 @@ The small wrinkles observed on the surface
 from the \BoussClaw (right of Figure \ref{fig:bim_serre_boussclaw_slope10}), 
 are due to the switch to NLSW at the shore as discussed in section \ref{sec:10degrunup}. 
 As demonstrated in Figure \ref{fig:runup_meshrefinement}, 
-we obtain a solid grid convergence for the \BoussClaw model. 
+we obtain a solid grid convergence for the \BoussClaw model for the maximum runup height, $R^*$. 
 This is in sharp to contrast to observations for other models as presented in  \cite{Lovholt:2013a}.
 
 In Figure \ref{fig:runup_slope10}, the run-up heights
@@ -862,7 +863,7 @@ the \BoussClaw, the Serre, and the  BIM model are all in good agreement with the
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=\textwidth]{_fig/lab_bim_bouss_t15.png}
-\caption{Comparison of surfaces from the laboratory experiments \citep{synolakis1987runup} ($\alpha=0.28$, slope $1:19.85$), the BIM, the Serre, the \BoussClaw and the NLSW models at $t^*=15$.}
+\caption{The surface elevation, $\eta^*$  as function of $x^*$ at $t^*=15$ from the laboratory experiments \citep{synolakis1987runup} ($\alpha=0.28$, slope $1:19.85$), the BIM, the Serre, the \BoussClaw and the NLSW models.}
 \label{fig:lab_bim}
 \end{figure}
 %\todo{Add Serre results in figure and give web adress for data as reference}
@@ -891,8 +892,9 @@ as observed by \cite{Pedersen:2013}.
 	\centering
 	\includegraphics[width=.8\textwidth]{_fig/BoussClaw_lab_Cd_t25}\\
 	\includegraphics[width=.8\textwidth]{_fig/BoussClaw_lab_Cd_t30}
-	\caption{Comparison of experiments and BoussClaw results
-                 for the breaking case ($\alpha=0.28$ and a $1:19.85$ slope). 
+	\caption{The surface elevation $\eta^*$ as function of $x^*$ at $t^*=25,\,30$ for the breaking case ($\alpha=0.28$ and a $1:19.85$ slope).
+       Experiments and BoussClaw results with and without bottom drag are
+        included. 
 		The resolution in the model is $\Delta x^* = 0.05$.}
 	\label{fig:BoussClaw_runup}
 \end{figure}
@@ -923,7 +925,7 @@ a profound investigation is found in \cite{antuono2012role}.
 \begin{figure}[!htb]
 	\centering
 			\includegraphics[width=.8\textwidth]{_fig/runup_slope_1_20}
-		\caption{Run-up height for breaking case ($\alpha=0.28$ and a $1:19.85$ slope) computed by \BoussClaw 
+		\caption{Dimensionless shoreline elevation for the breaking case ($\alpha=0.28$ and a $1:19.85$ slope) computed by \BoussClaw 
 			(without $\epsilon_B$) and NLSW with different $C_d^*$.}
 		\label{fig:runup_slope_1_20}
 \end{figure}
@@ -938,7 +940,7 @@ a profound investigation is found in \cite{antuono2012role}.
 			Experiment  & & & & & 0.551 \\
 			\hline
 		\end{tabular}
-	\caption{Maximum run-up height for a solitary wave of amplitude $\alpha=0.28$ incident on  a $1:19.85$ slope.}%
+	\caption{Maximum run-up height, $R^*$, for a solitary wave of amplitude $\alpha=0.28$ incident on  a $1:19.85$ slope.}%
 	\label{tab:max_runup_1_20}
 \end{table}
 
@@ -989,9 +991,9 @@ the original Serre's equations are enhanced by adding the same kind of dispersio
 \begin{figure}[tbh!]
 \centering
 \includegraphics[width=.9\textwidth]{_fig/bim_boussclaw_fun_glob.png}
-\caption{Evolution of wave profiles for $\alpha=0.28$ and a $1:19.85$ slope. 
+\caption{Evolution of $\eta^*$ for $\alpha=0.28$ and a $1:19.85$ slope. 
 Surfaces from the BIM, Serre, \textsc{GloBouss}, \BoussClaw
-and \textsc{Funwave} models at $t^* = 16,\, 18,\ 20$.
+and \textsc{Funwave} models at $t^* = 16,\, 18,\ 20$ are included.
 The \BoussClaw model is used with B=$1/15$,
 and the Peregrine's equations are used for \textsc{GloBouss}.}
 \label{fig:bim_boussclaw_fun}
@@ -1049,9 +1051,8 @@ from the full Boussinesq simulation is significant. In fact, the threshold solut
 	\centering
 	\includegraphics[width=.75\textwidth]{_fig/bim_boussclaw_etaB8}
 	\caption{Breaking case ($\alpha=0.28$ and a $1:19.85$ slope).
-                 Comparison of \BoussClaw and NLSW 
-		with $\epsilon_B=0.8$ and $\Delta x^* = 0.05$ at $t^*$ = $20$, $25$ and $30$.
-		Friction forces have been added with $C_d^*=0.03$ in all simulations.}
+                 Comparison of $\eta^*$ from  \BoussClaw and NLSW 
+with $\epsilon_B=0.8$ and $\Delta x^* = 0.05$ at $t^*$ = $20$, $25$ and $30$. Friction forces have been added with $C_d^*=0.03$ in all simulations.}
 	\label{fig:boussclaw_th08}
 \end{figure}
 
@@ -1062,7 +1063,7 @@ Other measures of nonlinearity than $\epsilon_B$ may be used for model decisions
 \citep{lynett2006nearshore,matsuyama2007study}. Figure \ref{fig:wave_break_criteria} shows 
 $\epsilon_B$, $u^*/\sqrt{H^*}$ ($H^*$ is the total, dimensionless, flow depth) and the maximum frontal angle 
 as a function of the crest location.
-When the the BIM model yields vertical front at $x^*=4.09$, 
+When the the BIM model yields a vertical front at $x^*=4.09$, 
 we obtain $u^*/\sqrt{H^*} = 1.034$ and a maximum surface slope angle of $39.1^\circ$. 
 %\todo{OK?}
 For the present case this might indicate 
@@ -1144,7 +1145,7 @@ with and without the switch to the NLSW.
 \begin{figure}[htb!]
 \centering
 \includegraphics[width=0.8\linewidth]{_fig/energy_decay}
-\caption{Energy dissipation rates for $\alpha=0.28$ and a $1:19.85$ slope. The label ``formula'' represents (\ref{eq:energy_dissipation}) inserted the wave heights from the numerical simulations.
+\caption{Dimensionless energy dissipation rates for $\alpha=0.28$ and a $1:19.85$ slope. The label ``formula'' represents (\ref{eq:energy_dissipation}) inserted the wave heights from the numerical simulations.
 	\BoussClaw with $\epsilon_B=0.8$ switches to the NLSW
 	at $t^*=14.9.$ }
 \label{fig:energy_decay}
@@ -1344,8 +1345,8 @@ V = \int_{-h}^{\eta} \rho g z dz = \frac{1}{2}\rho g \eta^2
 In finite depth, the last term, $\frac{1}{2} \rho g h^2$, is the equilibrium energy, which is normally excluded 
 from the wave energy.
 On the other hand, the
-first term, which is of order $\epsilon^2$ relative to equilibrium energy, is then associated with wave.
-However, in the swash zone and during draw-down this distinction is not fruitful. Hence, instead of omitting the
+first term, which is of order $\epsilon^2$ relative to equilibrium energy, is then associated with the wave.
+However, in the swash zone and during draw-down this distinction is not applicable. Hence, instead of omitting the
 equilibrium energy locally, we will eventually compute the total energy of the computational domain and then
 subtract the total, initial equilibrium energy. 
 The kinematic energy density has two contributions,
