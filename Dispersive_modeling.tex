@@ -162,7 +162,7 @@ inherit characteristics in the same simple form. Hence, other strategies have be
 post-breaking motion in Boussinesq models. 
 \citet{schaffer1993boussinesq} employed the concept of the {\em surface roller},
 first proposed by \citet{Svendsen:1984}, 
-which is volume of water passively riding at
+which is a volume of water passively riding at
 the bore front. \citet{tissier2012new} suggested
 a breaking  model based on the surface roller, the maximal front angle and the Froude number.
  Another way of incorporating breaking  was suggested by \cite{Kennedy2000} who included diffusive terms
@@ -184,7 +184,7 @@ based on their large scale experiments of the wave propagation of undular bores 
 
 Naturally, there is a desire to exploit the efficient and well established shock capturing framework of the NLSW models also in a dispersive context.
 \cite{Antuono:2009} remolded the whole Boussinesq equations into a framework on hyperbolic form.
-However, most recently developed of  Boussinesq models are based on some combination of approximate Riemann solvers, with TVD limiters ,for the hydrostatic transport terms and finite differences
+However, most of the recently developed Boussinesq models are based on some combination of approximate Riemann solvers, with TVD limiters, for the hydrostatic transport terms and finite differences
 for dispersion terms \citep{Erduran2005,Kim2009,Shiach:2009,Roeber:2010,Dutykh:2011,shi2012high}. Among other models, this has led to the popular
 \textsc{Funwave-TVD} and \textsc{Coulwave-TVD} applications. 
 In most Boussinesq models that include runup on beaches, the dispersion term
@@ -211,7 +211,7 @@ can represent the wave evolution until the point of breaking. In the presented e
 we are finally able to demonstrate that Boussinesq models may stably
 compute the near shore tsunami propagation beyond the standard $0.8$ wave-height-to-depth threshold.
 Conversely, we find that the use of this threshold  
-invokes a too early formation of a breaking bore. This points out that  
+invokes a too early formation of a breaking bore. This points indicates  
 that the breaking criteria employed so far lacks generality.
 %While these criteria may be attractive due to robustness, 
 %they may be lacking not only for modeling the breaking phase, but %in certain situation also the pre-breaking phase.
@@ -233,7 +233,7 @@ the ratio of wave amplitude to depth, $\epsilon$, is small.
 Different kinds of long wave assumptions are then generally characterized
 by relative errors in terms of these two parameters.
 Herein we will neither derive Boussinesq equation nor make the equations 
-dimensionless. Still, $\mu$ and $\epsilon$ will sometimes be used to indicate relative errors.
+dimensionless as such. Still, $\mu$ and $\epsilon$ will sometimes be used to indicate relative errors.
 Moreover, when presenting results we will often use dimensionless quantities which are marked by a star.
 The horizontal and vertical and temporal coordinates are denoted by $x$, $y$ and $t$, respectively, 
 while the depth averaged horizontal velocity and the surface elevation are denoted by $u$ and $\eta$, respectively.
@@ -424,7 +424,6 @@ obtained by
 \right]. 
 \label{eq:rk4_assemble}
 \end{flalign}
-
 In (\ref{eq:rk4_1}), 
 $\bar{D}$ is a tri-diagonal $n\times n$ matrix with elements 
 \begin{flalign*}
@@ -464,7 +463,7 @@ Correspondingly, the $i$-th element of $\bar{\Psi(\textbf{H},\textbf{q})}$ is
 for $i=1,2,\dots,n$.
 \subsubsection{Additional numerical features}
 \label{sec_add_num}
-Following \cite{tonelli2009hybrid} and \cite{shi2012high} we may catch wave breaking in a heuristic fashion 
+Following \cite{tonelli2009hybrid} and \cite{shi2012high} we may represent wave breaking in a heuristic fashion 
 through  invocation of a threshold $\epsilon_B:=\eta/h=0.8$ in \BoussClaw.
 When the threshold is reached, the wave breaking is supposed to be initiated, 
 and the dispersive terms are suppressed throughout the computational domain. 
@@ -502,7 +501,7 @@ reduced and do not influence the overall solution.
 
 
 \subsection{Models for comparison}
-The performance of the Boussinesq model presented here is 
+The performance of the Boussinesq model presented here is partly
 assessed by comparison with numerical results from a full potential
 flow model which is described in \citet{Lovholt:2013a} and references therein. The model is based on a boundary 
 integral technique and is run  with fully nonlinear solitary
@@ -521,8 +520,8 @@ facilitated by the application of a Lagrangian model, described
 in \citet{Lovholt:2013a}. Apart from the use of
 Lagrangian coordinates the equations employed in this model are
  similar to (\ref{eq:madsen_cons_mass}) and (\ref{eq:madsen_momx}).
-They differ only concerning the nonlinearities in the
-dispersion terms and that  the dispersion optimization terms are added in a fully nonlinear fashion.
+They differ only in the nonlinearities in the
+dispersion terms and in that  the dispersion optimization terms are added in a fully nonlinear fashion.
 Presently, the Lagrangian model has no established bore capturing 
 facility and is hence valid only to the point of breaking.
 Results from this model will be referred to as {\em Serre}, even though
@@ -538,7 +537,7 @@ by \citet{shi2012high} is used. The
 \textsc{Funwave-TVD} model shares important features with \BoussClawt, employing a hybrid 
 of the finite volume and finite difference
 scheme to solve the fully non-linear higher order dispersive Boussinesq model numerically.
-While we refer to \citet{shi2012high} for details, we briefly note that \textsc{Funwave-TVD} is based the fully nonlinear 
+While we refer to \citet{shi2012high} for details, we briefly note that \textsc{Funwave-TVD} is based on the fully nonlinear 
 Boussinesq equations of \citet{Chen06}. The numerical spatial representation in \textsc{Funwave-TVD} is MUSCL TVD scheme 
 to discretize for the flux and first order terms, 
 whereas a central finite difference
@@ -556,9 +555,8 @@ computed in  section \ref{sec:comp_test} and compared with experiments.
 Finally, more detailed studies of shoaling and runup properties
 of the model concern non-breaking (section \ref{sec:10degrunup}) and 
 breaking (section \ref{sec:wave_break}) runup. Together these
-tests should provide a solid assessment of  \BoussClaw. Unless otherwise 
-is specified, results in  the sections 
-  \ref{sec:sol_prop}    and \ref{sec:shoaling_runup} are presented  in 
+tests should provide a solid assessment of  \BoussClawt. The results in  the sections 
+  \ref{sec:sol_prop}    and \ref{sec:shoaling_runup} are mainly presented  in 
 normalized coordinates, $t^*$ and $x^*$, as defined by (\ref{eq:norm_coord}),
 whereas results in section \ref{sec:comp_test} are more conveniently expressed with 
 dimensions retained.
@@ -644,9 +642,9 @@ and Boussinesq equations are $E_0$ and $E_0+E_1$, respectively, as
 described in \ref{append:energy}. These quantities are made dimensionless by $E_c=\rho g h_0^3$, which is minus two times the equilibrium potential energy per width.
 In Figure \ref{fig:soliton_energy} the time evolution of these energies are
  shown for $\alpha=0.2$ and $\Delta x^* = 0.2$.
-There are fluctuations both in the potential and kinetic energy that is evident when we zoom in,
+There are tiny fluctuations both in the potential and kinetic energy that is evident when we zoom in,
 and the total energy decrease 
-shows that the numerical procedure has dissipation.
+shows that the numerical procedure has a slight dissipation.
 In Figure \ref{fig:soliton_energy_dx},
 the relative error of the energy at $t^*=10$, 
 \begin{flalign*}
@@ -722,7 +720,7 @@ The simulated waves are in good agreement with the laboratory measurements.
 For the reflected waves, larger discrepancies are observed.
 The increased discrepancy occurs because the full interaction between the wave and the wall
 at the right boundary is less accurately captured.
-Friction forces influence the wave evolution along the shallow region near the right wall,
+Presumably,  viscosity influences the wave evolution along the shallow region near the right wall,
 but we have not included these in the present numerical simulation.
 A better fit may possibly be obtained by incorporating a bottom friction.
 
@@ -740,15 +738,15 @@ A better fit may possibly be obtained by incorporating a bottom friction.
 \subsection{Shoaling and run-up of solitary waves}
 \label{sec:shoaling_runup}
 
-In Figure \ref{fig:init_setup}, the initial set-up for a test is shown. 
-%, and the experiment results include various cases with the wave amplitudes and slope angles. Synolakis identified the breaking and non-breaking wave cases. 
+
 \begin{figure}[!htb]
 \centering
 \includegraphics[width=.8\textwidth]{_fig/initial_setup.png}
 \caption{Definition sketch for shoaling and runup of solitary waves. The scale on the axes is the equilibrium depth, $h_0$.}
 \label{fig:init_setup}
 \end{figure}
-The set-up of the wave tank in the simulations follows the laboratory experiments by \citet{synolakis1987runup}.
+Figure \ref{fig:init_setup} shows the initial set-up for a test which 
+follows the laboratory experiments by \citet{synolakis1987runup}.
 The bathymetry of the wave tank is composed of a horizontal bottom, where the equilibrium depth is $h_0=0.196\m$, and 
 a uniform slope as shown in Figure \ref{fig:init_setup}. 
 A solitary wave of height $A_0$, hence $\alpha=A_0/h_0$, is generated at the right end of
@@ -786,16 +784,16 @@ by \citet{Pedersen:2013} who found a theoretical overshoot of roughly 20\% in th
 
 In Figure \ref{fig:bim_serre_boussclaw_slope10}, the numerical results
 from BIM, Serre, and \BoussClaw are shown at $t^*=10,\, 15,\ \mathrm{and}\  20$, 
-and a zoom at $t^*=15$ is shown on the right. 
+and a zoom at $t^*=15$ is shown in the right panel. 
 The agreement between the dispersive models are very good. Even though the fully nonlinear Serre model follows the BIM slightly better, 
 the \BoussClaw is also very close to the full potential theory. 
 The small wrinkles observed on the surface 
 %\todo{Check statement on wrinkles}
 from the \BoussClaw (right of Figure \ref{fig:bim_serre_boussclaw_slope10}), 
 are due to the switch to NLSW at the shore as discussed in section \ref{sec:10degrunup}. 
-As demonstrated in Figure \ref{fig:runup_meshrefinement}, 
-we obtain a solid grid convergence for the \BoussClaw model for the maximum runup height, $R^*$. 
-This is in sharp to contrast to observations for other models as presented in  \cite{Lovholt:2013a}.
+As demonstrated in Figure \ref{fig:runup_meshrefinement}, the \BoussClaw model
+yields a solid grid convergence for the maximum runup height, $R^*$. 
+This is in a stark contrast to observations for other models as presented in  \cite{Lovholt:2013a}.
 
 In Figure \ref{fig:runup_slope10}, the run-up heights
 are shown, and Table \ref{tab:runup_slope10} shows
@@ -855,7 +853,7 @@ In Figure \ref{fig:lab_bim}, the laboratory measurements
 are shown with the computational results from the \BoussClaw (in Boussinesq and  NLSW mode),  the Serre and the BIM models
 for $\alpha=0.28$ and a $1:19.85$ slope at $t^*=15$. 
 The grid size $\Delta x^*$ is 0.05 in the following simulations
-unless stated otherwise.
+unless  otherwise is stated.
 This is before the wave breaks and
 the \BoussClaw, the Serre, and the  BIM model are all in good agreement with the experiments.
 
@@ -918,8 +916,8 @@ in the NLSW model, at a long distance form the shoreline, causes a large
 dissipation which dominates over the first effects.
 
 In addition to affecting the runup a non-zero $C_d$ will delay, or even inhibit the withdrawal.
-A detailed discussion of such effects are outside the scope of the present article, but 
-a profound investigation is found in \cite{antuono2012role}.  
+A detailed discussion of such effects is outside the scope of the present article and we refer instead to 
+a profound investigation in \cite{antuono2012role}.  
 %\todo{Geir: But, Li and Raichlen obtained a smaller runup height; Manning friction ? Check.}
 
 \begin{figure}[!htb]
@@ -971,8 +969,8 @@ a profound investigation is found in \cite{antuono2012role}.
 
 \subsection{Shoaling until breaking}
 \label{sec:num_shoaling}
-\citet{wei1995fully} made computation of pre-breaking solitary wave shoaling using
- their fully nonlinear extension of Nwogu's model, the full potential 
+\citet{wei1995fully} made computations of pre-breaking solitary wave shoaling using
+ their fully nonlinear extension of Nwogu's model, a full potential 
 theory, and the weakly nonlinear version of Nwogu's model.
 They found that the fully nonlinear Boussinesq equations were superior to those of Nwogu in the later stages of the shoaling.
 In this subsection we will do a similar comparison for our models on the $1:19.85$ slope which was not included in the reference. Our fully nonlinear Boussinesq model is different from that of the references, as it is a Serre type model with the depth averaged velocity as primary unknown, 
@@ -1002,7 +1000,7 @@ and the Peregrine's equations are used for \textsc{GloBouss}.}
 In Figure \ref{fig:bim_boussclaw_fun} surfaces from the different
 wave models are shown at selected times. 
 The \BoussClawt model is run without the switch to the NLSW equations at $\epsilon_B=0.8$ and with the dispersion parameter $B=1/15$. However, the results for  $B=0$
-are rather similar for this case. 
+are rather similar to those for $B=1/15$ in this case. 
 At $t^*=16$, the computational results
 from all the Boussinesq-type equations are similar.
 The NLSW model, on the other hand, yields premature breaking 
@@ -1025,11 +1023,11 @@ The wave amplitude continues to increase in the
 \textsc{GloBouss} simulations,
 and the difference from the \BoussClaw result 
 becomes larger at $t^*=20$. At the $t^*=20$ there are no results from the BIM model as  the wave has broken.
-Our observations are in line with those of \citet{wei1995fully}.
+Our observations on model performance during shoaling are in line with those of \citet{wei1995fully}.
  
 \subsection{Wave breaking and run-up}
 \label{sec:discuss_breaking}
-In the BIM model we may identify the onset of breaking as the instant we first observe a vertical slope at the wave front.
+In the BIM model we may identify the onset of breaking as the instant when we first observe a vertical slope at the wave front.
 For an incident amplitude of $\alpha=0.28$ on a $1:19.85$ slope,
 a vertical wave front is observed at $x^*=4.09$ and $t^*=18.6$ with $A^*/h^*=2.01$.
 When the crest in the \BoussClaw simulation reaches $x^*=4.09$, 
@@ -1100,7 +1098,7 @@ Close to the shoreline this tiny increase is then dominated by a stronger, but s
 When the threshold $\epsilon_B=0.8$ is invoked there is no difference from the full Boussinesq solution until the threshold is reached for  $x^*_c=x^*_B=8.03$. 
 After  $x^*_c=x^*_B$  
 the hydrostatic energy measure, $E^*_0$, is the most appropriate for this case.
-The energy then drops momentarily due to the change of energy formula, then remains constant until the wave breaks ($x^*_c$ around 6), after which a strong dissipation ensues.
+The energy  drops momentarily due to the change of energy formula, then remains constant until the wave breaks ($x^*_c$ around 6), after which a strong dissipation ensues.
 
 In this case the dissipation is due to a single shock. The dissipation rate per width, $D_{th}$, may then be
 approximated as \citep{tissier2011serre} 
@@ -1119,8 +1117,6 @@ shock is fully developed,
 and then agree well with  formula (\ref{eq:energy_dissipation}).
 Moreover, due to larger shock heights the \BoussClawt($\epsilon_B=0.8$) dissipation rate is much larger than that of the NLSW model, when the wave finally has broken.
 This reduces the difference between the models to some extent. 
-
- 
 It is obvious that the NLSW model in this case is severely inaccurate, while 
 it is more difficult to assess the \BoussClaw 
 with and without the switch to the NLSW.
@@ -1161,7 +1157,7 @@ deals with the dispersion, increases the wave front width to  the order of
 the local depth and thus reduces the dissipation 
 of the next TVD step. This effect of the dispersion terms may be inferred from, for instance, the Green function of Helmholtz type equations as outlined in \cite{Glimsdal:2004}, section 3.1.1. Still, the \BoussClaw model, without the threshold, is stable during 
 both the last part of shoaling and during runup, even for refined grids. This contrasts
-the non-dissipative Serre model which may be run beyond $x^*_c=4$, without the strong artificial amplification of the Peregrine type models, but breaks down when the wave reaches the shoreline (results not shown). Hence, \BoussClaw, without the switch to the NLSW equation at
+the non-dissipative Serre model which may be run beyond $x^*_c=4$, without the strong artificial amplification of the Peregrine type models, but breaks down when the wave reaches the shoreline (results not shown). Hence, \BoussClawt, without the switch to the NLSW equation at
 $\epsilon_B=0.8$, may be a good model for gently spilling breakers.
 
 
@@ -1179,12 +1175,12 @@ as is observed for some fully nonlinear Boussinesq models \citep{Lovholt:2013a}.
 
 The experiments of \citet{synolakis1987runup} and a full potential reference model
  enabled us to
-assess a set of different long wave models, including \BoussClawt. Using the potential  model, we were able to assess in detail the pre-breaking behavior of the models,
+assess a set of different long wave models, and \BoussClaw in particular. Using the potential  model, we were able to assess in detail the pre-breaking behavior of the models,
 and to identify the point of breaking accurately. 
 First, we found that by using standard NLSW models,
 the point of breaking will be located too far offshore and that the resulting dissipation 
 artificially check the amplification. Standard Boussinesq equations, like the 
-so called Peregrine variant, yield marked over-amplification even before the potential theory predicts breaking and eventually completely erroneous wave shape as well as height.
+so called Peregrine variant, yield marked over-amplification even before the potential theory predicts breaking and they eventually produce completely erroneous wave shape as well as height.
 The fully nonlinear, non-dissipative model of the Serre type, on the other hand, follows full potential theory very well up to the point of potential-model breaking and avoid severe over-amplification and shape distortion also in the following evolution, until it breaks down at the shoreline. For the pre-breaking part, this is in agreement with earlier investigations of equations of the Nwogu/Wei type \citep{Wei95} and shows that
 the combined effects of nonlinearities and dispersion influence the solution markedly, when accumulated to the point
 of breaking. 
@@ -1198,7 +1194,7 @@ may be relaxed, especially when the switch to the NLSW equations are invoked.
 This may help reducing stability problems 
 that are observed for fully nonlinear Boussinesq equations \citep{Lovholt:2013a}.
     
-A current practice has evolved in which the Boussinesq terms are often omitted near shore through the $A/h>0.8$ threshold criterion, inspired by the maximum height of a non-breaking 
+A current practice has evolved in which the Boussinesq terms are omitted near shore through the $A/h>0.8$ threshold criterion, inspired by the maximum height of a non-breaking 
 undular bore. 
 In an example presented herein, we investigated the near shore propagation over a relatively gentle shelf of $1:19.85$ slope,
 and in this case the actual onset of breaking occurred for $A/h \approx 2$, which is significantly later
@@ -1344,7 +1340,7 @@ V = \int_{-h}^{\eta} \rho g z dz = \frac{1}{2}\rho g \eta^2
 \end{flalign*}
 In finite depth, the last term, $\frac{1}{2} \rho g h^2$, is the equilibrium energy, which is normally excluded 
 from the wave energy.
-On the other hand, the
+Correspondingly, the
 first term, which is of order $\epsilon^2$ relative to equilibrium energy, is then associated with the wave.
 However, in the swash zone and during draw-down this distinction is not applicable. Hence, instead of omitting the
 equilibrium energy locally, we will eventually compute the total energy of the computational domain and then
@@ -1387,12 +1383,12 @@ where $e_1=O(\mu^2\epsilon^2 e_0)$ and
 \label{eq:energy_e1}
 \end{flalign}
 We assume a beach to the left, a fixed off-shore boundary of computational domain to the right and an initial
-wave that does not affect the shoreline. Then, the total energies per width are defined as 
+wave that does not affect the shoreline. Then, the total wave energies per width are defined as 
 \begin{flalign}
 \label{eq:int_total}
  E_0=\int\limits_{x_a}^{x_b}e_0 dx-\int\limits_{x_0}^{x_b}-\frac 1 2 \rho g h^2 dx  ,\quad\quad  E_1=\int\limits_{x_a}^{x_b}e_1 dx,
 \end{flalign}
-where $x_a$ is the position of the instantaneous shoreline, $x_0$ is the position of the equilibrium shoreline, and $x_b$ denote off-shore boundary of the computational domain. The latter term is in $E_0$ yield subtraction of the initial equilibrium energy. For other geometries, these expressions must be modified accordingly.
+where $x_a$ is the position of the instantaneous shoreline, $x_0$ is the position of the equilibrium shoreline, and $x_b$ denote off-shore boundary of the computational domain. The latter term is in $E_0$ yield subtraction of the initial equilibrium energy. For other geometries, the integration limits must be modified accordingly.
 
 \section*{References}
 
