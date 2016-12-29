@@ -184,8 +184,7 @@ based on their large scale experiments of the wave propagation of undular bores 
 
 Naturally, there is a desire to exploit the efficient and well established shock capturing framework of the NLSW models also in a dispersive context.
 \cite{Antuono:2009} remolded the whole Boussinesq equations into a framework on hyperbolic form.
-However, most of the recently developed Boussinesq models are based on some combination of approximate Riemann solvers, with TVD limiters, for the hydrostatic transport terms and finite differences
-for dispersion terms \citep{Erduran2005,Kim2009,Shiach:2009,Roeber:2010,Dutykh:2011,shi2012high}. Among other models, this has led to the popular
+However, most of the recently developed Boussinesq models are based on some combination of approximate Riemann solvers, with TVD limiters, for the hydrostatic transport terms and finite differences for dispersion terms  \citep{Erduran2005,Kim2009,Shiach:2009,Roeber:2010,Dutykh:2011,shi2012high}. Among other models, this has led to the popular
 \textsc{Funwave-TVD} and \textsc{Coulwave-TVD} applications. 
 In most Boussinesq models that include runup on beaches, the dispersion term
 is turned off in the vicinity of the shoreline to avoid interference of
@@ -1011,7 +1010,7 @@ can be split into two groups;
 are similar, while the \BoussClaw
 and the Serre results are similar. 
 The wave front from the 
-\BoussClaw model is somewhat more advanced towqard  the beach than that from the BIM model.
+\BoussClaw model is somewhat more advanced toward  the beach than that from the BIM model.
 Still, the results from the Serre and \BoussClaw models are clearly
 closer to those of the BIM model, than those from the other group. 
 Especially, the wave amplitudes are well  determined by the \BoussClaw
@@ -1062,10 +1061,11 @@ Other measures of nonlinearity than $\epsilon_B$ may be used for model decisions
 $\epsilon_B$, $u^*/\sqrt{H^*}$ ($H^*$ is the total, dimensionless, flow depth) and the maximum frontal angle 
 as a function of the crest location.
 When the the BIM model yields a vertical front at $x^*=4.09$, 
-we obtain $u^*/\sqrt{H^*} = 1.034$ and a maximum surface slope angle of $39.1^\circ$. 
+we obtain $u^*/\sqrt{H^*} = 1.034$ and the surface slope angle of $39.1^\circ$ at the peak. 
 %\todo{OK?}
 For the present case this might indicate 
-that the value of $u^*/\sqrt{H^*}$\marginpar{Is it the maximum or value at the peak?}
+that the value of $u^*/\sqrt{H^*}$
+%\marginpar{Is it the maximum or value at the peak? J:it's the value at the peak}
  at the peak surpassing unity or the slope angle surpassing  
 $30^\circ$ may be sounder criteria for identifying breaking than $\epsilon_B>0.8$.
  
@@ -1201,7 +1201,7 @@ and in this case the actual onset of breaking occurred for $A/h \approx 2$, whic
 than what would be predicted by the threshold.  
 Hence, a  threshold criterion may lead to an erroneous breaking point as well as an 
 inaccurate description of the later stages of the shoaling.
-It is noted that the artificial effect discovered would depend on the slope, 
+It is noted that the artificial effect discovered would depend on the slope, \todo{Jihwan: This is not clear to me.}
 and a $0.8$ threshold may well work better on a much gentler slope as it is primarily derived based on 
 solitary wave properties in constant depth. On the other hand, $1:19.85$ slope is already quite gentle,
 and the offset between the reference solution and Boussinesq models using this criteria may
